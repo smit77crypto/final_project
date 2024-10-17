@@ -1,10 +1,15 @@
 <?php
-include 'final_project/connect_database.php';
-$result = $conn->query("SELECT content FROM terms WHERE id=1");
-$terms = $result->fetch_assoc()['content'] ?? 'No terms available.';
+// See the password_hash() example to see where this came from.
+$hash = '$2y$10$QjdDFjkAWN3KxiHVpPYjQewMDVDcXlOI8tnyaPGRWB9IYXD3BWceG';
+
+if (password_verify('root', $hash)) {
+    echo 'Password is valid!';
+} else {
+    echo 'Invalid password.';
+}
 ?>
 
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>User Terms & Conditions</title>
@@ -22,4 +27,4 @@ $terms = $result->fetch_assoc()['content'] ?? 'No terms available.';
         setInterval(fetchTerms, 5000);
     </script>
 </body>
-</html>
+</html> -->

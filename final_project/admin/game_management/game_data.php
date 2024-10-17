@@ -47,6 +47,7 @@ if (empty($gameImage['name'])) {
 // Slider Image
 if (empty($sliderImage['name'])) {
     // Set to default path if no image is uploaded
+    
     $sliderImagePath = $defaultSliderImagePath;
 } else {
     $sliderImageName = $sliderImage['name'];

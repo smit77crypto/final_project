@@ -65,9 +65,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $phone_no = trim($_POST['phone_no']);
     $gender = isset($_POST['gender']) ? $_POST['gender'] : '';
     $username = trim($_POST['username']);
-    $password = isset($_POST['password']) ? $_POST['password'] : '';
+    $user_password = trim($_POST['password']) ? $_POST['password'] : '';
     $membership_id = $_POST['membership_id'];
-
+    // echo $password; die();
     // Validate full name (only alphabets and space)
     if (!preg_match("/^[a-zA-Z\s]+$/", $full_name)) {
         $errors['full_name'] = 'Please enter a valid name (only alphabets and one space allowed).';
@@ -115,24 +115,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($errors)) {
         if ($userId) {
             // Update existing user
-            $sql_update = "UPDATE register SET full_name = ?, email = ?, phone_no = ?, gender = ?, username = ?, password = ?, membership_id = ? WHERE id = ?";
+            $sql_update = "UPDATE register SET full_name = ?, email = ?, phone_no = ?, gender = ?, username = ?,membership_id = ? WHERE id = ?";
             $stmt_update = $conn->prepare($sql_update);
-            if (!empty($password)) {
-                $password = password_hash($password, PASSWORD_DEFAULT);  // Hash password
-            }
-            $stmt_update->bind_param("sssssssi", $full_name, $email, $phone_no, $gender, $username, $password, $membership_id, $userId);
+            $stmt_update->bind_param("ssssssi", $full_name, $email, $phone_no, $gender, $username, $membership_id, $userId);
             $stmt_update->execute();
         } else {
             // Insert new user
-            $sql_insert = "INSERT INTO register (full_name, email, phone_no, gender, username, password, membership_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            $sql_insert = "INSERT INTO register (full_name, email, phone_no, gender, username, user_password, membership_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
             $stmt_insert = $conn->prepare($sql_insert);
-            $password = password_hash($password, PASSWORD_DEFAULT);  // Hash password
-            $stmt_insert->bind_param("ssssssi", $full_name, $email, $phone_no, $gender, $username, $password, $membership_id);
+            
+            $hash_password = password_hash($user_password, PASSWORD_BCRYPT);  // Hash password
+            $stmt_insert->bind_param("ssssssi", $full_name, $email, $phone_no, $gender, $username, $hash_password, $membership_id);
             $stmt_insert->execute();
 
             // Send email with registration details
             $submission_time = date('Y-m-d H:i:s'); // Capture the current time
-            sendEmail($email, $full_name, $username, $_POST['password'], $submission_time);
+           // sendEmail($email, $full_name, $username, $_POST['password'], $submission_time);
         }
 
         // Redirect or show success message
