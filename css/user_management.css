@@ -1,0 +1,190 @@
+.uper{
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    gap: 15rem;
+}
+.adduser{
+    margin-top: 100px;
+}
+.search-form {
+    margin-top: 100px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 30%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.search-form input[type="text"] {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+/* Add Fade-in Animation to Table Rows */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+tr {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Smooth Hover Effect for Rows */
+tr:hover {
+    background-color: #ffb3b3;
+    transform: scale(1.02);
+    transition: all 0.3s ease-in-out;
+}
+
+/* Add Hover Effect for Buttons */
+
+
+
+/* Slide-in Animation for Search Form */
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.search-form {
+    animation: slideIn 0.5s ease-out;
+}
+
+.search-form button {
+    padding: 10px 20px;
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+.search-form button:hover {
+    background-color: crimson;
+}
+
+.search-form a {
+    display: block;
+    margin-top: 10px;
+    color: red;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.search-form a:hover {
+    text-decoration: underline;
+}
+.tablearea{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* Table Styling */
+table {
+    width: 90%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 18px;
+    text-align: left;
+    border: 2px solid black;/* Red border */
+    background-color: #fff;
+}
+
+/* Table Header */
+th {
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+    background-color: red; /* Dark red */
+    color: white;
+    padding: 12px;
+    text-transform: uppercase;
+    border: 2px solid black;
+}
+
+/* Table Data */
+td {
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+    padding: 12px;
+    border: 2px solid black;
+    color: #333;
+}
+
+/* Alternate Row Colors */
+tr:nth-child(even) {
+    background-color: #ffe5e5; /* Light red */
+}
+
+tr:nth-child(odd) {
+    background-color: #fff; /* White */
+}
+
+/* Hover Effect */
+tr:hover {
+    background-color: #ffb3b3; /* Lighter red */
+    transition: 0.3s;
+}
+
+/* Action Buttons */
+.action-buttons a {
+    text-decoration: none;
+    font-weight: bold;
+    padding: 6px 12px;
+    border-radius: 5px;
+    margin: 0 5px;
+    display: inline-block;
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Edit Button */
+.action-buttons .edit {
+    background-color: #ff9800;
+    color: white;
+    border: 1px solid #e68a00;
+}
+
+/* Delete Button */
+.action-buttons .delete {
+    background-color: #d32f2f;
+    color: white;
+    border: 1px solid #b71c1c;
+}
+
+/* View Button */
+.action-buttons .view {
+    background-color: #388e3c;
+    color: white;
+    border: 1px solid #2e7d32;
+}
+
+/* Button Hover Effects */
+.action-buttons a:hover {
+    transform: scale(1.1);
+    opacity: 0.8;
+    transition: 1s;
+}
+
+
