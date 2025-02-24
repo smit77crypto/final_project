@@ -1,0 +1,59 @@
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    width: 400px;
+    text-align: center;
+    overflow: hidden;
+    /* Prevent scrolling */
+
+}
+strong{
+    color: white;
+}
+.modal-content {
+    position: relative;
+}
+
+.close-popup {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.view-slots-btn {
+    background-color: transparent;
+    color: black;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#slotsContainer{
+    display: flex;
+    justify-content: left;
+   
+}
+h2{
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+#slotsContainer div {
+    /* background-color: red; */
+    gap: 2rem;
+    /* color: white; */
+    height: max-content;
+    width: max-content;
+    border-radius:5px ;
+
+}

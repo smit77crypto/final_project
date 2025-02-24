@@ -1,0 +1,99 @@
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+
+/* General Styles */
+body {
+    font-family: "Work Sans", serif;
+  /* font-weight: bold; */
+    background-color: white; /* Soft white with a red tint */
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Card Container */
+.card {
+    margin-top: 80px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    width: 500px;
+    text-align: center;
+    /* height: 500px; */
+    animation: fadeIn 0.5s ease-in-out;
+}
+#exit{
+    border: 2px solid red;
+}
+.aero{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+/* Title */
+.card h2 {
+    color: #b30000; /* Dark Red */
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-right: 110px;
+}
+
+/* Form Groups */
+.form-group {
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.form-group label {
+    font-weight: bold;
+    color: #b30000;
+}
+
+.form-group p {
+    background: #fbf5f5;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #b30000;
+    font-size: 16px;
+}
+
+/* Button Container */
+.button-container {
+    margin-top: 20px;
+}
+
+/* Cancel Button */
+.button-container a {
+    display: inline-block;
+    background: #b30000;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s ease-in-out;
+}
+
+.button-container a:hover {
+    background: #ff4d4d;
+    transform: scale(1.05);
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
