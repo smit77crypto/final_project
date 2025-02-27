@@ -55,7 +55,7 @@ $gameCount = $row4['count'];
                     <img src="uploads/rick.jpg" alt="Admin Photo" class="admin-photo" />
                 </div>
                 <div class="admin-name">
-                    <h3>Admin 123</h3>
+                    <h3>Admin</h3>
                 </div>
                 <div class="admin-address">
                     <p><span class="label">Address:</span> National Plaza, S7, RC Dutt Rd, Aradhana Society, Vishwas
