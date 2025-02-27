@@ -12,15 +12,21 @@ nav {
   justify-content: space-around;
   align-items: center;
   background-color: rgb(241, 240, 240);
-  padding: 10px;
+  padding: 5px;
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 10;
   border-bottom: 1px solid #d3d2d2;
 }
+.mobile-nav{
+  display: none;
+}
+.mobile-box{
+  display: none;
+}
 .left {
-  width: 60%;
+  width: 70%;
   background-color: white;
   border: 1px solid #d3d2d2;
   border-radius: 20px;
@@ -38,7 +44,7 @@ nav {
   list-style-type: none;
 }
 .left .ul-box li a {
-  font-size: 1.1rem;
+  font-size: .9rem;
   color: black;
   text-decoration: none;
   transition: color 0.3s ease, transform 0.3s ease;
@@ -72,3 +78,157 @@ nav {
   color: white;
   /* margin-left: 5px; */
 }
+
+/* mobile navbar set up */
+
+.m-btn {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #333;
+  color: white;
+  cursor: pointer;
+}
+.m-btn i {
+  margin-right: 10px;
+}
+@media (max-width: 1033px) {
+  .left {
+    width: 63%;
+    padding: 6px;
+  }
+  .ul-box {
+    margin: auto;
+    display: flex;
+    gap: 1rem;
+  }
+  .left .ul-box li a {
+    font-size: .6rem;
+  }
+  .right .btn {
+    height: 20px;
+    width: 80px;
+    border-radius: 10px;
+    padding: 3px;
+    gap: 4px;
+
+  }
+  .right .btn div {
+   font-size: 0.5rem;
+  }
+  .right .btn div i {
+    font-size: 0.5rem;
+  }
+}
+@media (max-width: 768px) {
+ 
+  .left {
+    width: 60%;
+    padding: 4px;
+  }
+  .ul-box {
+    gap: .7rem;
+  }
+  .left .ul-box li a {
+    font-size: .45rem;
+  }
+  .right .btn {
+    height: 20px;
+    width: 60px;
+    border-radius: 10px;
+    padding: 3px;
+    gap: 3px;
+
+  }
+  .right .btn div {
+   font-size: 0.4rem;
+  }
+  .right .btn div i {
+    font-size: 0.4rem;
+  }
+}
+@media (max-width: 610px) {
+  nav{
+    display: none;
+  }
+  .mobile-nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(241, 240, 240);
+    padding: 5px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+    border-bottom: 1px solid #d3d2d2;
+  }
+  .mobile-box {
+    margin-top: 36px;
+    display: none;
+    position: fixed; /* Fixed positioning */
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    top: 0;
+    left: 0;
+    background-color: rgb(241, 240, 240);
+    width: max-content; /* Full width of the viewport */
+    height: 100vh; /* Full height of the viewport */
+    z-index: 10;
+    overflow: hidden; /* Prevent scrolling inside the box */
+}
+
+  
+  /* When mobile menu is active */
+  .mobile-box.show {
+    display: block;
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  /* Your original styles */
+  .mobile-menu {
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  .m-ul-box {
+    margin-top: 10px;
+    list-style: none;
+    padding: 10px;
+  }
+  .nav-item a {
+    font-size: .8rem;
+    color: black;
+    text-decoration: none;
+  }
+  .nav-item a:hover{
+    font-size: .9rem;
+    color: red;
+   
+  }
+  .mobile-box {
+    display: none; /* Initially hidden */
+    opacity: 0;
+    transform: translateX(-100%); /* Offscreen to the left */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  /* When mobile menu is active */
+  .mobile-box.show {
+    display: block;
+    opacity: 1;
+    transform: translateX(0); /* Slide in from left */
+  }
+  .right .btn {
+    height: 20px;
+    width: 60px;
+    border-radius: 10px;
+    padding: 3px;
+    gap: 3px;
+    margin-right: 10px;
+
+  }
+}
+/* Initially, hide the mobile box */
+

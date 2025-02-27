@@ -1,15 +1,4 @@
-<?php
-// See the password_hash() example to see where this came from.
-$hash = '$2y$10$QjdDFjkAWN3KxiHVpPYjQewMDVDcXlOI8tnyaPGRWB9IYXD3BWceG';
-
-if (password_verify('root', $hash)) {
-    echo 'Password is valid!';
-} else {
-    echo 'Invalid password.';
-}
-?>
-
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>User Terms & Conditions</title>
@@ -20,11 +9,11 @@ if (password_verify('root', $hash)) {
     <p id="terms"><?php echo nl2br(htmlspecialchars($terms)); ?></p>
     <script>
         function fetchTerms() {
-            $.get("fetch_terms.php", function(data) {
-                $("#terms").html(data);
+            $.get("Api's/term_condition.php", function(data) {
+                $("#terms").html(data.replace(/\n/g, '<br>'));
             });
         }
-        setInterval(fetchTerms, 5000);
+        setInterval(fetchTerms, 1000);
     </script>
 </body>
-</html> -->
+</html>
