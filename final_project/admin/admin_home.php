@@ -81,32 +81,32 @@ $gameCount = $row4['count'];
         <!-- Main Content Layout -->
         <div class="details">
             <div class="data">
-                <div class="info">
+                <div class="info" onclick="handleClick('Total Member')">
                     <div class="info-content">
                         <h3 class="info-title"><i class="fa-solid fa-users"></i> Total Member</h3>
                         <p class="info-number count-value hidden"><?php echo $totaluser ?></p>
                     </div>
                 </div>
-                <div class="info">
+                <div class="info" onclick="handleClick('Total game')">
                     <div class="info-content">
                         <h3 class="info-title"><i class="fa-solid fa-trophy"></i> Total game</h3>
-                        <p class="info-number count-value hidden"><?php echo $gameCount ?> </p>
+                        <p class="info-number count-value hidden"><?php echo $gameCount ?></p>
                     </div>
                 </div>
-                <div class="info">
+                <div class="info" onclick="handleClick('Silver')">
                     <div class="info-content">
                         <h3 class="info-title"><i class="fa-solid fa-medal"></i> Silver</h3>
                         <p class="info-number count-value hidden"><?php echo $membership2Count ?></p>
                     </div>
                 </div>
-                <div class="info">
+                <div class="info" onclick="handleClick('Gold')">
                     <div class="info-content">
                         <h3 class="info-title"><i class="fa-solid fa-award"></i> Gold</h3>
                         <p class="info-number count-value hidden"><?php echo $membership3Count ?></p>
                     </div>
                 </div>
-
             </div>
+
             <div class="container mt-5">
                 <div class="row">
                     <div class="col-md-6">
@@ -131,78 +131,97 @@ $gameCount = $row4['count'];
             </div>
 
             <script>
-                // Line Chart
-                var ctxLine = document.getElementById('myLineChart').getContext('2d');
-                var myLineChart = new Chart(ctxLine, {
-                    type: 'line',
-                    data: {
-                        labels: ['January', 'February', 'March', 'April'],
-                        datasets: [{
-                            label: 'Slot',
-                            data: [10, 30, 25, 40],
-                            borderColor: 'green',
-                            backgroundColor: 'rgba(170, 228, 170, 0.2)',
-                            borderWidth: 2,
-                            fill: true
-                        }]
+            // Line Chart
+            var ctxLine = document.getElementById('myLineChart').getContext('2d');
+            var myLineChart = new Chart(ctxLine, {
+                type: 'line',
+                data: {
+                    labels: ['January', 'February', 'March', 'April'],
+                    datasets: [{
+                        label: 'Slot',
+                        data: [10, 30, 25, 40],
+                        borderColor: 'green',
+                        backgroundColor: 'rgba(170, 228, 170, 0.2)',
+                        borderWidth: 2,
+                        fill: true
+                    }]
+                }
+            });
+
+            // Bar Chart
+            var ctxBar = document.getElementById('myBarChart').getContext('2d');
+            var myBarChart = new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: ['Bowling', 'Snooker', 'Chess', 'Pool'],
+                    datasets: [{
+                        label: 'Trending Game',
+                        data: [20, 35, 15, 40],
+                        borderColor: 'red',
+                        backgroundColor: 'rgba(228, 170, 180, 0.2)',
+                        borderWidth: 1
+                    }]
+                }
+            });
+
+            document.addEventListener('DOMContentLoaded', function() {
+                const countElements = document.querySelectorAll('.count-value');
+
+                // Iterate over all count elements and trigger the animation
+                countElements.forEach((element) => {
+                    // Simulate an animation to transition the numbers
+                    setTimeout(() => {
+                        element.classList.remove('hidden'); // Remove hidden class
+                        element.classList.add('fade-in'); // Add fade-in class
+                    }, 300); // Delay to make sure the page content is loaded before animation
+                });
+            });
+            // Function to animate number count
+            // Function to animate number count
+            function animateCount(element, endValue) {
+                let startValue = 0;
+                const duration = 2000; // 2 seconds duration
+                const stepTime = Math.max(Math.floor(duration / endValue), 50); // Prevent too fast updates
+
+                const interval = setInterval(function() {
+                    startValue += 1;
+                    element.textContent = `${startValue}`;
+                    if (startValue >= endValue) {
+                        clearInterval(interval);
                     }
+                }, stepTime);
+            }
+
+            // Run animation on all count-value elements
+            document.addEventListener('DOMContentLoaded', function() {
+                const countElements = document.querySelectorAll('.count-value');
+
+                countElements.forEach((element) => {
+                    const endValue = parseInt(element.textContent.trim(), 10);
+                    element.textContent = '0'; // Reset the initial value
+                    animateCount(element, endValue);
                 });
+            });
 
-                // Bar Chart
-                var ctxBar = document.getElementById('myBarChart').getContext('2d');
-                var myBarChart = new Chart(ctxBar, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Bowling', 'Snooker', 'Chess', 'Pool'],
-                        datasets: [{
-                            label: 'Trending Game',
-                            data: [20, 35, 15, 40],
-                            borderColor: 'red',
-                            backgroundColor: 'rgba(228, 170, 180, 0.2)',
-                            borderWidth: 1
-                        }]
-                    }
-                });
+            function handleClick(infoType) {
+                let url = '';
 
-                document.addEventListener('DOMContentLoaded', function () {
-                    const countElements = document.querySelectorAll('.count-value');
-
-                    // Iterate over all count elements and trigger the animation
-                    countElements.forEach((element) => {
-                        // Simulate an animation to transition the numbers
-                        setTimeout(() => {
-                            element.classList.remove('hidden'); // Remove hidden class
-                            element.classList.add('fade-in'); // Add fade-in class
-                        }, 300); // Delay to make sure the page content is loaded before animation
-                    });
-                });
-                // Function to animate number count
-                // Function to animate number count
-                function animateCount(element, endValue) {
-                    let startValue = 0;
-                    const duration = 2000; // 2 seconds duration
-                    const stepTime = Math.max(Math.floor(duration / endValue), 50); // Prevent too fast updates
-
-                    const interval = setInterval(function () {
-                        startValue += 1;
-                        element.textContent = `${startValue}`;
-                        if (startValue >= endValue) {
-                            clearInterval(interval);
-                        }
-                    }, stepTime);
+                // Define URLs for each type
+                if (infoType === 'Total Member') {
+                    url = 'user_management.php'; // Redirect to the Total Member page
+                } else if (infoType === 'Total game') {
+                    url = 'game_management.php'; // Redirect to the Total Game page
+                } else if (infoType === 'Silver') {
+                    url = 'user_management.php?search=silver'; // Redirect to the Silver Membership page
+                } else if (infoType === 'Gold') {
+                    url = 'user_management.php?search=gold'; // Redirect to the Gold Membership page
                 }
 
-                // Run animation on all count-value elements
-                document.addEventListener('DOMContentLoaded', function () {
-                    const countElements = document.querySelectorAll('.count-value');
-
-                    countElements.forEach((element) => {
-                        const endValue = parseInt(element.textContent.trim(), 10);
-                        element.textContent = '0'; // Reset the initial value
-                        animateCount(element, endValue);
-                    });
-                });
-
+                // Perform the redirection
+                if (url) {
+                    window.location.href = url; // Redirect to the URL
+                }
+            }
             </script>
 
 
