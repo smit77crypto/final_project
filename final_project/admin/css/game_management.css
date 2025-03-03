@@ -57,3 +57,39 @@ h2{
     border-radius:5px ;
 
 }
+@media (max-width: 768px) {
+    .desktop-view {
+        display: none;
+    }
+
+    .mobile-view {
+        display: block;
+    }
+
+    .search-form {
+        width: 80%;
+    }
+
+    .uper {
+        gap: 2rem;
+        flex-direction: column;
+    }
+    strong{
+        color: black;
+    }
+    .adduser {
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .search-form {
+        width: 100%;
+    }
+    strong{
+        color: black;
+    }
+    .modal {
+        width: 90%;
+    }
+}

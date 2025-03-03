@@ -26,11 +26,11 @@ $updatedAt = $termsData['updated_at'] ?? '';
 <head>
     <title>Admin Terms & Conditions</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- <link rel="stylesheet" href="path/to/bootstrap.css" /> -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/terms_condition.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 </head>
 
 <body>
@@ -50,24 +50,36 @@ $updatedAt = $termsData['updated_at'] ?? '';
 
     <h3>Last Updated At:</h3>
     <div class="update">
-        <div><i class="fa-solid fa-calendar-days"></i> : <span id="updatedDate"><?php echo date(' Y-m-d', strtotime($updatedAt)); ?></span></div>
-        <div><i class="fa-solid fa-clock"></i> : <span id="updatedTime"><?php echo date(' H:i:s', strtotime($updatedAt)); ?></span></div>
+        <div><i class="fa-solid fa-calendar-days"></i> : <span id="updatedDate"><?php echo date('Y-m-d', strtotime($updatedAt)); ?></span></div>
+        <div><i class="fa-solid fa-clock"></i> : <span id="updatedTime"><?php echo date('H:i:s', strtotime($updatedAt)); ?></span></div>
     </div>
 
     <script>
+    tinymce.init({
+        selector: '#terms',
+        height: 400,
+        menubar: false,
+        plugins: 'lists link image table code help',
+        toolbar: 'undo redo | formatselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image table | code help',
+        setup: function (editor) {
+            editor.on('change', function () {
+                editor.save();
+            });
+        }
+    });
+
     $("#save").click(function() {
+        tinymce.triggerSave();
         $.post("terms_condition.php", {
             terms: $("#terms").val()
         }, function(response) {
             if (response === "success") {
                 alert("Terms updated!");
 
-                // Fetch current date and time after update
                 const now = new Date();
-                const date = now.toISOString().split('T')[0]; // Get the date part (yyyy-mm-dd)
-                const time = now.toTimeString().split(' ')[0]; // Get the time part (HH:MM:SS)
+                const date = now.toISOString().split('T')[0];
+                const time = now.toTimeString().split(' ')[0];
 
-                // Update the date and time in the UI
                 $("#updatedDate").text(date);
                 $("#updatedTime").text(time);
             } else {
@@ -76,9 +88,8 @@ $updatedAt = $termsData['updated_at'] ?? '';
         });
     });
 
-
     $("#cancel").click(function() {
-        window.location.href = "#"; // Redirect to homepage
+        window.location.href = "#";
     });
     </script>
 </body>

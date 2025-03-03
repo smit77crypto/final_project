@@ -16,7 +16,7 @@ if (isset($data['id'])) {
     include 'db_connect.php';
 
     // Query to fetch game data based on the provided id
-    $sql = "SELECT * FROM games WHERE id = $game_id";
+    $sql = "SELECT * FROM games WHERE id = $game_id and deleteval=1";
     $result = $conn->query($sql);
 
     // Initialize an array to store the response data

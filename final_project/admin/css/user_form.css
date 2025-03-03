@@ -1,20 +1,20 @@
-
 /* General Body and Background */
 body {
     font-family: "Work Sans", serif;
-    background-color:white;
+    background-color: white;
     color: #333;
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    /* height: 100vh; */
 }
-.cen{
+
+.cen {
     display: flex;
     gap: 4rem;
 }
+
 /* Form Container */
 .form-container {
     margin-top: 140px;
@@ -32,17 +32,20 @@ body {
     font-size: 24px;
     margin-bottom: 20px;
     color: #d32f2f;
-    
-     font-weight: bold;
+    font-weight: bold;
 }
-.left1,.right1{
+
+.left1,
+.right1 {
     width: 45%;
 }
+
 /* Form Group */
 .form-group {
     margin-bottom: 20px;
 }
-span{
+
+span {
     color: red;
 }
 
@@ -51,11 +54,13 @@ label {
     display: block;
     font-weight: bold;
     margin-bottom: 8px;
-    /* color: #d32f2f; */
 }
 
 /* Input Fields */
-input[type="text"], input[type="email"], input[type="password"], select {
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
     width: 100%;
     padding: 10px;
     margin: 5px 0;
@@ -65,10 +70,14 @@ input[type="text"], input[type="email"], input[type="password"], select {
 }
 
 /* Input focus effect */
-input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, select:focus {
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+select:focus {
     border-color: #d32f2f;
     outline: none;
 }
+
 /* Gender options displayed in a single line */
 .gender-options {
     display: flex;
@@ -77,16 +86,16 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 
 .gender-options div {
     display: flex;
-    margin-right: 20px; /* Space between options */
+    margin-right: 20px;
 }
 
 .gender-options input[type="radio"] {
-    margin-right: 5px; /* Space between radio button and label */
-}
-.gender-options label {
-    margin-top: 6px; /* Space between radio button and label */
+    margin-right: 5px;
 }
 
+.gender-options label {
+    margin-top: 6px;
+}
 
 /* Error Messages */
 .error-message {
@@ -96,7 +105,7 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 }
 
 /* Submit Button */
-.btn-add{
+.btn-add {
     background-color: #d32f2f;
     color: white;
     padding: 10px 20px;
@@ -112,7 +121,7 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 }
 
 /* Cancel Button */
-.btn-cancel{
+.btn-cancel {
     background-color: #ccc;
     color: black;
     padding: 10px 20px;
@@ -141,8 +150,88 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 }
 
 /* Input Focus Effects */
-input:focus, select:focus {
+input:focus,
+select:focus {
     border-color: #d32f2f;
     outline: none;
 }
 
+/* Responsive Design for Tablet (768px - 1024px) */
+@media (max-width: 1024px) {
+    .form-container {
+        width: 90%;
+        height: auto;
+        padding: 15px;
+    }
+
+    .cen {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .left1,
+    .right1 {
+        width: 100%;
+    }
+
+    .btn-add,
+    .btn-cancel {
+        width: 30%;
+    }
+}
+
+/* Responsive Design for Mobile (up to 767px) */
+@media (max-width: 767px) {
+    .form-container {
+        width: 95%;
+        margin-top: 100px;
+        padding: 10px;
+    }
+
+    #formTitle {
+        font-size: 20px;
+    }
+
+    .gender-options {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .gender-options div {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .btn-add,
+    .btn-cancel {
+        width: 40%;
+        font-size: 14px;
+    }
+
+    .form-actions {
+        gap: 1rem;
+    }
+}
+
+/* Responsive Design for Small Mobile (up to 480px) */
+@media (max-width: 480px) {
+    .form-container {
+        width: 100%;
+        margin-top: 80px;
+        padding: 10px;
+    }
+
+    #formTitle {
+        font-size: 18px;
+    }
+
+    .btn-add,
+    .btn-cancel {
+        width: 45%;
+        font-size: 12px;
+    }
+
+    .form-actions {
+        gap: 0.5rem;
+    }
+}

@@ -5,6 +5,11 @@ include('connect_database.php');
 // Initialize search term
 $searchTerm = isset($_GET['search']) ? trim($_GET['search']) : '';
 
+// Pagination variables
+$recordsPerPage = 4; // Number of records per page
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = ($page - 1) * $recordsPerPage;
+
 // Base query
 $query = "SELECT * FROM games WHERE deleteval=1";
 
@@ -13,6 +18,19 @@ if (!empty($searchTerm)) {
     $query .= " AND name LIKE '%" . $conn->real_escape_string($searchTerm) . "%'";
 }
 
+// Fetch total number of records
+$totalRecordsQuery = "SELECT COUNT(*) as total FROM games WHERE deleteval=1";
+if (!empty($searchTerm)) {
+    $totalRecordsQuery .= " AND name LIKE '%" . $conn->real_escape_string($searchTerm) . "%'";
+}
+
+$totalRecordsResult = $conn->query($totalRecordsQuery);
+$totalRecords = $totalRecordsResult->fetch_assoc()['total'];
+$totalPages = ceil($totalRecords / $recordsPerPage);
+
+// Modify query to include pagination
+$query .= " LIMIT $offset, $recordsPerPage";
+
 // Execute query
 $result = $conn->query($query);
 
@@ -20,7 +38,6 @@ $result = $conn->query($query);
 if (!$result) {
     die("Query Error: " . $conn->error);
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -37,7 +54,6 @@ if (!$result) {
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/user_management.css">
     <link rel="stylesheet" href="css/game_management.css">
-
 </head>
 
 <body>
@@ -45,57 +61,98 @@ if (!$result) {
     <div class="uper">
         <div class="search-form">
             <form method="GET" action="">
-                <input type="text" name="search" placeholder="Search by game name"
-                    value="<?php echo htmlspecialchars($searchTerm); ?>">
+                <input type="text" name="search" placeholder="Search by game name" value="<?php echo htmlspecialchars($searchTerm); ?>">
                 <button type="submit">Search</button>
                 <a href="game_management.php">Clear</a>
             </form>
         </div>
         <div class="adduser right">
-            <a href="game_management/game_form.php" style="text-decoration:none; ">
-                <div class="btn"><i style="color:white"class="fa-solid fa-user-plus"></i> <strong >ADD GAME</strong></div>
+            <a href="game_management/game_form.php" style="text-decoration:none;">
+                <div class="btn"><i style="color:white" class="fa-solid fa-user-plus"></i> <strong>ADD GAME</strong></div>
             </a>
         </div>
     </div>
 
     <div class="tablearea">
-        <?php if ($result->num_rows > 0): ?>
-        <table border='1'>
-            <tr>
-                <th>Action</th>
-                <th>Name</th>
-                <th>Price (30 min)</th>
-                <th>Price (60 min)</th>
-                <th>Card Image</th>
-                <th>Slider Image</th>
-                <th>Slots</th>
-            </tr>
-            <?php while ($row = $result->fetch_assoc()): ?>
-            <tr>
-                <td class='action-buttons'>
-                    <a href='game_management/game_form.php?id=<?php echo $row["id"] ?>' class='edit'><i
-                            class='fa-solid fa-pencil'></i></a>
-                    <a href="javascript:void(0);" class="delete" onclick="confirmDelete(<?php echo $row['id']; ?>)">
-                        <i class="fas fa-trash-alt"></i>
-                    </a>
-                    <a href='game_management/view_game.php?id=<?php echo $row["id"] ?>' class='view'><i
-                            class='fa-solid fa-eye'></i></a>
-                </td>
-                <td><?php echo htmlspecialchars($row["name"]); ?></td>
-                <td><?php echo htmlspecialchars($row["half_hour"]); ?></td>
-                <td><?php echo htmlspecialchars($row["hour"]); ?></td>
-                <td><img src=<?php echo htmlspecialchars($row["card_image"]); ?> alt='Game Image' width='50'></td>
-                <td><img src=<?php echo htmlspecialchars($row["slider_image"]); ?> alt='Slider Image' width='50'></td>
+        <?php if ($result->num_rows > 0) : ?>
+            <!-- Desktop Table View -->
+            <div class="desktop-view">
+                <table border='1'>
+                    <tr>
+                        <th>Action</th>
+                        <th>Name</th>
+                        <th>Price (30 min)</th>
+                        <th>Price (60 min)</th>
+                        <th>Card Image</th>
+                        <th>Slider Image</th>
+                        <th>Slots</th>
+                    </tr>
+                    <?php while ($row = $result->fetch_assoc()) : ?>
+                        <tr>
+                            <td class='action-buttons'>
+                                <a href='game_management/game_form.php?id=<?php echo $row["id"] ?>' class='edit'><i class='fa-solid fa-pencil'></i></a>
+                                <a href="javascript:void(0);" class="delete" onclick="confirmDelete(<?php echo $row['id']; ?>)">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                                <a href='game_management/view_game.php?id=<?php echo $row["id"] ?>' class='view'><i class='fa-solid fa-eye'></i></a>
+                            </td>
+                            <td><?php echo htmlspecialchars($row["name"]); ?></td>
+                            <td><?php echo htmlspecialchars($row["half_hour"]); ?></td>
+                            <td><?php echo htmlspecialchars($row["hour"]); ?></td>
+                            <td><img src=<?php echo htmlspecialchars($row["card_image"]); ?> alt='Game Image' width='50'></td>
+                            <td><img src=<?php echo htmlspecialchars($row["slider_image"]); ?> alt='Slider Image' width='50'></td>
+                            <td><button class='view-slots-btn' data-game-id='<?php echo $row["id"]; ?>'><i class="fa-solid fa-eye"></i></button></td>
+                        </tr>
+                    <?php endwhile; ?>
+                </table>
+            </div>
 
-                <td><button class='view-slots-btn' data-game-id='<?php echo $row["id"]; ?>'><i class="fa-solid fa-eye"></i></button></td>
-            </tr>
-            <?php endwhile; ?>
-        </table>
-        <?php else: ?>
-        <p>No records found!</p>
+            <!-- Mobile and Tablet Card View -->
+            <div class="mobile-view">
+                <?php
+                // Reset the result pointer to reuse the data
+                $result->data_seek(0);
+                while ($row = $result->fetch_assoc()) : ?>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo htmlspecialchars($row["name"]); ?></h5>
+                            <p class="card-text"><strong>Price (30 min):</strong> <?php echo htmlspecialchars($row["half_hour"]); ?></p>
+                            <p class="card-text"><strong>Price (60 min):</strong> <?php echo htmlspecialchars($row["hour"]); ?></p>
+                            <p class="card-text"><strong>Card Image:</strong> <img src=<?php echo htmlspecialchars($row["card_image"]); ?> alt='Game Image' width='50'></p>
+                            <p class="card-text"><strong>Slider Image:</strong> <img src=<?php echo htmlspecialchars($row["slider_image"]); ?> alt='Slider Image' width='50'></p>
+                            <div class="action-buttons">
+                                <a href='game_management/game_form.php?id=<?php echo $row["id"] ?>' class='edit'><i class='fa-solid fa-pencil'></i></a>
+                                <a href="javascript:void(0);" class="delete" onclick="confirmDelete(<?php echo $row['id']; ?>)">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                                <a href='game_management/view_game.php?id=<?php echo $row["id"] ?>' class='view'><i class='fa-solid fa-eye'></i></a>
+                                <button class='view-slots-btn' data-game-id='<?php echo $row["id"]; ?>'><i class="fa-solid fa-eye"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                <?php endwhile; ?>
+            </div>
+
+            <!-- Pagination Links -->
+            <div class="pagination">
+                <?php if ($page > 1) : ?>
+                    <a href="?page=<?php echo $page - 1; ?>&search=<?php echo $searchTerm; ?>">Previous</a>
+                <?php endif; ?>
+
+                <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
+                    <a href="?page=<?php echo $i; ?>&search=<?php echo $searchTerm; ?>" <?php echo ($page == $i) ? 'class="active"' : ''; ?>><?php echo $i; ?></a>
+                <?php endfor; ?>
+
+                <?php if ($page < $totalPages) : ?>
+                    <a href="?page=<?php echo $page + 1; ?>&search=<?php echo $searchTerm; ?>">Next</a>
+                <?php endif; ?>
+            </div>
+        <?php else : ?>
+            <p>No records found!</p>
         <?php endif; ?>
     </div>
 
+    <!-- Popup Modal -->
     <div id="slotModal" class="modal">
         <div class="modal-content">
             <span class="close-popup"><i class="fa-solid fa-eye-slash"></i></span>
@@ -103,6 +160,9 @@ if (!$result) {
             <div id="slotsContainer">Loading...</div>
         </div>
     </div>
+
+    <!-- Background Blur Overlay -->
+    <div id="overlay" class="overlay"></div>
 
     <script>
     function confirmDelete(gameId) {
@@ -113,8 +173,8 @@ if (!$result) {
         }
     }
 
-
     $(document).ready(function() {
+        // Show popup and lock background
         $(".view-slots-btn").on("click", function() {
             var gameId = $(this).attr("data-game-id");
 
@@ -131,14 +191,10 @@ if (!$result) {
                     } else {
                         var slotText = response.slots.join(", "); // Join slots with commas
                         $("#slotsContainer").html("<div>" + slotText + "</div>");
-
-                        // Adjust popup height dynamically
-                        var slotCount = response.slots.length;
-                        var height = Math.min(100 + slotCount * 10,
-                            400); // Max height 400px
-                        $("#slotModal").css("height", height + "px");
                     }
                     $("#slotModal").show();
+                    $("#overlay").show(); // Show overlay
+                    $("body").css("overflow", "hidden"); // Lock scroll
                 },
                 error: function(xhr, status, error) {
                     console.error("AJAX Error:", status, error);
@@ -147,8 +203,11 @@ if (!$result) {
             });
         });
 
-        $(".close-popup").on("click", function() {
+        // Close popup and unlock background
+        $(".close-popup, #overlay").on("click", function() {
             $("#slotModal").hide();
+            $("#overlay").hide(); // Hide overlay
+            $("body").css("overflow", "auto"); // Unlock scroll
         });
     });
     </script>

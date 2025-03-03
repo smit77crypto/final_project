@@ -1,13 +1,16 @@
-.uper{
+/* General Styles */
+.uper {
     display: flex;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
     gap: 15rem;
+    flex-wrap: wrap;
 }
-.adduser{
-    /* margin-left: 250px; */
+
+.adduser {
     margin-top: 140px;
 }
+
 .search-form {
     margin-top: 100px;
     background-color: #fff;
@@ -19,53 +22,11 @@
 }
 
 .search-form input[type="text"] {
-    width: 300px;
+    width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
-}
-/* Add Fade-in Animation to Table Rows */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-tr {
-    animation: fadeIn 0.5s ease-in-out;
-}
-
-/* Smooth Hover Effect for Rows */
-tr:hover {
-    background-color: #ffb3b3;
-    transform: scale(1.02);
-    transition: all 0.3s ease-in-out;
-}
-
-/* Add Hover Effect for Buttons */
-
-
-
-/* Slide-in Animation for Search Form */
-@keyframes slideIn {
-    from {
-        transform: translateY(-50px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-.search-form {
-    animation: slideIn 0.5s ease-out;
 }
 
 .search-form button {
@@ -77,7 +38,7 @@ tr:hover {
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-    /* margin-left: 100px; */
+    margin-top: 10px;
 }
 
 .search-form button:hover {
@@ -95,60 +56,53 @@ tr:hover {
 .search-form a:hover {
     text-decoration: underline;
 }
-.tablearea{
+
+.tablearea {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    width: 100%;
+    padding: 20px;
 }
-/* Table Styling */
+
+/* Desktop Table View */
+.desktop-view {
+    width: 100%;
+    overflow-x: auto;
+}
+
 table {
-    width: 90%;
+    width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
     font-size: 18px;
     text-align: left;
-    border: 2px solid black;/* Red border */
+    border: 2px solid black;
     background-color: #fff;
 }
 
-/* Table Header */
+th, td {
+    padding: 12px;
+    border: 2px solid black;
+    text-align: center;
+}
+
 th {
-    font-size: 1rem;
-    font-weight: bold;
-    text-align: center;
-    background-color: rgb(219, 39, 39); /* Dark red */
+    background-color: rgb(219, 39, 39);
     color: white;
-    padding: 12px;
     text-transform: uppercase;
-    border: 2px solid black;
 }
 
-/* Table Data */
-td {
-    font-size: 1rem;
-    font-weight: 500;
-    text-align: center;
-    padding: 12px;
-    border: 2px solid black;
-    color: #333;
-}
-
-/* Alternate Row Colors */
 tr:nth-child(even) {
-    background-color: #ffe5e5; /* Light red */
+    background-color: #ffe5e5;
 }
 
-tr:nth-child(odd) {
-    background-color: #fff; /* White */
-}
-
-/* Hover Effect */
 tr:hover {
-    background-color: #ffb3b3; /* Lighter red */
+    background-color: #ffb3b3;
     transition: 0.3s;
 }
 
-/* Action Buttons */
 .action-buttons a {
     text-decoration: none;
     font-weight: bold;
@@ -160,32 +114,113 @@ tr:hover {
     transition: transform 0.3s ease-in-out;
 }
 
-/* Edit Button */
 .action-buttons .edit {
     background-color: #ff9800;
     color: white;
-    border: 1px solid #e68a00;
 }
 
-/* Delete Button */
 .action-buttons .delete {
     background-color: #d32f2f;
     color: white;
-    border: 1px solid #b71c1c;
 }
 
-/* View Button */
 .action-buttons .view {
     background-color: #388e3c;
     color: white;
-    border: 1px solid #2e7d32;
 }
 
-/* Button Hover Effects */
 .action-buttons a:hover {
     transform: scale(1.1);
     opacity: 0.8;
-    transition: 1s;
 }
 
+/* Mobile and Tablet Card View */
+.mobile-view {
+    display: none;
+    width: 100%;
+}
 
+.card {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin: 10px 0;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+    padding: 10px;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+/* Pagination Styles */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    color: black;
+    padding: 8px 16px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    margin: 0 4px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.pagination a.active {
+    background-color: rgb(219, 39, 39);
+    color: white;
+    border: 1px solid rgb(219, 39, 39);
+}
+
+.pagination a:hover:not(.active) {
+    background-color: #ddd;
+}
+
+/* Responsive Media Queries */
+@media (max-width: 768px) {
+    .desktop-view {
+        display: none;
+    }
+
+    .mobile-view {
+        display: block;
+    }
+
+    .search-form {
+        width: 80%;
+    }
+
+    .uper {
+        gap: 2rem;
+        flex-direction: column;
+    }
+
+    .adduser {
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .search-form {
+        width: 100%;
+    }
+
+    .card {
+        width: 100%;
+    }
+}
