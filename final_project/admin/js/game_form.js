@@ -6,6 +6,14 @@ function getSelectedSlots() {
     });
     return selectedSlot.join(","); // Store the slots as a comma-separated string
 }
+function getFilterSlots() {
+    let filterSlots=[];
+    const slotCheckboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    slotCheckboxes.forEach((checkbox) => {
+        filterSlots.push(checkbox.getAttribute('data-type'));
+    });
+    return filterSlots.join(","); // Store the slots as a comma-separated string
+}
 document.querySelector('.btn-add').addEventListener('click', function (e) {
     e.preventDefault(); // Prevent form submission
 
@@ -45,6 +53,7 @@ document.querySelector('.btn-add').addEventListener('click', function (e) {
     }
     if (isValid) {
         const selectedSlots = getSelectedSlots();
+        const filter = getFilterSlots();
         const gameImage = document.getElementById("gameImage").files[0];
         const sliderImage = document.getElementById("sliderImage").files[0];
         const gameId = document.getElementById("gameId").value;  // Get the gameId from your form if it's available for update
@@ -56,8 +65,9 @@ document.querySelector('.btn-add').addEventListener('click', function (e) {
         formData.append("gameImage", gameImage);
         formData.append("sliderImage", sliderImage);
         formData.append("slots", selectedSlots);
+        formData.append("filter", filter);
         formData.append("gameId", gameId);  // Append the gameId for update
-    
+        console.log(filter);
         // AJAX Request to PHP backend
         const xhr = new XMLHttpRequest();
         xhr.open("POST", "../game_management/game_data.php", true);
@@ -192,7 +202,7 @@ function saveGame() {
         alert("Please fix validation errors before submitting.");
         return;
     }
-
+    
     alert("Game information submitted successfully!");
     resetForm();
 }

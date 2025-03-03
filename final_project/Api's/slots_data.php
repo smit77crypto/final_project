@@ -28,7 +28,8 @@ if (isset($data['id'])) {
         $response = [
             "id" => $row["id"],
             "name" => $row["name"],
-            "slots" => explode(",", $row["slots"])  // Split the slots string into an array
+            "slots" => explode(",", $row["slots"]),
+            "filter"=> explode(",", $row["filter_value"]) // Split the slots string into an array
         ];
     } else {
         // If no game found with the given id

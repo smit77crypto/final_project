@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if (empty($booked_slots)) {
-        echo json_encode(['message' => 'No slots booked for this game on the selected date.', 'available_slots' => []]);
+        echo json_encode(['message' => 'No slots booked for this game on the selected date.', 'booked_slots' => []]);
         http_response_code(200); // OK, but no slots booked
     } else {
         echo json_encode(['message' => 'Slots already booked for this game on the selected date.', 'booked_slots' => $booked_slots]);
