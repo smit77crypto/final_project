@@ -92,7 +92,7 @@ nav {
 .m-btn i {
   margin-right: 10px;
 }
-@media (max-width: 1033px) {
+@media (max-width: 1053px) {
   .left {
     width: 63%;
     padding: 6px;
@@ -120,7 +120,7 @@ nav {
     font-size: 0.5rem;
   }
 }
-@media (max-width: 768px) {
+@media (max-width: 771px) {
  
   .left {
     width: 60%;
@@ -147,7 +147,7 @@ nav {
     font-size: 0.4rem;
   }
 }
-@media (max-width: 610px) {
+@media (max-width: 622px) {
   nav{
     display: none;
   }

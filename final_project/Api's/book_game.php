@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $slot = $data['slot'] ?? '';
 
     // Check if necessary data is provided
-    if (empty($username) || empty($phone) || empty($email) || empty($game_id) || empty($slot)) {
+    if (empty($username) || empty($phone) || empty($game_id) || empty($slot)) {
         echo json_encode(['message' => 'All fields (username, phone, email, game_id, and slot) are required.']);
         http_response_code(400); // Bad Request
         exit();
@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Prepare a query to insert data into the 'book_game' table (No game_id needed)
-    $sql_insert = "INSERT INTO book_game (username, phone_no, email, game_name, slot) 
+    $sql_insert = "INSERT INTO book_game (username, phone_no,email, game_name, slot) 
                    VALUES (?, ?, ?, ?, ?)";
 
     $stmt_insert = $conn->prepare($sql_insert);

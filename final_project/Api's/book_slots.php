@@ -58,17 +58,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Prepare a query to check if slots for the given game and date already exist in the 'book_game' table
-    $sql_check_slot = "SELECT slot FROM book_game WHERE game_name = ? AND book_date = ?";
+    $sql_check_slot = "SELECT username,phone_no,email,slot FROM book_game WHERE game_name = ? AND book_date = ?";
     $stmt_check_slot = $conn->prepare($sql_check_slot);
     $stmt_check_slot->bind_param("ss", $game_name, $date);
     $stmt_check_slot->execute();
     $result_check_slot = $stmt_check_slot->get_result();
 
-    // Check if slots are available for this game on the provided date
     $booked_slots = [];
+    
+    // Fetch all the booked slots and store them in the $booked_slots array
     while ($row = $result_check_slot->fetch_assoc()) {
-        $booked_slots[] = $row['slot']; // Collecting all booked slots for the specific date
+        $booked_slots[] = [
+            'username' => $row['username'],
+            'phone_no' => $row['phone_no'],
+            'email' => $row['email'],
+            'slot' => $row['slot']
+        ];
     }
+    
 
     if (empty($booked_slots)) {
         echo json_encode(['message' => 'No slots booked for this game on the selected date.', 'booked_slots' => []]);
