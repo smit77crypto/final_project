@@ -1,6 +1,17 @@
 <?php
 // Include required headers for CORS and response format
-header("Access-Control-Allow-Origin: *");
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+
+// Check if the origin is set and set the allowed origin dynamically
+if (!empty($origin)) {
+    header("Access-Control-Allow-Origin: $origin");
+} else {
+    // Default fallback if no origin is provided (although this should not happen in most cases)
+    header("Access-Control-Allow-Origin: *");
+}
+
+// Allow credentials (cookies, HTTP authentication)
+header("Access-Control-Allow-Credentials: true");
 header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Allow-Headers: Content-Type");
 
@@ -14,30 +25,28 @@ use \Firebase\JWT\Key;
 
 // Check if the request method is POST
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    
-    // Get the raw POST data (JSON format)
-    $data = json_decode(file_get_contents('php://input'), true);
-
-    // Get username and password from JSON data
-    $token = $data['token'] ?? '';
-
-    // Check if username and password are provided
+   
+    // Get the token from cookies
+    $token = $_COOKIE['auth_token'];
+    // Check if the token exists
     if (empty($token)) {
-        echo json_encode(['message' => 'Token are required.']);
+        echo json_encode(['message' => 'Token is required.']);
         http_response_code(400); // Bad Request
         exit();
     }
+
+    // Secret key for JWT decoding
     $secret_key = 'yo12ur'; 
-    // Trim whitespace from the password (if any)
-    $token = trim($token);
 
-    // Connect to MySQL Database
-    
+    try {
+        // Decode the JWT token
+        $decode = JWT::decode($token, new Key($secret_key, 'HS256'));
 
-    $decode = JWT::decode($token, new Key($secret_key,'HS256'));
-    echo $data->username;   
-    echo json_encode(['message' => 'success', 'data' => $decode]);
-    $stmt->close();
-    $conn->close();
+        // You can access the decoded data as an object (e.g., $decode->username)
+        echo json_encode(['message' => 'success', 'data' => $decode]);
+    } catch (Exception $e) {
+        echo json_encode(['message' => 'Failed to decode token', 'error' => $e->getMessage()]);
+        http_response_code(401); // Unauthorized
+    }
 }
 ?>

@@ -6,7 +6,31 @@
     gap: 15rem;
     flex-wrap: wrap;
 }
-
+.btn1 {
+    border-radius: 10px;
+    padding: 5px;
+    background-color: rgb(219, 39, 39);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    gap: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+.btn1 div {
+    color: white; /* Makes the text color white */
+    font-weight: bold; /* Keep the text bold */
+  }
+  
+.btn1:hover {
+    color: white;
+    background-color: crimson;
+    transform: scale(1.05);
+  }
+.btn1 div i {
+    color: white;
+    /* margin-left: 5px; */
+  }
 .adduser {
     margin-top: 140px;
 }
@@ -22,7 +46,12 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
-
+.search-form .search-div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:1rem;
+}
 .search-form input[type="text"] {
     width: 100%;
     padding: 10px;
@@ -40,7 +69,6 @@
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-    margin-top: 10px;
 }
 
 .search-form button:hover {

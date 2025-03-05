@@ -1,6 +1,17 @@
 <?php
 // Include required headers for CORS and response format
-header("Access-Control-Allow-Origin: *");
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+
+// Check if the origin is set and set the allowed origin dynamically
+if (!empty($origin)) {
+    header("Access-Control-Allow-Origin: $origin");
+} else {
+    // Default fallback if no origin is provided (although this should not happen in most cases)
+    header("Access-Control-Allow-Origin: *");
+}
+
+// Allow credentials (cookies, HTTP authentication)
+header("Access-Control-Allow-Credentials: true");
 header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Allow-Headers: Content-Type");
 
@@ -21,8 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get username and password from JSON data
     $username = $data['username'] ?? '';
     $user_password = $data['password'] ?? '';
-    echo $username;
-    echo $user_password;
+
     // Check if username and password are provided
     if (empty($username) || empty($user_password)) {
         echo json_encode(['message' => 'Username and password are required.']);
@@ -55,10 +65,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     // Get the result
     $result = $stmt->get_result();
-    echo "connected";   
+    
     // Check if user is found
     if ($result->num_rows > 0) {
-        echo "user found";  
+        
         // User exists, fetch the user data
         $user = $result->fetch_assoc();
         $hashpassword = $user['user_password']; // Hashed password stored in DB
@@ -80,22 +90,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     'iat' => time(), // Issued at time
                     'exp' => time() + 3600 // Expiration time (1 hour from now)
                 ];
-                print_r($payload);
                 // JWT Secret Key (should be securely stored in environment or config file)
                 $secret_key = 'yo12ur';  // Replace this with your actual secret key
 
                 // Generate the JWT token
                 $jwt = JWT::encode($payload, $secret_key,'HS256');
-
-
                 // Send the JWT as a cookie (optional: Secure, HttpOnly for better security)
-                setcookie("auth_token", $jwt, time() + 3600, "/", "", false, true);  // 1-hour expiration
+                setcookie("auth_token", $jwt, [
+                    'expires' => time() + 3600,
+                    'path' => '/',
+                    'secure' => true,
+                    'httponly' => true,
+                    'samesite' => 'None'
+                ]);// 1-hour expiration
 
                 // Respond with the success message and JWT token
                 echo json_encode([
                     'success' => true,
-                    'message' => 'Login successful',
-                    'token' => $jwt
+                    'message' => 'Login successful'
                 ]);
             } else {
                 // Account is deactivated (deleteval != 1)

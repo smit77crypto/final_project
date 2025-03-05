@@ -107,14 +107,16 @@ if (!$result) {
     <div class="uper">
         <div class="search-form">
             <form method="GET" action="">
-                <input type="text" name="search" placeholder="Search by game name" value="<?php echo htmlspecialchars($searchTerm); ?>">
-                <button type="submit">Search</button>
+                <div class="search-div">
+                    <div><input type="text" name="search" placeholder="Search by name" value="<?php echo htmlspecialchars($searchTerm); ?>"></div>
+                    <div><button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button></div>
+                </div>
                 <a href="game_management.php">Clear</a>
             </form>
         </div>
-        <div class="adduser right">
+        <div class="btn1">
             <a href="game_management/game_form.php" style="text-decoration:none;">
-                <div class="btn"><i style="color:white" class="fa-solid fa-user-plus"></i> <strong>ADD GAME</strong></div>
+                <div><i style="color:white" class="fa-solid fa-user-plus"></i> <strong>ADD GAME</strong></div>
             </a>
         </div>
     </div>
@@ -191,8 +193,9 @@ if (!$result) {
             <a href="?page=<?php echo $page + 1; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>">Next</a>
         <?php endif; ?>
     </div>
-                        <!-- Records per page dropdown -->
-                        <div class="records-per-page">
+
+    <!-- Records per page dropdown -->
+    <div class="records-per-page">
         <form method="GET" action="">
             <label for="recordsPerPage">Records per page:</label>
             <select name="recordsPerPage" id="recordsPerPage" onchange="this.form.submit()">

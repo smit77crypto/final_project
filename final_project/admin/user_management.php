@@ -83,14 +83,16 @@ $result = $conn->query($sql);
     <div class="uper">
         <div class="search-form">
             <form method="GET" action="">
-                <input type="text" name="search" placeholder="Search by name" value="<?php echo htmlspecialchars($searchTerm); ?>">
-                <button type="submit">Search</button>
+                <div class="search-div">
+                    <div><input type="text" name="search" placeholder="Search by name" value="<?php echo htmlspecialchars($searchTerm); ?>"></div>
+                    <div><button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button></div>
+                </div>
                 <a href="user_management.php">Clear</a>
             </form>
         </div>
         <div class="adduser right">
             <a href="user_management/user_form.php" style="text-decoration:none; color:white">
-                <div class="btn">
+                <div class="btn1">
                     <div><i class="fa-solid fa-user-plus"></i></div>
                     <div style="font-weight: bold">ADD USER</div>
                 </div>

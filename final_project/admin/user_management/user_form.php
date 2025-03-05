@@ -130,7 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Send email with registration details
             $submission_time = date('Y-m-d H:i:s'); // Capture the current time
-           // sendEmail($email, $full_name, $username, $_POST['password'], $submission_time);
+            sendEmail($email, $full_name, $username, $_POST['password'], $submission_time);
         }
 
         // Redirect or show success message
