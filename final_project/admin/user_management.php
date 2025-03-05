@@ -168,7 +168,7 @@ $result = $conn->query($sql);
                 <?php endif; ?>
             </div>
         <?php else : ?>
-            <p>No records found!</p>
+            <p>No records found!!</p>
         <?php endif; ?>
     </div>
 
@@ -184,6 +184,7 @@ $result = $conn->query($sql);
                     <input type="hidden" name="search" value="<?php echo htmlspecialchars($searchTerm); ?>">
                 </form>
             </div>
+
     <script>
         function confirmDelete(userId) {
             if (confirm("Are you sure you want to delete this user?")) {
