@@ -6,7 +6,7 @@ include('connect_database.php');
 $searchTerm = isset($_GET['search']) ? trim($_GET['search']) : '';
 
 // Pagination variables
-$recordsPerPage = isset($_GET['recordsPerPage']) ? (int)$_GET['recordsPerPage'] : 4; // Default to 4 records per page
+$recordsPerPage = isset($_GET['recordsPerPage']) ? (int)$_GET['recordsPerPage'] : 5; // Default to 5 records per page
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $recordsPerPage;
 
