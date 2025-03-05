@@ -26,19 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     }
 
-    // Connect to MySQL Database
-    $servername = "localhost";
-    $dbname = "getinplay";
-    $dbuser = "root";
-    $dbpassword = "root";
-
-    // Create a MySQLi connection
-    $conn = new mysqli($servername, $dbuser, $dbpassword, $dbname);
-
-    // Check for connection errors
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+    include 'db_connect.php'; // Includes the database connection file
 
     // Prepare a query to get the game name from the 'games' table using the 'game_id'
     $sql_game_name = "SELECT name FROM games WHERE id = ?";
