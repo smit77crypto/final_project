@@ -10,7 +10,9 @@
 .adduser {
     margin-top: 140px;
 }
-
+.records-per-page{
+    padding-top: 15px;
+}
 .search-form {
     margin-top: 100px;
     background-color: #fff;

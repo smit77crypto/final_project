@@ -13,8 +13,12 @@
     text-align: center;
     overflow: hidden;
     /* Prevent scrolling */
-
 }
+
+.records-per-page{
+    margin-bottom: 15px;
+}
+
 strong{
     color: white;
 }

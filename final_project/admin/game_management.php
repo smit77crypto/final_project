@@ -6,7 +6,7 @@ include('connect_database.php');
 $searchTerm = isset($_GET['search']) ? trim($_GET['search']) : '';
 
 // Pagination variables
-$recordsPerPage = 4; // Number of records per page
+$recordsPerPage = isset($_GET['recordsPerPage']) ? (int)$_GET['recordsPerPage'] : 4; // Default to 4 records per page
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $recordsPerPage;
 
@@ -72,9 +72,6 @@ if (!$result) {
             </a>
         </div>
     </div>
-
-    <div class="tablearea">
-        <?php if ($result->num_rows > 0) : ?>
             <!-- Desktop Table View -->
             <div class="desktop-view">
                 <table border='1'>
@@ -132,24 +129,38 @@ if (!$result) {
                     </div>
                 <?php endwhile; ?>
             </div>
+            <div class="tablearea">
+        <?php if ($result->num_rows > 0) : ?>
 
             <!-- Pagination Links -->
             <div class="pagination">
                 <?php if ($page > 1) : ?>
-                    <a href="?page=<?php echo $page - 1; ?>&search=<?php echo $searchTerm; ?>">Previous</a>
+                    <a href="?page=<?php echo $page - 1; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>">Previous</a>
                 <?php endif; ?>
 
                 <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
-                    <a href="?page=<?php echo $i; ?>&search=<?php echo $searchTerm; ?>" <?php echo ($page == $i) ? 'class="active"' : ''; ?>><?php echo $i; ?></a>
+                    <a href="?page=<?php echo $i; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>" <?php echo ($page == $i) ? 'class="active"' : ''; ?>><?php echo $i; ?></a>
                 <?php endfor; ?>
 
                 <?php if ($page < $totalPages) : ?>
-                    <a href="?page=<?php echo $page + 1; ?>&search=<?php echo $searchTerm; ?>">Next</a>
+                    <a href="?page=<?php echo $page + 1; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>">Next</a>
                 <?php endif; ?>
             </div>
         <?php else : ?>
             <p>No records found!</p>
         <?php endif; ?>
+                        <!-- Records per page dropdown -->
+                        <div class="records-per-page">
+                <form method="GET" action="">
+                    <label for="recordsPerPage">Records per page:</label>
+                    <select name="recordsPerPage" id="recordsPerPage" onchange="this.form.submit()">
+                        <option value="5" <?php echo $recordsPerPage == 5 ? 'selected' : ''; ?>>5</option>
+                        <option value="10" <?php echo $recordsPerPage == 10 ? 'selected' : ''; ?>>10</option>
+                        <option value="15" <?php echo $recordsPerPage == 15 ? 'selected' : ''; ?>>15</option>
+                    </select>
+                    <input type="hidden" name="search" value="<?php echo htmlspecialchars($searchTerm); ?>">
+                </form>
+            </div>
     </div>
 
     <!-- Popup Modal -->
