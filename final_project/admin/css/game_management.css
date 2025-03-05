@@ -27,7 +27,7 @@ strong{
     position: relative;
 }
 .desktop-view{
-    padding: 10px;
+    padding: 20px;
 }
 
 .close-popup {
@@ -50,9 +50,7 @@ strong{
     border-radius: 10px;
     padding: 5px;
     background-color: rgb(219, 39, 39);
-   
     margin-top: 110px;
-  
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     gap: 5px;
