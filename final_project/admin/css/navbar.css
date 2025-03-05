@@ -119,6 +119,10 @@ nav {
   .right .btn div i {
     font-size: 0.5rem;
   }
+  .logo img{
+    height: 40px;
+    width: 40px;
+  }
 }
 @media (max-width: 771px) {
  
@@ -145,6 +149,10 @@ nav {
   }
   .right .btn div i {
     font-size: 0.4rem;
+  }
+  .logo img{
+    height: 30px;
+    width: 40px;
   }
 }
 @media (max-width: 622px) {
@@ -229,6 +237,10 @@ nav {
     margin-right: 10px;
 
   }
+ .logo img{
+  height: 30px;
+  width: 30px;
+ }
 }
 /* Initially, hide the mobile box */
 

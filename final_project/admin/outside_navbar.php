@@ -35,12 +35,7 @@
         <i class="fa-solid fa-bars"></i>
     </div>
     <div class="right">
-        <a href="admin_login.php" style="text-decoration:none">
-            <div class="btn">
-                <div><i class="fa-solid fa-right-from-bracket"></i></div>
-                <div style="font-weight: bold; color: white;">LOG OUT</div>
-            </div>
-        </a>
+        <img src="uploads/gip_logo.png" alt="logo" width="50px" height="50px">
     </div>
     
     <div class="right">
