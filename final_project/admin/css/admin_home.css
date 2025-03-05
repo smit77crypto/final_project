@@ -217,6 +217,8 @@ canvas {
     width: 100%;
     height: auto;
     padding: 10px;
+    margin-top: 60px;
+
   }
 
   .admin-details {
@@ -302,6 +304,14 @@ canvas {
 }
 
 @media (max-width: 480px) {
+  .admin-info-container {
+    position: relative;
+    top: 0;
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    margin-top: 30px;
+  }
   .admin-photo {
     width: 60px;
     height: 60px;

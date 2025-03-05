@@ -71,27 +71,16 @@ h2{
     }
 
     .search-form {
-        width: 80%;
+        width: 100%;
     }
-
-    .uper {
-        gap: 2rem;
-        flex-direction: column;
-    }
-    strong{
-        color: black;
-    }
-    .adduser {
-        margin-top: 20px;
+    .modal {
+        width: 90%;
     }
 }
 
 @media (max-width: 480px) {
     .search-form {
         width: 100%;
-    }
-    strong{
-        color: black;
     }
     .modal {
         width: 90%;
