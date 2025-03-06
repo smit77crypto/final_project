@@ -49,7 +49,7 @@ $gameCount = $row4['count'];
         <div class="admin-info-container">
             <div id="admin-details" class="admin-details">
                 <div class="admin-photo-container">
-                    <img src="uploads/rick.jpg" alt="Admin Photo" class="admin-photo" />
+                    <img src="uploads/bravo.jpeg" alt="Admin Photo" class="admin-photo" />
                 </div>
                 <div class="admin-name">
                     <h3>Admin</h3>

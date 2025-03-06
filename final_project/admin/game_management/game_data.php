@@ -39,14 +39,18 @@ if (empty($gameImage['name'])) {
             // If there's a result, use the image path from the database
             if (!empty($row['card_image'])) {
                 $gameImagePath = $row['card_image'];
+                move_uploaded_file($gameImageTmpName, $gameImagePath);
             } else {
                 $gameImagePath = $defaultGameImagePath;
+                move_uploaded_file($gameImageTmpName, $gameImagePath);
             }
         } else {
             $gameImagePath = $defaultGameImagePath;
+            move_uploaded_file($gameImageTmpName, $gameImagePath);
         }
     } else {
-        $gameImagePath = $defaultGameImagePath; // If no $gameId, use default game image
+        $gameImagePath = $defaultGameImagePath;
+        move_uploaded_file($gameImageTmpName, $gameImagePath); // If no $gameId, use default game image
     }
 } else {
     // If a game image is uploaded, handle it

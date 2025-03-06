@@ -53,10 +53,11 @@ $updatedAt = $termsData['updated_at'] ?? '';
         <div><i class="fa-solid fa-calendar-days"></i> : <span id="updatedDate"><?php echo date('Y-m-d', strtotime($updatedAt)); ?></span></div>
         <div><i class="fa-solid fa-clock"></i> : <span id="updatedTime"><?php echo date('H:i:s', strtotime($updatedAt)); ?></span></div>
     </div>
-
+    
     <script>
     tinymce.init({
         selector: '#terms',
+        license_key: 'gpl',
         height: 400,
         menubar: false,
         plugins: 'lists link image table code help',
