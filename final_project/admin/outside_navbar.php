@@ -8,16 +8,16 @@
                 <a class="nav-link" href="../admin_home.php" id="gameManagementLink">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../game_management.php" id="gameManagementLink">Game Management</a>
+                <a class="nav-link" href="../game_management.php" id="gameManagementLink">Game</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../user_management.php" id="userManagementLink">User Management</a>
+                <a class="nav-link" href="../user_management.php" id="userManagementLink">User</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../terms_condition.php" id="termsLink">Terms and Conditions</a>
+                <a class="nav-link" href="../terms_condition.php" id="termsLink">T&C</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../games_slots.php" id="viewSlotsLink">View Slots</a>
+                <a class="nav-link" href="../games_slots.php" id="viewSlotsLink">Slots</a>
             </li>
         </ul>
     </div>
