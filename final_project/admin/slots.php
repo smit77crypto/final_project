@@ -47,10 +47,13 @@ function fetchSlotData($game_id, $date) {
 
     $booked_slots_data = json_decode($booked_response, true);
 
+    // Extract booked slots from the response
+    $booked_slots = array_column($booked_slots_data['booked_slots'], 'slot');
+
     // Compare and remove booked slots from available slots
     $available_slots = [];
     foreach ($slots_data['slots'] as $index => $slot) {
-        if (!in_array($slot, $booked_slots_data['booked_slots'])) {
+        if (!in_array($slot, $booked_slots)) {
             $available_slots[] = [
                 'time' => $slot,
                 'filter' => $slots_data['filter'][$index]
@@ -60,7 +63,8 @@ function fetchSlotData($game_id, $date) {
 
     return [
         'name' => $slots_data['name'],
-        'available_slots' => $available_slots
+        'available_slots' => $available_slots,
+        'booked_slots' => $booked_slots_data['booked_slots']
     ];
 }
 
@@ -76,6 +80,7 @@ if (isset($slots_data['error'])) {
 
 $name = $slots_data['name'];
 $available_slots = $slots_data['available_slots'];
+$booked_slots = $slots_data['booked_slots'];
 
 // Get the selected filter (default is All)
 $selected_filter = isset($_GET['filter']) ? $_GET['filter'] : 'All';
@@ -92,6 +97,11 @@ $filtered_slots = array_filter($available_slots, function ($slot) use ($selected
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Slots</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="path/to/bootstrap.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="css/navbar.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -154,9 +164,30 @@ $filtered_slots = array_filter($available_slots, function ($slot) use ($selected
             background-color: #4CAF50;
             color: #fff;
         }
+        .booked-details {
+            margin-top: 40px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .booked-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .booked-table th, .booked-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+        .booked-table th {
+            background-color: #ff4444;
+            color: white;
+        }
     </style>
 </head>
 <body>
+<?php include "navbar.php" ?>
     <h1><?php echo strtoupper($name); ?> Slots</h1>
     <div class="date-picker">
         <?php
@@ -201,6 +232,38 @@ $filtered_slots = array_filter($available_slots, function ($slot) use ($selected
             echo "<p>No slots available.</p>";
         }
         ?>
+    </div>
+
+    <!-- Booked Slots Details Section -->
+    <div class="booked-details">
+        <h2>Booked Slots Details</h2>
+        <table class="booked-table">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Slot</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                if (!empty($booked_slots)) {
+                    foreach ($booked_slots as $booking) {
+                        echo '
+                        <tr>
+                            <td>' . htmlspecialchars($booking['username']) . '</td>
+                            <td>' . htmlspecialchars($booking['phone_no']) . '</td>
+                            <td>' . htmlspecialchars($booking['email']) . '</td>
+                            <td>' . htmlspecialchars($booking['slot']) . '</td>
+                        </tr>';
+                    }
+                } else {
+                    echo '<tr><td colspan="4">No slots booked for this date.</td></tr>';
+                }
+                ?>
+            </tbody>
+        </table>
     </div>
 </body>
 </html>
