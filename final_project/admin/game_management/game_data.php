@@ -16,51 +16,97 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $gameImage = $_FILES['gameImage'];
     $sliderImage = $_FILES['sliderImage'];
 
+    $gameImage = isset($gameImage) ? $gameImage : null;
+    $sliderImage = isset($sliderImage) ? $sliderImage : null;
+
     // Validate images and move them to a folder
     $uploadDir = "uploads/";
 
     // Define a default path in case of empty image
-    $defaultGameImagePath = "uploads/rick.jpg";
-    $defaultSliderImagePath = "uploads/rick.jpg";
+    $defaultGameImagePath = "uploads/default_card.jpg";
+    $defaultSliderImagePath = "uploads/default_slider.jpg";
 
     // Game Image
-    if (empty($gameImage['name'])) {
-        // Set to default path if no image is uploaded
-        $gameImagePath = $defaultGameImagePath;
-    } else {
-        $gameImageName = $gameImage['name'];
-        $gameImageTmpName = $gameImage['tmp_name'];
-        $gameImageExt = strtolower(pathinfo($gameImageName, PATHINFO_EXTENSION));
-        $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
-
-        if (!in_array($gameImageExt, $allowedExtensions)) {
-            echo "Invalid game image format. Only JPG, JPEG, PNG, GIF allowed.";
-            exit;
+    // Game Image Logic
+if (empty($gameImage['name'])) {
+    // If no image is uploaded, check if $gameId exists
+    if ($gameId) {
+        $query = "SELECT card_image FROM games WHERE id = $gameId"; // Normal query with $gameId directly
+        $result = $conn->query($query);  // Execute the query directly
+        
+        // Check if query returns a result
+        if ($result && $row = $result->fetch_assoc()) {
+            // If there's a result, use the image path from the database
+            if (!empty($row['card_image'])) {
+                $gameImagePath = $row['card_image'];
+            } else {
+                $gameImagePath = $defaultGameImagePath;
+            }
+        } else {
+            $gameImagePath = $defaultGameImagePath;
         }
+    } else {
+        $gameImagePath = $defaultGameImagePath; // If no $gameId, use default game image
+    }
+} else {
+    // If a game image is uploaded, handle it
+    $gameImageName = $gameImage['name'];
+    $gameImageTmpName = $gameImage['tmp_name'];
+    $gameImageExt = strtolower(pathinfo($gameImageName, PATHINFO_EXTENSION));
+    $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
 
-        // If the image is valid, move it to the upload directory
-        $gameImagePath = $uploadDir . basename($gameImageName);
-        move_uploaded_file($gameImageTmpName, $gameImagePath);
+    // Check if the image extension is valid
+    if (!in_array($gameImageExt, $allowedExtensions)) {
+        echo "Invalid game image format. Only JPG, JPEG, PNG, GIF allowed.";
+        exit;
     }
 
-    // Slider Image
-    if (empty($sliderImage['name'])) {
-        // Set to default path if no image is uploaded
-        $sliderImagePath = $defaultSliderImagePath;
-    } else {
-        $sliderImageName = $sliderImage['name'];
-        $sliderImageTmpName = $sliderImage['tmp_name'];
-        $sliderImageExt = strtolower(pathinfo($sliderImageName, PATHINFO_EXTENSION));
+    // If the image is valid, move it to the upload directory
+    $gameImagePath = $uploadDir . basename($gameImageName);
+    move_uploaded_file($gameImageTmpName, $gameImagePath);
+}
 
-        if (!in_array($sliderImageExt, $allowedExtensions)) {
-            echo "Invalid slider image format. Only JPG, JPEG, PNG, GIF allowed.";
-            exit;
+
+   
+   // Slider Image Logic
+if (empty($sliderImage['name'])) {
+    // If no image is uploaded, check if $gameId exists
+    if ($gameId) {
+        $query = "SELECT slider_image FROM games WHERE id = $gameId"; // Normal query with $gameId directly
+        $result = $conn->query($query);  // Execute the query directly
+        
+        // Check if query returns a result
+        if ($result && $row = $result->fetch_assoc()) {
+            // If there's a result, use the image path from the database
+            if (!empty($row['slider_image'])) {
+                $sliderImagePath = $row['slider_image'];
+            } else {
+                $sliderImagePath = $defaultSliderImagePath;
+            }
+        } else {
+            $sliderImagePath = $defaultSliderImagePath;
         }
-
-        // If the image is valid, move it to the upload directory
-        $sliderImagePath = $uploadDir . basename($sliderImageName);
-        move_uploaded_file($sliderImageTmpName, $sliderImagePath);
+    } else {
+        $sliderImagePath = $defaultSliderImagePath; // If no $gameId, use default slider image
     }
+} else {
+    // If a slider image is uploaded, handle it
+    $sliderImageName = $sliderImage['name'];
+    $sliderImageTmpName = $sliderImage['tmp_name'];
+    $sliderImageExt = strtolower(pathinfo($sliderImageName, PATHINFO_EXTENSION));
+
+    // Allowed image formats
+    $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+
+    if (!in_array($sliderImageExt, $allowedExtensions)) {
+        echo "Invalid slider image format. Only JPG, JPEG, PNG, GIF allowed.";
+        exit;
+    }
+
+    // If the image is valid, move it to the upload directory
+    $sliderImagePath = $uploadDir . basename($sliderImageName);
+    move_uploaded_file($sliderImageTmpName, $sliderImagePath);
+}
 
     // Now you can use $gameImagePath and $sliderImagePath as the paths to your images
     if ($gameId) {

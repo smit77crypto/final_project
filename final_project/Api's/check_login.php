@@ -86,28 +86,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     'user_phone' => $user['phone_no'],
                     'user_email' => $user['email'],
                     'full_name' => $user['full_name'],
-                    'membership_id' => $user['membership_id'],
-                    'iat' => time(), // Issued at time
-                    'exp' => time() + 3600 // Expiration time (1 hour from now)
+                    'membership_id' => $user['membership_id']
                 ];
                 // JWT Secret Key (should be securely stored in environment or config file)
                 $secret_key = 'yo12ur';  // Replace this with your actual secret key
 
                 // Generate the JWT token
                 $jwt = JWT::encode($payload, $secret_key,'HS256');
-                // Send the JWT as a cookie (optional: Secure, HttpOnly for better security)
-                setcookie("auth_token", $jwt, [
-                    'expires' => time() + 3600,
-                    'path' => '/',
-                    'secure' => true,
-                    'httponly' => true,
-                    'samesite' => 'None'
-                ]);// 1-hour expiration
+                // Send the JWT as a cookie (optional: Secure, HttpOnly for better security
 
                 // Respond with the success message and JWT token
                 echo json_encode([
                     'success' => true,
-                    'message' => 'Login successful'
+                    'message' => 'Login successful',
+                    'token' => $jwt
                 ]);
             } else {
                 // Account is deactivated (deleteval != 1)

@@ -72,6 +72,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!preg_match("/^[a-zA-Z\s]+$/", $full_name)) {
         $errors['full_name'] = 'Please enter a valid name (only alphabets and one space allowed).';
     }
+    include('../connect_database.php');
+
+    // Validate username (check if it exists)
+    $sql_check_phone = "SELECT * FROM register WHERE phone_no = ? AND id != ?";
+    $stmt_check_phone = $conn->prepare($sql_check_phone);
+    $stmt_check_phone->bind_param("si", $phone_no, $userId);
+    $stmt_check_phone->execute();
+    $result_check_phone = $stmt_check_phone->get_result();
+    if ($result_check_phone->num_rows > 0) {
+        $errors['phone_no'] = 'phone No. already exists. Please choose another one.';
+    }
 
     // Validate phone number (10 digits)
     if (!preg_match("/^\d{10}$/", $phone_no)) {
