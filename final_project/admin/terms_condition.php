@@ -30,7 +30,6 @@ $updatedAt = $termsData['updated_at'] ?? '';
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/terms_condition.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 </head>
 
 <body>
@@ -39,12 +38,11 @@ $updatedAt = $termsData['updated_at'] ?? '';
     <div class="container">
         <h1>Terms & Conditions</h1>
         <div class="textarea-container">
-            <textarea id="terms"><?php echo htmlspecialchars($terms); ?></textarea>
+            <textarea id="terms" class="form-control" rows="10"><?php echo htmlspecialchars($terms); ?></textarea>
         </div>
         <div class="form-actions">
             <button id="save" class="btn btn-save"><i class="fa-solid fa-floppy-disk"></i></button>
-            <button id="cancel" class="btn btn-cancel" onclick="window.location.href='admin_home.php'"><i
-                    class="fa-solid fa-rectangle-xmark"></i></button>
+            <button id="cancel" class="btn btn-cancel" onclick="window.location.href='admin_home.php'"><i class="fa-solid fa-rectangle-xmark"></i></button>
         </div>
     </div>
 
@@ -55,22 +53,7 @@ $updatedAt = $termsData['updated_at'] ?? '';
     </div>
     
     <script>
-    tinymce.init({
-        selector: '#terms',
-        license_key: 'gpl',
-        height: 400,
-        menubar: false,
-        plugins: 'lists link image table code help',
-        toolbar: 'undo redo | formatselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image table | code help',
-        setup: function (editor) {
-            editor.on('change', function () {
-                editor.save();
-            });
-        }
-    });
-
     $("#save").click(function() {
-        tinymce.triggerSave();
         $.post("terms_condition.php", {
             terms: $("#terms").val()
         }, function(response) {
@@ -88,7 +71,7 @@ $updatedAt = $termsData['updated_at'] ?? '';
             }
         });
     });
-
+    
     $("#cancel").click(function() {
         window.location.href = "#";
     });
