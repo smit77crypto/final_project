@@ -61,12 +61,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             // Execute the query
             if ($stmt_insert->execute()) {
+                
                 echo json_encode(['success' => true, 'message' => 'Game booked successfully.']);
             } else {
                 echo json_encode(['success' => false, 'message' => 'Failed to book game: ' . $stmt_insert->error]);
             }
-
-            // Close the statement
             $stmt_insert->close();
         } else {
             echo json_encode(['success' => false, 'message' => 'Failed to prepare insert query']);

@@ -39,18 +39,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             // Execute the statement
             if ($stmt->execute()) {
-                // If the update was successful
-                echo json_encode(['status' => 'success', 'message' => 'Membership ID updated successfully']);
+                $query = "SELECT * FROM register WHERE username = ? LIMIT 1";
+                $stmt = $conn->prepare($query);
+                $stmt->bind_param('s', $username); // 's' indicates the parameter type is string
+                $stmt->execute();
+                // Get the result
+                $user = $stmt->get_result();
+                $payload = [
+                    'username' => $user['username'],
+                    'user_id' => $user['id'],
+                    'user_phone' => $user['phone_no'],
+                    'user_email' => $user['email'],
+                    'full_name' => $user['full_name'],
+                    'membership_id' => $user['membership_id']
+                ];
+                           
+                $secret_key = 'yo12ur'; 
+                $jwt = JWT::encode($payload, $secret_key,'HS256');
+                            
+                echo json_encode(['success' => true, 'message' => 'Membership updated successfully','token'=> $jwt]);
             } else {
                 // If the query failed
-                echo json_encode(['status' => 'error', 'message' => 'Failed to update membership ID: ' . $stmt->error]);
+                echo json_encode(['success' => false, 'message' => 'Failed to update membership ID: ' . $stmt->error]);
             }
 
             // Close the prepared statement
             $stmt->close();
         } else {
             // If preparing the query failed
-            echo json_encode(['status' => 'error', 'message' => 'Failed to prepare the update query']);
+            echo json_encode(['success' => false, 'message' => 'Failed to prepare the update query']);
         }
 
         // Close the database connection
@@ -58,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
     } catch (Exception $e) {
         // If the token is invalid or expired
-        echo json_encode(['status' => 'error', 'message' => 'Invalid token or error: ' . $e->getMessage()]);
+        echo json_encode(['success' => false, 'message' => 'Invalid token or error: ' . $e->getMessage()]);
     }
 }
 ?>
