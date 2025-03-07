@@ -11,7 +11,56 @@ header('Content-Type: application/json');
 require_once '../admin/vendor/autoload.php'; // Ensure this points to the correct autoload file for JWT
 use \Firebase\JWT\JWT;
 use \Firebase\JWT\Key;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
+
+function sendEmail( $name,$email, $phone, $slots, $date, $submission_time) {
+    $smtp_pw = trim(file_get_contents('my.txt'));
+
+    $mail = new PHPMailer(true);
+    try {
+        // SMTP Configuration
+        $mail->isSMTP();
+        $mail->Host       = 'smtp.gmail.com'; // Gmail SMTP Server
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'sohan11903@gmail.com'; // Your Gmail
+        $mail->Password   = $smtp_pw; // Use Gmail App Password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // SSL
+        $mail->Port       = 465;
+
+        // Sender and recipient
+        $mail->setFrom('sohan11903@gmail.com', 'Sohan');
+        $mail->addAddress($email, $name);
+        $mail->addReplyTo('sohan11903@gmail.com', 'Sohan');
+
+        // Email content
+        $mail->isHTML(true);
+        $mail->Subject =  "New Contact Us Message from " . htmlspecialchars($name);
+        $mail->Body = '<h3>Hello ' . htmlspecialchars($name) . ',</h3>
+            <p>message from user</p>
+            <ul>
+                <li><b>Name:</b> ' . htmlspecialchars($name) . '</li>
+                <li><b>Email:</b> ' . htmlspecialchars($email) . '</li>
+                <li><b>Phone No:</b> ' . htmlspecialchars($phone) . '</li>
+                <li><b>Message Send At:</b> ' . htmlspecialchars($submission_time) . '</li>
+            </ul>
+            <h4>Slot Detail:-</h4>
+            <p>Game Name'. htmlspecialchars($game_name).'</p>
+            <p>slot-time'. htmlspecialchars($slot).'</p>
+            <p>slot-Date'. htmlspecialchars($date).'</p>
+            <p>Best Regards,<br> '. htmlspecialchars($name) .' </p>';
+        $mail->AltBody = '';
+
+        // Send email
+        $mail->send();
+        return true;
+    } catch (Exception $e) {
+        // Error message to debug email sending issues
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        return false;
+    }
+}
 // Include database connection
 include 'db_connect.php'; // Ensure db_connect.php is correctly configured
 
@@ -63,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             http_response_code(200); // Conflict
             exit();
         }
-
+        
         // Prepare the SQL query for inserting booking data into the book_game table
         $sql_insert = "INSERT INTO book_game (username, email, phone_no, game_name, slot, book_date) 
                        VALUES (?, ?, ?, ?, ?, ?)";
@@ -74,6 +123,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             // Execute the query
             if ($stmt_insert->execute()) {
+                $submission_time = date('Y-m-d H:i:s');
+                sendEmail($name, $email, $phone, $game_name, $slot, $date, $submission_time);
                 echo json_encode(['success' => true, 'message' => 'Game booked successfully.']);
             } else {
                 echo json_encode(['success' => false, 'message' => 'Failed to book game: ' . $stmt_insert->error]);

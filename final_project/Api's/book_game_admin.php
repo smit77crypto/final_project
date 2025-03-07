@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Prepare a query to check if the phone number exists in the 'register' table
-    $sql_check_user = "SELECT username, email FROM register WHERE phone_no = ?";
+    $sql_check_user = "SELECT username, email, membership_id FROM register WHERE phone_no = ?";
     $stmt_check_user = $conn->prepare($sql_check_user);
     $stmt_check_user->bind_param('s', $phone);
     $stmt_check_user->execute();
@@ -55,23 +55,72 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($user = $result_user->fetch_assoc()) {
         $username = $user['username'];
         $email = $user['email'];
+        $membership_id = $user['membership_id'];  
     } else {
         echo json_encode(['success' => false, 'message' => 'Phone number is not registered']);
         exit();
-    }
+    } 
 
     // Close the user check query
     $stmt_check_user->close();
 
+    // Convert the date to YYYY-MM-DD format if it is in YYYY/MM/DD format
+    $formattedDate = DateTime::createFromFormat('Y/m/d', $date);
+    if ($formattedDate === false) {
+        echo json_encode(['success' => false, 'message' => 'Invalid date format. Expected format: YYYY/MM/DD']);
+        exit();
+    }
+    $formattedDate = $formattedDate->format('Y-m-d'); // Format to YYYY-MM-DD for database comparison
+
+    // Logic to check if the booking date is allowed based on membership_id
+    $currentDate = new DateTime(); // Today's date
+    $currentDateString = $currentDate->format('Y-m-d'); // Format the current date as YYYY-MM-DD
+
+    $allowedBookingDate = false; // Default is false, until validated
+
+    switch ($membership_id) {
+        case 1:
+            // Membership 1: Can book only today
+            if ($formattedDate === $currentDateString) {
+                $allowedBookingDate = true;
+            } else {
+                echo json_encode(['success' => false, 'message' => 'You can only book for today.']);
+                exit();
+            }
+            break;
+        case 2:
+            // Membership 2: Can book today and tomorrow
+            $tomorrow = $currentDate->modify('+1 day')->format('Y-m-d');
+            if ($formattedDate === $currentDateString || $formattedDate === $tomorrow) {
+                $allowedBookingDate = true;
+            } else {
+                echo json_encode(['success' => false, 'message' => 'You can only book for today or tomorrow.']);
+                exit();
+            }
+            break;
+        case 3:
+            // Membership 3: Can book any day
+            $allowedBookingDate = true; // No date restrictions
+            break;
+        default:
+            echo json_encode(['success' => false, 'message' => 'Invalid membership ID']);
+            exit();
+    }
+
+    if (!$allowedBookingDate) {
+        echo json_encode(['success' => false, 'message' => 'Booking date is not allowed based on your membership.']);
+        exit();
+    }
+
     // Check if the slot is already booked for the given game and date
     $sql_check_slot = "SELECT id FROM book_game WHERE game_name = ? AND book_date = ? AND slot = ?";
     $stmt_check_slot = $conn->prepare($sql_check_slot);
-    $stmt_check_slot->bind_param('sss', $game_name, $date, $slot);
+    $stmt_check_slot->bind_param('sss', $game_name, $formattedDate, $slot);
     $stmt_check_slot->execute();
     $result_check_slot = $stmt_check_slot->get_result();
 
     if ($result_check_slot->num_rows > 0) {
-        echo json_encode(['success' => false, 'message' => 'Slot already booked for this game and date.refresh your page']);
+        echo json_encode(['success' => false, 'message' => 'Slot already booked for this game and date. Refresh your page']);
         exit();
     }
 
@@ -81,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($stmt_insert = $conn->prepare($sql_insert)) {
         // Bind the parameters to the prepared statement
-        $stmt_insert->bind_param("ssssss", $username, $email, $phone, $game_name, $slot, $date);
+        $stmt_insert->bind_param("ssssss", $username, $email, $phone, $game_name, $slot, $formattedDate);
 
         // Execute the query
         if ($stmt_insert->execute()) {

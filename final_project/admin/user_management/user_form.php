@@ -88,6 +88,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!preg_match("/^\d{10}$/", $phone_no)) {
         $errors['phone_no'] = 'Please enter a valid phone number (10 digits).';
     }
+    $sql_check_email = "SELECT * FROM register WHERE email = ? AND id != ?";
+    $stmt_check_email = $conn->prepare($sql_check_email);
+    $stmt_check_email->bind_param("si", $email, $userId);
+    $stmt_check_email->execute();
+    $result_check_email = $stmt_check_email->get_result();
+    if ($result_check_email->num_rows > 0) {
+        $errors['email'] = 'Email ID already exists. Please choose another one.';
+    }
 
     // Validate email (check format)
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {

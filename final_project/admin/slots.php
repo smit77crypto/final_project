@@ -69,7 +69,7 @@ function fetchSlotData($game_id, $date) {
 }
 
 // Get the selected date (default is today)
-$selected_date = isset($_GET['date']) ? $_GET['date'] : date("Y-m-d");
+$selected_date = isset($_GET['date']) ? $_GET['date'] : date("Y/m/d");
 
 // Fetch slot data for the selected date
 $slots_data = fetchSlotData($game_id, $selected_date);
@@ -112,15 +112,15 @@ $filtered_slots = array_filter($available_slots, function ($slot) use ($selected
     $dates = [
         [
             'label' => '<small>' . date("M") . '</small><br><span class="date-large">' . date("j") . '</span><br><small>' . date("Y") . '</small>', // Today
-            'date' => date("Y-m-d")
+            'date' => date("Y/m/d")
         ],
         [
             'label' => '<small>' . date("M", strtotime("+1 day")) . '</small><br><span class="date-large">' . date("j", strtotime("+1 day")) . '</span><br><small>' . date("Y", strtotime("+1 day")) . '</small>', // Tomorrow
-            'date' => date("Y-m-d", strtotime("+1 day"))
+            'date' => date("Y/m/d", strtotime("+1 day"))
         ],
         [
             'label' => '<small>' . date("M", strtotime("+2 days")) . '</small><br><span class="date-large">' . date("j", strtotime("+2 days")) . '</span><br><small>' . date("Y", strtotime("+2 days")) . '</small>', // Day After
-            'date' => date("Y-m-d", strtotime("+2 days"))
+            'date' => date("Y/m/d", strtotime("+2 days"))
         ]
     ];
 
