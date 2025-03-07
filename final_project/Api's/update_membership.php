@@ -28,7 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Decode the JWT token to get the username
         $decode = JWT::decode($token, new Key($secret_key, 'HS256'));
         $username = $decode->username; // Extract username from decoded token
-
         // SQL query to update the membership_id for the given username
         $sql = "UPDATE register SET membership_id = ? WHERE username = ?";
 
@@ -39,23 +38,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             // Execute the statement
             if ($stmt->execute()) {
+                // Query to select the user by username
                 $query = "SELECT * FROM register WHERE username = ? LIMIT 1";
                 $stmt = $conn->prepare($query);
                 $stmt->bind_param('s', $username); // 's' indicates the parameter type is string
                 $stmt->execute();
+
                 // Get the result
-                $user = $stmt->get_result();
-                $payload = [
-                    'username' => $user['username'],
-                    'user_id' => $user['id'],
-                    'user_phone' => $user['phone_no'],
-                    'user_email' => $user['email'],
-                    'full_name' => $user['full_name'],
-                    'membership_id' => $user['membership_id']
-                ];
-                           
-                $secret_key = 'yo12ur'; 
-                $jwt = JWT::encode($payload, $secret_key,'HS256');
+                $result = $stmt->get_result();
+
+                // Check if a user was found
+                if ($user = $result->fetch_assoc()) {
+                    // Prepare the payload
+                    $payload = [
+                        'username' => $user['username'],
+                        'user_id' => $user['id'],
+                        'user_phone' => $user['phone_no'],
+                        'user_email' => $user['email'],
+                        'full_name' => $user['full_name'],
+                        'membership_id' => $user['membership_id']
+                    ];
+                    // Secret key for encoding the JWT
+                    $secret_key = 'yo12ur'; 
+                    
+                    // Use the JWT library to encode the payload
+                    $jwt = JWT::encode($payload, $secret_key, 'HS256');
+
+                    // Output the JWT token (or return it)
+                } else {
+                    echo "User not found.";
+                }
+
                             
                 echo json_encode(['success' => true, 'message' => 'Membership updated successfully','token'=> $jwt]);
             } else {

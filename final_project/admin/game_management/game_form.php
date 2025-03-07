@@ -78,7 +78,7 @@ $selectedSlots = !empty($slots) ? explode(',', $slots) : [];
                     <div class="slot-filter">
                         <button onclick="filterSlots('30min')" class="active">30 mins</button>
                         <button onclick="filterSlots('1hr')" class="active">1 hour</button>
-                        <button onclick="filterSlots('both')" class="active">Both</button>
+                        <button onclick="filterSlots('both')" class="active">All</button>
                     </div>
 
                     <!-- Time Slots Sections -->

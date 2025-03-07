@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($result_game_name->num_rows > 0) {
         $game_row = $result_game_name->fetch_assoc();
         $game_name = $game_row['name']; 
-        echo $game_name;
+        
     } else {
         echo json_encode(['message' => 'Game not found']);
     }

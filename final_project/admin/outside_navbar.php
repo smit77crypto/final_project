@@ -8,16 +8,16 @@
                 <a class="nav-link" href="../admin_home.php" id="gameManagementLink">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../game_management.php" id="gameManagementLink">Game</a>
+                <a class="nav-link" href="../game_management.php" id="gameManagementLink">Game Management</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../user_management.php" id="userManagementLink">User</a>
+                <a class="nav-link" href="../user_management.php" id="userManagementLink">User Management</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../terms_condition.php" id="termsLink">T&C</a>
+                <a class="nav-link" href="../terms_condition.php" id="termsLink">Terms & Condition</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../games_slots.php" id="viewSlotsLink">Slots</a>
+                <a class="nav-link" href="../games_slots.php" id="viewSlotsLink">View Slots</a>
             </li>
         </ul>
     </div>
@@ -34,8 +34,8 @@
     <div class="mobile-menu">
         <i class="fa-solid fa-bars"></i>
     </div>
-    <div class="right">
-        <img src="uploads/gip_logo.png" alt="logo" width="50px" height="50px">
+    <div class="logo">
+        <img src="../uploads/gip_logo.png" alt="logo" width="50px" height="50px">
     </div>
     
     <div class="right">
