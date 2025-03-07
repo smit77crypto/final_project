@@ -100,6 +100,7 @@ $filtered_slots = array_filter($available_slots, function ($slot) use ($selected
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/view_slots.css">
 </head>
@@ -107,22 +108,31 @@ $filtered_slots = array_filter($available_slots, function ($slot) use ($selected
 <?php include "navbar.php" ?>
     <h1><?php echo strtoupper($name); ?> Slots</h1>
     <div class="date-picker">
-        <?php
-        $dates = [
-            date("M j, Y") => date("Y-m-d"), // Today
-            date("M j, Y", strtotime("+1 day")) => date("Y-m-d", strtotime("+1 day")), // Tomorrow
-            date("M j, Y", strtotime("+2 days")) => date("Y-m-d", strtotime("+2 days")) // Day After
-        ];
+    <?php
+    $dates = [
+        [
+            'label' => '<small>' . date("M") . '</small><br><span class="date-large">' . date("j") . '</span><br><small>' . date("Y") . '</small>', // Today
+            'date' => date("Y-m-d")
+        ],
+        [
+            'label' => '<small>' . date("M", strtotime("+1 day")) . '</small><br><span class="date-large">' . date("j", strtotime("+1 day")) . '</span><br><small>' . date("Y", strtotime("+1 day")) . '</small>', // Tomorrow
+            'date' => date("Y-m-d", strtotime("+1 day"))
+        ],
+        [
+            'label' => '<small>' . date("M", strtotime("+2 days")) . '</small><br><span class="date-large">' . date("j", strtotime("+2 days")) . '</span><br><small>' . date("Y", strtotime("+2 days")) . '</small>', // Day After
+            'date' => date("Y-m-d", strtotime("+2 days"))
+        ]
+    ];
 
-        foreach ($dates as $label => $date) {
-            $is_active = ($date === $selected_date) ? 'active' : '';
-            echo '
-            <a href="slots.php?game_id=' . $game_id . '&date=' . $date . '&filter=' . $selected_filter . '">
-                <button class="' . $is_active . '">' . $label . '</button>
-            </a>';
-        }
-        ?>
-    </div>
+    foreach ($dates as $date) {
+        $is_active = ($date['date'] === $selected_date) ? 'active' : '';
+        echo '
+        <a href="slots.php?game_id=' . $game_id . '&date=' . $date['date'] . '&filter=' . $selected_filter . '">
+            <button class="' . $is_active . '">' . $date['label'] . '</button>
+        </a>';
+    }
+    ?>
+</div>
     <div class="filter-buttons">
         <?php
         $filters = ['All', '30min', '1hr'];
@@ -187,6 +197,7 @@ $filtered_slots = array_filter($available_slots, function ($slot) use ($selected
     <div id="popup">
         <h3>Book Slot</h3>
         <input type="text" id="phoneNumber" placeholder="Enter Phone Number" maxlength="10">
+        <span id="phone_status"></span>
         <button id="submitBooking" disabled>Submit</button>
         <button id="closePopup">Close</button>
     </div>
@@ -224,6 +235,34 @@ $filtered_slots = array_filter($available_slots, function ($slot) use ($selected
                 submitButton.disabled = true;
             }
         });
+
+        <!-- jQuery & AJAX -->
+$(document).ready(function(){
+    $("#phone_number").on("keyup", function(){
+        let phone = $(this).val().trim();
+        
+        if (phone.length === 10 && /^\d{10}$/.test(phone)) { 
+            // Send AJAX request to check in database
+            $.ajax({
+                url: "check_phone.php", // Backend script
+                type: "POST",
+                data: { phone: phone },
+                success: function(response) {
+                    if (response === "exists") {
+                        $("#phone_status").text("✔ Phone number is valid")
+                                          .css("color", "green");
+                    } else {
+                        $("#phone_status").text("✖ Phone number is not registered")
+                                          .css("color", "red");
+                    }
+                }
+            });
+        } else {
+            $("#phone_status").text("Phone number must be 10 digits")
+                              .css("color", "red");
+        }
+    });
+});
 
         // Submit booking to API
         submitButton.addEventListener('click', async () => {
