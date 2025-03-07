@@ -98,91 +98,210 @@ $filtered_slots = array_filter($available_slots, function ($slot) use ($selected
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Slots</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="path/to/bootstrap.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="css/navbar.css">
     <style>
+        /* General Styles */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
             margin: 0;
             padding: 20px;
         }
+
         h1 {
-            font-size: 2rem;
-            color: #333;
+            font-size: 2.5rem;
+            color: #dc3545;
+            text-align: center;
+            margin-bottom: 20px;
         }
+
+        /* Date Picker Styles */
         .date-picker {
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
+            justify-content: flex-start;
         }
+
         .date-picker button {
             padding: 10px 20px;
-            border: none;
+            border: 2px solid #dc3545;
             border-radius: 5px;
-            background-color: #ddd;
+            background-color: white;
+            color: #dc3545;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            font-weight: bold;
         }
+
         .date-picker button.active {
-            background-color: #ff4444;
-            color: #fff;
+            background-color: #dc3545;
+            color: white;
         }
+
+        .date-picker button:hover {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        /* Filter Buttons Styles */
         .filter-buttons {
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
+            justify-content: flex-end;
         }
+
         .filter-buttons button {
             padding: 10px 20px;
-            border: none;
+            border: 2px solid #dc3545;
             border-radius: 5px;
-            background-color: #ddd;
+            background-color: white;
+            color: #dc3545;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            font-weight: bold;
         }
+
         .filter-buttons button.active {
-            background-color: #ff4444;
-            color: #fff;
+            background-color: #dc3545;
+            color: white;
         }
+
+        .filter-buttons button:hover {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        /* Slots Container Styles */
         .slots-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: repeat(5, 1fr); /* Fixed 5 buttons per line */
             gap: 10px;
+            margin-bottom: 40px;
         }
+
         .slot-card {
-            background-color: #fff;
+            background-color: white;
+            border: 2px solid #dc3545;
             border-radius: 10px;
             padding: 15px;
             text-align: center;
+            color: #dc3545;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            cursor: pointer;
+            font-weight: bold;
         }
-        .slot-card.available {
-            background-color: #4CAF50;
-            color: #fff;
+
+        .slot-card.available:hover {
+            background-color: #dc3545;
+            color: white;
         }
+
+        .slot-card.booked {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            color: white;
+            cursor: not-allowed;
+        }
+
+        /* Booked Slots Details Section */
         .booked-details {
             margin-top: 40px;
-            background: #fff;
+            background: white;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
+
+        .booked-details h2 {
+            color: #dc3545;
+            margin-bottom: 20px;
+        }
+
         .booked-table {
             width: 100%;
             border-collapse: collapse;
         }
+
         .booked-table th, .booked-table td {
             padding: 12px;
             border-bottom: 1px solid #ddd;
             text-align: left;
         }
+
         .booked-table th {
-            background-color: #ff4444;
+            background-color: #dc3545;
             color: white;
+        }
+
+        /* Popup Styles */
+        #popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            width: 300px;
+        }
+
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        #popup h3 {
+            color: #dc3545;
+            margin-bottom: 15px;
+        }
+
+        #popup input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        #popup button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #dc3545;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #popup button:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+
+        #popup button:hover {
+            background-color: #a71d2a;
+        }
+
+        #closePopup {
+            background-color: #6c757d;
+        }
+
+        #closePopup:hover {
+            background-color: #5a6268;
         }
     </style>
 </head>
@@ -192,9 +311,9 @@ $filtered_slots = array_filter($available_slots, function ($slot) use ($selected
     <div class="date-picker">
         <?php
         $dates = [
-            'Today' => date("Y-m-d"),
-            'Tomorrow' => date("Y-m-d", strtotime("+1 day")),
-            'Day After' => date("Y-m-d", strtotime("+2 days"))
+            date("M j, Y") => date("Y-m-d"), // Today
+            date("M j, Y", strtotime("+1 day")) => date("Y-m-d", strtotime("+1 day")), // Tomorrow
+            date("M j, Y", strtotime("+2 days")) => date("Y-m-d", strtotime("+2 days")) // Day After
         ];
 
         foreach ($dates as $label => $date) {
@@ -223,9 +342,8 @@ $filtered_slots = array_filter($available_slots, function ($slot) use ($selected
         if (!empty($filtered_slots)) {
             foreach ($filtered_slots as $slot) {
                 echo '
-                <div class="slot-card available">
+                <div class="slot-card available" data-slot="' . $slot['time'] . '" data-filter="' . $slot['filter'] . '">
                     <p>' . $slot['time'] . '</p>
-                    <p>' . $slot['filter'] . '</p>
                 </div>';
             }
         } else {
@@ -265,5 +383,85 @@ $filtered_slots = array_filter($available_slots, function ($slot) use ($selected
             </tbody>
         </table>
     </div>
+
+    <!-- Popup for Booking -->
+    <div id="overlay"></div>
+    <div id="popup">
+        <h3>Book Slot</h3>
+        <input type="text" id="phoneNumber" placeholder="Enter Phone Number" maxlength="10">
+        <button id="submitBooking" disabled>Submit</button>
+        <button id="closePopup">Close</button>
+    </div>
+
+    <script>
+        // JavaScript for handling the popup and API submission
+        const overlay = document.getElementById('overlay');
+        const popup = document.getElementById('popup');
+        const phoneInput = document.getElementById('phoneNumber');
+        const submitButton = document.getElementById('submitBooking');
+        const closePopupButton = document.getElementById('closePopup');
+        let selectedSlot = null;
+
+        // Show popup when a slot is clicked
+        document.querySelectorAll('.slot-card.available').forEach(slot => {
+            slot.addEventListener('click', () => {
+                selectedSlot = slot.getAttribute('data-slot');
+                popup.style.display = 'block';
+                overlay.style.display = 'block';
+            });
+        });
+
+        // Close popup
+        closePopupButton.addEventListener('click', () => {
+            popup.style.display = 'none';
+            overlay.style.display = 'none';
+        });
+
+        // Validate phone number in real-time
+        phoneInput.addEventListener('input', () => {
+            const phone = phoneInput.value;
+            if (phone.length === 10 && /^\d+$/.test(phone)) {
+                submitButton.disabled = false;
+            } else {
+                submitButton.disabled = true;
+            }
+        });
+
+        // Submit booking to API
+        submitButton.addEventListener('click', async () => {
+            const phone = phoneInput.value;
+            const gameId = <?php echo $game_id; ?>;
+            const date = "<?php echo $selected_date; ?>";
+            const slot = selectedSlot;
+
+            const data = {
+                game_id: gameId,
+                date: date,
+                slot: slot,
+                phone_no: phone
+            };
+
+            try {
+                const response = await fetch('http://192.168.0.130/final_project/final_project/Api\'s/book_game_admin.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    alert('Slot booked successfully!');
+                    window.location.reload(); // Refresh the page
+                } else {
+                    alert('Failed to book slot: ' + result.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while booking the slot.');
+            }
+        });
+    </script>
 </body>
 </html>

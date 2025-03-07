@@ -70,7 +70,7 @@ $games = json_decode($response, true);
             foreach ($games as $game) {
                 echo '
                 <a href="slots.php?game_id=' . $game['id'] . '" class="game-card">
-                    <img src="http://192.168.0.130/final_project/final_project/' . $game['card_image'] . '" alt="' . $game['name'] . '">
+                    <img src="http://192.168.0.130/final_project/final_project/admin/' . $game['card_image'] . '" alt="' . $game['name'] . '">
                     <h3>' . $game['name'] . '</h3>
                     <p><span class="price">₹' . $game['half_hour'] . '</span> / 30 mins</p>
                     <p><span class="price">₹' . $game['hour'] . '</span> / 1 hr</p>
