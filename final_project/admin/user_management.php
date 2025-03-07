@@ -108,12 +108,13 @@ $result = $conn->query($sql);
     <!-- Records per page dropdown -->
     <div class="records-per-page">
         <form method="GET" action="">
-            <label for="recordsPerPage">Records per page:</label>
+            <label for="recordsPerPage">Show</label>
             <select name="recordsPerPage" id="recordsPerPage" onchange="this.form.submit()">
                 <option value="5" <?php echo $recordsPerPage == 5 ? 'selected' : ''; ?>>5</option>
                 <option value="10" <?php echo $recordsPerPage == 10 ? 'selected' : ''; ?>>10</option>
                 <option value="15" <?php echo $recordsPerPage == 15 ? 'selected' : ''; ?>>15</option>
             </select>
+            <label for="recordsPerPage">entries</label>
             <input type="hidden" name="search" value="<?php echo htmlspecialchars($searchTerm); ?>">
         </form>
     </div>

@@ -90,6 +90,10 @@ h2{
     border-radius:5px ;
 
 }
+.records-per-page{
+    padding-left: 29px;
+}
+
 @media (max-width: 768px) {
     .desktop-view {
         display: none;
