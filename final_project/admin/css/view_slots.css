@@ -1,0 +1,201 @@
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #dc3545;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Date Picker Styles */
+        .date-picker {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: flex-start;
+        }
+
+        .date-picker button {
+            padding: 10px 20px;
+            border: 2px solid #dc3545;
+            border-radius: 5px;
+            background-color: white;
+            color: #dc3545;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            font-weight: bold;
+        }
+
+        .date-picker button.active {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .date-picker button:hover {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        /* Filter Buttons Styles */
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: flex-end;
+        }
+
+        .filter-buttons button {
+            padding: 10px 20px;
+            border: 2px solid #dc3545;
+            border-radius: 5px;
+            background-color: white;
+            color: #dc3545;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            font-weight: bold;
+        }
+
+        .filter-buttons button.active {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .filter-buttons button:hover {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        /* Slots Container Styles */
+        .slots-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* Fixed 5 buttons per line */
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+
+        .slot-card {
+            background-color: white;
+            border: 2px solid #dc3545;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            color: #dc3545;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .slot-card.available:hover {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .slot-card.booked {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            color: white;
+            cursor: not-allowed;
+        }
+
+        /* Booked Slots Details Section */
+        .booked-details {
+            margin-top: 40px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .booked-details h2 {
+            color: #dc3545;
+            margin-bottom: 20px;
+        }
+
+        .booked-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .booked-table th, .booked-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .booked-table th {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        /* Popup Styles */
+        #popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            width: 300px;
+        }
+
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        #popup h3 {
+            color: #dc3545;
+            margin-bottom: 15px;
+        }
+
+        #popup input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        #popup button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #dc3545;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #popup button:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+
+        #popup button:hover {
+            background-color: #a71d2a;
+        }
+
+        #closePopup {
+            background-color: #6c757d;
+        }
+
+        #closePopup:hover {
+            background-color: #5a6268;
+        }
