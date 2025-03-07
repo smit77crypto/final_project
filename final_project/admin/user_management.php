@@ -158,15 +158,15 @@ $result = $conn->query($sql);
             <!-- Pagination Links -->
             <div class="pagination">
                 <?php if ($page > 1) : ?>
-                    <a href="?page=<?php echo $page - 1; ?>&search=<?php echo $searchTerm; ?>">Previous</a>
+                    <a href="?page=<?php echo $page - 1; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>">Previous</a>
                 <?php endif; ?>
 
                 <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
-                    <a href="?page=<?php echo $i; ?>&search=<?php echo $searchTerm; ?>" <?php echo ($page == $i) ? 'class="active"' : ''; ?>><?php echo $i; ?></a>
+                    <a href="?page=<?php echo $i; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>" <?php echo ($page == $i) ? 'class="active"' : ''; ?>><?php echo $i; ?></a>
                 <?php endfor; ?>
 
                 <?php if ($page < $totalPages) : ?>
-                    <a href="?page=<?php echo $page + 1; ?>&search=<?php echo $searchTerm; ?>">Next</a>
+                    <a href="?page=<?php echo $page + 1; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>">Next</a>
                 <?php endif; ?>
             </div>
         <?php else : ?>
@@ -174,18 +174,18 @@ $result = $conn->query($sql);
         <?php endif; ?>
     </div>
 
-                        <!-- Records per page dropdown -->
-                        <div class="records-per-page">
-                <form method="GET" action="">
-                    <label for="recordsPerPage">Records per page:</label>
-                    <select name="recordsPerPage" id="recordsPerPage" onchange="this.form.submit()">
-                        <option value="5" <?php echo $recordsPerPage == 5 ? 'selected' : ''; ?>>5</option>
-                        <option value="10" <?php echo $recordsPerPage == 10 ? 'selected' : ''; ?>>10</option>
-                        <option value="15" <?php echo $recordsPerPage == 15 ? 'selected' : ''; ?>>15</option>
-                    </select>
-                    <input type="hidden" name="search" value="<?php echo htmlspecialchars($searchTerm); ?>">
-                </form>
-            </div>
+    <!-- Records per page dropdown -->
+    <div class="records-per-page">
+        <form method="GET" action="">
+            <label for="recordsPerPage">Records per page:</label>
+            <select name="recordsPerPage" id="recordsPerPage" onchange="this.form.submit()">
+                <option value="5" <?php echo $recordsPerPage == 5 ? 'selected' : ''; ?>>5</option>
+                <option value="10" <?php echo $recordsPerPage == 10 ? 'selected' : ''; ?>>10</option>
+                <option value="15" <?php echo $recordsPerPage == 15 ? 'selected' : ''; ?>>15</option>
+            </select>
+            <input type="hidden" name="search" value="<?php echo htmlspecialchars($searchTerm); ?>">
+        </form>
+    </div>
 
     <script>
         function confirmDelete(userId) {
