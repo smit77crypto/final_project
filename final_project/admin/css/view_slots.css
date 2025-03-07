@@ -10,7 +10,8 @@ h1 {
     font-size: 2.5rem;
     color: #dc3545;
     text-align: center;
-    margin-bottom: 20px;
+    margin-top: 45px;
+    font-weight: bolder;
 }
 
 /* Date Picker Styles */
@@ -95,6 +96,10 @@ h1 {
     grid-template-columns: repeat(6, 1fr); /* Fixed 6 buttons per line */
     gap: 10px;
     margin-bottom: 40px;
+}
+
+p{
+    margin: 0px;
 }
 
 .slot-card {
@@ -229,6 +234,10 @@ h1 {
         grid-template-columns: repeat(4, 1fr); /* 4 buttons per line for tablets */
     }
 
+    .date-picker {
+        display: flex;
+    }
+
     .date-picker button {
         min-width: 70px; /* Slightly smaller buttons for tablets */
     }
@@ -249,7 +258,6 @@ h1 {
     }
 
     .date-picker {
-        flex-direction: column; /* Stack date buttons vertically */
         align-items: center;
     }
 
@@ -275,11 +283,43 @@ h1 {
         padding: 10px; /* Reduce padding for mobile */
     }
 
-    .booked-table th, .booked-table td {
-        padding: 8px; /* Smaller padding for mobile */
+    .booked-table {
+        display: none; /* Hide table on mobile */
     }
 
-    #popup {
-        width: 90%; /* Full width popup for mobile */
+    .booked-cards {
+        display: block; /* Show cards on mobile */
+    }
+
+    .booked-card {
+        background: white;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .booked-card p {
+        margin: 5px 0;
+    }
+
+    .booked-card p strong {
+        display: inline-block;
+        width: 80px;
+    }
+}
+
+/* Booked Cards Styles (for mobile) */
+.booked-cards {
+    display: none; /* Hide cards by default */
+}
+
+@media (max-width: 768px) {
+    .booked-cards {
+        display: block; /* Show cards on mobile */
+    }
+
+    .booked-table {
+        display: none; /* Hide table on mobile */
     }
 }

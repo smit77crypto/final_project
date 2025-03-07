@@ -8,8 +8,8 @@ $game_id = $_GET['game_id'];
 // Function to fetch slot data from the API
 function fetchSlotData($game_id, $date) {
     // Fetch all slots from the first API (slots_data.php)
-    $slots_api_url = "http://192.168.0.130/final_project/final_project/Api's/slots_data.php";
-    $slots_json_data = json_encode(['id' => $game_id]);
+    $slots_api_url = "http://192.168.0.130/final_project/final_project/Api's/filter_time.php";
+    $slots_json_data = json_encode(['id' => $game_id,"date" => $date]);
 
     $slots_options = [
         'http' => [
@@ -106,7 +106,7 @@ $filtered_slots = array_filter($available_slots, function ($slot) use ($selected
 </head>
 <body>
 <?php include "navbar.php" ?>
-    <h1><?php echo strtoupper($name); ?> Slots</h1>
+    <h1><?php echo ($name); ?> Slots</h1>
     <div class="date-picker">
     <?php
     $dates = [
@@ -201,6 +201,26 @@ $filtered_slots = array_filter($available_slots, function ($slot) use ($selected
         <button id="submitBooking" disabled>Submit</button>
         <button id="closePopup">Close</button>
     </div>
+
+    <!-- Booked Slots Cards for Mobile -->
+    <div class="booked-cards">
+        <?php
+        if (!empty($booked_slots)) {
+            foreach ($booked_slots as $booking) {
+                echo '
+                <div class="booked-card">
+                    <p><strong>Username:</strong> ' . htmlspecialchars($booking['username']) . '</p>
+                    <p><strong>Phone:</strong> ' . htmlspecialchars($booking['phone_no']) . '</p>
+                    <p><strong>Email:</strong> ' . htmlspecialchars($booking['email']) . '</p>
+                    <p><strong>Slot:</strong> ' . htmlspecialchars($booking['slot']) . '</p>
+                </div>';
+            }
+        } else {
+            echo '<p>No slots booked for this date.</p>';
+        }
+        ?>
+    </div>
+</div>
 
     <script>
         // JavaScript for handling the popup and API submission
