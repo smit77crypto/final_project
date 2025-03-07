@@ -1,10 +1,10 @@
 <?php
 include 'db.php'; // Database connection
 
-if (isset($_POST['phone_no'])) {
-    $phone = $_POST['phone_no'];
+if (isset($_POST['phone'])) {
+    $phone = $_POST['phone'];
     
-    $stmt = $conn->prepare("SELECT id FROM register WHERE phone_no = ?");
+    $stmt = $conn->prepare("SELECT id FROM users WHERE phone = ?");
     $stmt->bind_param("s", $phone);
     $stmt->execute();
     $stmt->store_result();
