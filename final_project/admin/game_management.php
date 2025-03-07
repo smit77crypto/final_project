@@ -120,7 +120,20 @@ if (!$result) {
             </a>
         </div>
     </div>
-
+    
+    <!-- Records per page dropdown -->
+    <div class="records-per-page">
+        <form method="GET" action="">
+            <label for="recordsPerPage">Records per page:</label>
+            <select name="recordsPerPage" id="recordsPerPage" onchange="this.form.submit()">
+                <option value="5" <?php echo $recordsPerPage == 5 ? 'selected' : ''; ?>>5</option>
+                <option value="10" <?php echo $recordsPerPage == 10 ? 'selected' : ''; ?>>10</option>
+                <option value="15" <?php echo $recordsPerPage == 15 ? 'selected' : ''; ?>>15</option>
+            </select>
+            <input type="hidden" name="search" value="<?php echo htmlspecialchars($searchTerm); ?>">
+        </form>
+    </div>
+    
     <!-- Desktop Table View -->
     <div class="desktop-view">
         <table border='1'>
@@ -194,19 +207,6 @@ if (!$result) {
         <?php endif; ?>
     </div>
 
-    <!-- Records per page dropdown -->
-    <div class="records-per-page">
-        <form method="GET" action="">
-            <label for="recordsPerPage">Records per page:</label>
-            <select name="recordsPerPage" id="recordsPerPage" onchange="this.form.submit()">
-                <option value="5" <?php echo $recordsPerPage == 5 ? 'selected' : ''; ?>>5</option>
-                <option value="10" <?php echo $recordsPerPage == 10 ? 'selected' : ''; ?>>10</option>
-                <option value="15" <?php echo $recordsPerPage == 15 ? 'selected' : ''; ?>>15</option>
-            </select>
-            <input type="hidden" name="search" value="<?php echo htmlspecialchars($searchTerm); ?>">
-        </form>
-    </div>
-    
     <!-- Popup Modal -->
     <div id="slotModal" class="modal">
         <div class="modal-content">
