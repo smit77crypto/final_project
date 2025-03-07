@@ -15,13 +15,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get the raw POST data (JSON format)
     $data = json_decode(file_get_contents('php://input'), true);
 
-    // Get game_id and slot (date) from JSON data
-    $game_id = $data['game_id'];
-    $date = $data['date'];
-    $slot = $data['slot'];
-    $phone = $data['phone_no'];
-    if (empty($game_id) || empty($date)) {
-        echo json_encode(['message' => 'Fields (game_id and date) are required.']);
+    // Get game_id, date, slot, and phone_no from JSON data
+    $game_id = $data['game_id'] ?? null;
+    $date = $data['date'] ?? null;
+    $slot = $data['slot'] ?? null;
+    $phone = $data['phone_no'] ?? null;
+
+    // Validate required fields
+    if (empty($game_id) || empty($date) || empty($slot)) {
+        echo json_encode(['success' => false, 'message' => 'Fields (game_id, date, and slot) are required.']);
+        exit(); // Exit early to prevent further processing
     }
 
     include 'db_connect.php'; // Includes the database connection file
@@ -35,48 +38,60 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($result_game_name->num_rows > 0) {
         $game_row = $result_game_name->fetch_assoc();
-        $game_name = $game_row['name']; 
-        
+        $game_name = $game_row['name'];
     } else {
-        echo json_encode(['message' => 'Game not found']);
+        echo json_encode(['success' => false, 'message' => 'Game not found']);
+        exit();
     }
 
-    // Prepare a query to check if slots for the given game and date already exist in the 'book_game' table
-    $sql_check_detail = "SELECT username, email FROM register WHERE phone_no = ?";
-    $stmt_check_detail = $conn->prepare($sql_check_detail);
-    $stmt_check_detail->bind_param('s', $phone);
-    $stmt_check_detail->execute();
-    $result = $stmt_check_detail->get_result();
+    // Prepare a query to check if the phone number exists in the 'register' table
+    $sql_check_user = "SELECT username, email FROM register WHERE phone_no = ?";
+    $stmt_check_user = $conn->prepare($sql_check_user);
+    $stmt_check_user->bind_param('s', $phone);
+    $stmt_check_user->execute();
+    $result_user = $stmt_check_user->get_result();
 
     // Check if the user is found
-    if ($user = $result->fetch_assoc()) {
+    if ($user = $result_user->fetch_assoc()) {
         $username = $user['username'];
         $email = $user['email'];
     } else {
-        echo json_encode(['success' => false, 'message' => 'Phone Number is not registred']);
+        echo json_encode(['success' => false, 'message' => 'Phone number is not registered']);
+        exit();
     }
 
-    // Close the statement
-    $stmt_check_detail->close();
+    // Close the user check query
+    $stmt_check_user->close();
 
-    //here insert all data 
+    // Check if the slot is already booked for the given game and date
+    $sql_check_slot = "SELECT id FROM book_game WHERE game_name = ? AND book_date = ? AND slot = ?";
+    $stmt_check_slot = $conn->prepare($sql_check_slot);
+    $stmt_check_slot->bind_param('sss', $game_name, $date, $slot);
+    $stmt_check_slot->execute();
+    $result_check_slot = $stmt_check_slot->get_result();
+
+    if ($result_check_slot->num_rows > 0) {
+        echo json_encode(['success' => false, 'message' => 'Slot already booked for this game and date.refresh your page']);
+        exit();
+    }
+
+    // Prepare the SQL query for inserting booking data into the book_game table
     $sql_insert = "INSERT INTO book_game (username, email, phone_no, game_name, slot, book_date) 
-    VALUES (?, ?, ?, ?, ?, ?)";
+                   VALUES (?, ?, ?, ?, ?, ?)";
 
     if ($stmt_insert = $conn->prepare($sql_insert)) {
-    // Bind the parameters to the prepared statement
-    $stmt_insert->bind_param("ssssss", $username, $email, $phone, $game_name, $slot, $date);
+        // Bind the parameters to the prepared statement
+        $stmt_insert->bind_param("ssssss", $username, $email, $phone, $game_name, $slot, $date);
 
-    // Execute the query
-    if ($stmt_insert->execute()) {
-
-    echo json_encode(['success' => true, 'message' => 'Game booked successfully.']);
+        // Execute the query
+        if ($stmt_insert->execute()) {
+            echo json_encode(['success' => true, 'message' => 'Game booked successfully.']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Failed to book game: ' . $stmt_insert->error]);
+        }
+        $stmt_insert->close();
     } else {
-    echo json_encode(['success' => false, 'message' => 'Failed to book game: ' . $stmt_insert->error]);
-    }
-    $stmt_insert->close();
-    } else {
-    echo json_encode(['success' => false, 'message' => 'Failed to prepare insert query']);
+        echo json_encode(['success' => false, 'message' => 'Failed to prepare insert query']);
     }
 
     // Close the database connection

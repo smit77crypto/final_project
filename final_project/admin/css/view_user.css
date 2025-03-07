@@ -56,7 +56,7 @@ body {
 }
 
 .form-group p {
-    background: #fdf9f9;
+    background:  #fdf7f7;
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #b30000;
@@ -95,5 +95,10 @@ body {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+@media (max-width: 622px) {
+    .card{
+        margin-top: 45px;
     }
 }

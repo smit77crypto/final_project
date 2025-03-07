@@ -55,50 +55,63 @@ if (!$result) {
     <link rel="stylesheet" href="css/user_management.css">
     <link rel="stylesheet" href="css/game_management.css">
     <style>
-        /* Modal styles */
-        #slotModal {
+    /* Modal styles */
+    #slotModal {
             display: none; /* Hidden by default */
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
             width: auto; /* Adjust width based on content */
             max-width: 40%; /* Ensure it doesn't exceed 90% of the screen width */
             height: auto; /* Adjust height based on content */
             max-height: 90vh; /* Ensure it doesn't exceed 90% of the viewport height */
             overflow-y: auto; /* Add scroll if content exceeds height */
-        }
+    }
 
-        /* Overlay styles */
-        #overlay {
+    /* Overlay styles */
+    #overlay {
             display: none; /* Hidden by default */
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 999;
-        }
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+    }
 
-        /* Close button styles */
-        .close-popup {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-            font-size: 20px;
-            color: #333;
-        }
+    /* Close button styles */
+    .close-popup {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        font-size: 20px;
+        color: #333;
+    }
 
-        .close-popup:hover {
-            color: #000;
-        }
+    .close-popup:hover {
+        color: #000;
+    }
+
+    /* Red underline when search field is empty */
+    #searchField {
+        border: 1px solid #ccc;
+        padding: 8px;
+        width: 200px;
+        /* margin-bottom: 10px; */
+    }
+
+    /* Error styling for search input */
+    #searchField:invalid {
+        border-bottom: 2px solid red;
+    }
     </style>
 </head>
 
@@ -106,14 +119,20 @@ if (!$result) {
     <?php include 'navbar.php' ?>
     <div class="uper">
         <div class="search-form">
-            <form method="GET" action="">
+            <form method="GET" action="" onsubmit="return validateSearch()">
                 <div class="search-div">
-                    <div><input type="text" name="search" placeholder="Search by name" value="<?php echo htmlspecialchars($searchTerm); ?>"></div>
-                    <div><button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button></div>
+                    <div>
+                        <input id="searchField" type="text" name="search" placeholder="Search by name"
+                            value="<?php echo htmlspecialchars($searchTerm); ?>">
+                    </div>
+                    <div>
+                        <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </div>
                 </div>
-                <a href="game_management.php">Clear</a>
+                <a href="game_management.php" id="clearLink">Clear</a>
             </form>
         </div>
+
         <div class="btn1">
             <a href="game_management/game_form.php" style="text-decoration:none;">
                 <div><i style="color:white" class="fa-solid fa-user-plus"></i> <strong>ADD GAME</strong></div>
@@ -147,21 +166,24 @@ if (!$result) {
                 <th>Slots</th>
             </tr>
             <?php while ($row = $result->fetch_assoc()) : ?>
-                <tr>
-                    <td class='action-buttons'>
-                        <a href='game_management/game_form.php?id=<?php echo $row["id"] ?>' class='edit'><i class='fa-solid fa-pencil'></i></a>
-                        <a href="javascript:void(0);" class="delete" onclick="confirmDelete(<?php echo $row['id']; ?>)">
-                            <i class="fas fa-trash-alt"></i>
-                        </a>
-                        <a href='game_management/view_game.php?id=<?php echo $row["id"] ?>' class='view'><i class='fa-solid fa-eye'></i></a>
-                    </td>
-                    <td><?php echo htmlspecialchars($row["name"]); ?></td>
-                    <td><?php echo htmlspecialchars($row["half_hour"]); ?></td>
-                    <td><?php echo htmlspecialchars($row["hour"]); ?></td>
-                    <td><img src=<?php echo htmlspecialchars($row["card_image"]); ?> alt='Game Image' width='50'></td>
-                    <td><img src=<?php echo htmlspecialchars($row["slider_image"]); ?> alt='Slider Image' width='50'></td>
-                    <td><button class='view-slots-btn' data-game-id='<?php echo $row["id"]; ?>'><i class="fa-solid fa-eye"></i></button></td>
-                </tr>
+            <tr>
+                <td class='action-buttons'>
+                    <a href='game_management/game_form.php?id=<?php echo $row["id"] ?>' class='edit'><i
+                            class='fa-solid fa-pencil'></i></a>
+                    <a href="javascript:void(0);" class="delete" onclick="confirmDelete(<?php echo $row['id']; ?>)">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                    <a href='game_management/view_game.php?id=<?php echo $row["id"] ?>' class='view'><i
+                            class='fa-solid fa-eye'></i></a>
+                </td>
+                <td><?php echo htmlspecialchars($row["name"]); ?></td>
+                <td><?php echo htmlspecialchars($row["half_hour"]); ?></td>
+                <td><?php echo htmlspecialchars($row["hour"]); ?></td>
+                <td><img src=<?php echo htmlspecialchars($row["card_image"]); ?> alt='Game Image' width='50'></td>
+                <td><img src=<?php echo htmlspecialchars($row["slider_image"]); ?> alt='Slider Image' width='50'></td>
+                <td><button class='view-slots-btn' data-game-id='<?php echo $row["id"]; ?>'><i
+                            class="fa-solid fa-eye"></i></button></td>
+            </tr>
             <?php endwhile; ?>
         </table>
     </div>
@@ -172,39 +194,61 @@ if (!$result) {
         // Reset the result pointer to reuse the data
         $result->data_seek(0);
         while ($row = $result->fetch_assoc()) : ?>
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title"><?php echo htmlspecialchars($row["name"]); ?></h5>
-                    <p class="card-text"><strong>Price (30 min):</strong> <?php echo htmlspecialchars($row["half_hour"]); ?></p>
-                    <p class="card-text"><strong>Price (60 min):</strong> <?php echo htmlspecialchars($row["hour"]); ?></p>
-                    <p class="card-text"><strong>Card Image:</strong> <img src=<?php echo htmlspecialchars($row["card_image"]); ?> alt='Game Image' width='50'></p>
-                    <p class="card-text"><strong>Slider Image:</strong> <img src=<?php echo htmlspecialchars($row["slider_image"]); ?> alt='Slider Image' width='50'></p>
-                    <div class="action-buttons">
-                        <a href='game_management/game_form.php?id=<?php echo $row["id"] ?>' class='edit'><i class='fa-solid fa-pencil'></i></a>
-                        <a href="javascript:void(0);" class="delete" onclick="confirmDelete(<?php echo $row['id']; ?>)">
-                            <i class="fas fa-trash-alt"></i>
-                        </a>
-                        <a href='game_management/view_game.php?id=<?php echo $row["id"] ?>' class='view'><i class='fa-solid fa-eye'></i></a>
-                        <button class='view-slots-btn' data-game-id='<?php echo $row["id"]; ?>'><i class="fa-solid fa-eye"></i></button>
-                    </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title"><?php echo htmlspecialchars($row["name"]); ?></h5>
+                <p class="card-text"><strong>Price (30 min):</strong> <?php echo htmlspecialchars($row["half_hour"]); ?>
+                </p>
+                <p class="card-text"><strong>Price (60 min):</strong> <?php echo htmlspecialchars($row["hour"]); ?></p>
+                <p class="card-text"><strong>Card Image:</strong> <img
+                        src=<?php echo htmlspecialchars($row["card_image"]); ?> alt='Game Image' width='50'></p>
+                <p class="card-text"><strong>Slider Image:</strong> <img
+                        src=<?php echo htmlspecialchars($row["slider_image"]); ?> alt='Slider Image' width='50'></p>
+                <div class="action-buttons">
+                    <a href='game_management/game_form.php?id=<?php echo $row["id"] ?>' class='edit'><i
+                            class='fa-solid fa-pencil'></i></a>
+                    <a href="javascript:void(0);" class="delete" onclick="confirmDelete(<?php echo $row['id']; ?>)">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                    <a href='game_management/view_game.php?id=<?php echo $row["id"] ?>' class='view'><i
+                            class='fa-solid fa-eye'></i></a>
+                    <button class='view-slots-btn' data-game-id='<?php echo $row["id"]; ?>'><i
+                            class="fa-solid fa-eye"></i></button>
                 </div>
             </div>
+        </div>
         <?php endwhile; ?>
     </div>
 
     <!-- Pagination Links -->
     <div class="pagination">
         <?php if ($page > 1) : ?>
-            <a href="?page=<?php echo $page - 1; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>">Previous</a>
+        <a
+            href="?page=<?php echo $page - 1; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>">Previous</a>
         <?php endif; ?>
 
         <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
-            <a href="?page=<?php echo $i; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>" <?php echo ($page == $i) ? 'class="active"' : ''; ?>><?php echo $i; ?></a>
+        <a href="?page=<?php echo $i; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>"
+            <?php echo ($page == $i) ? 'class="active"' : ''; ?>><?php echo $i; ?></a>
         <?php endfor; ?>
 
         <?php if ($page < $totalPages) : ?>
-            <a href="?page=<?php echo $page + 1; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>">Next</a>
+        <a
+            href="?page=<?php echo $page + 1; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>">Next</a>
         <?php endif; ?>
+    </div>
+
+    <!-- Records per page dropdown -->
+    <div class="records-per-page">
+        <form method="GET" action="">
+            <label for="recordsPerPage">Records per page:</label>
+            <select name="recordsPerPage" id="recordsPerPage" onchange="this.form.submit()">
+                <option value="5" <?php echo $recordsPerPage == 5 ? 'selected' : ''; ?>>5</option>
+                <option value="10" <?php echo $recordsPerPage == 10 ? 'selected' : ''; ?>>10</option>
+                <option value="15" <?php echo $recordsPerPage == 15 ? 'selected' : ''; ?>>15</option>
+            </select>
+            <input type="hidden" name="search" value="<?php echo htmlspecialchars($searchTerm); ?>">
+        </form>
     </div>
 
     <!-- Popup Modal -->
@@ -220,6 +264,31 @@ if (!$result) {
     <div id="overlay" class="overlay"></div>
 
     <script>
+        function validateSearch() {
+        var searchField = document.getElementById('searchField');
+
+        // If the search field is empty, prevent the form from submitting
+        if (searchField.value.trim() === "") {
+            // Prevent form submission (no page refresh)
+            return false; 
+        }
+        return true; // Allow form submission
+    }
+
+    // Handle clear button click event
+    document.getElementById('clearLink').addEventListener('click', function(event) {
+        var searchField = document.getElementById('searchField');
+
+        // If the search field is already empty, prevent default behavior (page reload)
+        if (searchField.value.trim() === "") {
+            event.preventDefault(); // Prevent the page reload
+        } else {
+            // Clear the search field content and submit the form
+            searchField.value = "";
+        }
+    });
+
+
     function confirmDelete(gameId) {
         if (confirm("Are you sure you want to delete this game?")) {
             var url = "game_management/delete_game.php?id=" + gameId;

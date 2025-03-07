@@ -43,7 +43,7 @@
     padding: 20px;
     border-radius: 8px;
     width: 30%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  
     text-align: center;
 }
 .search-form .search-div{
@@ -143,8 +143,11 @@ tr:hover {
     text-align: center;
     transition: transform 0.3s ease-in-out;
 }
-
+.action-buttons a{
+    font-size: 10px;
+}
 .action-buttons .edit {
+    
     background-color: #ff9800;
     color: white;
 }
@@ -219,6 +222,24 @@ tr:hover {
 
 .pagination a:hover:not(.active) {
     background-color: #ddd;
+}
+@media (max-width: 1144px) {
+    .action-buttons a {
+    padding: 6px 8px;
+    margin: 0 5px;
+    }
+}
+@media (max-width: 1120px) {
+    .action-buttons a {
+    padding: 5px 5px;
+    margin: 0 5px;  
+    }
+}
+@media (max-width: 1106px) and (min-width: 768px) {
+    .action-buttons a {
+    padding: 6px 12px;
+    margin: 0 15px;     
+    }
 }
 
 /* Responsive Media Queries */

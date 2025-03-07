@@ -44,10 +44,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($result_game_name->num_rows > 0) {
             $game_row = $result_game_name->fetch_assoc();
             $game_name = $game_row['name']; 
-            echo $game_name;// Game name fetched from the game table
         } else {
             echo json_encode(['message' => 'Game not found.']);
             http_response_code(404); // Not Found
+            exit();
+        }
+
+        // Query to check if the slot already exists in the book_game table
+        $sql_check_slot = "SELECT id FROM book_game WHERE game_name = ? AND book_date = ? AND slot = ?";
+        $stmt_check_slot = $conn->prepare($sql_check_slot);
+        $stmt_check_slot->bind_param("sss", $game_name, $date, $slot);
+        $stmt_check_slot->execute();
+        $result_check_slot = $stmt_check_slot->get_result();
+
+        // Check if the slot is already booked
+        if ($result_check_slot->num_rows > 0) {
+            echo json_encode(['success' => false, 'message' => 'Slot already booked. Please refresh your page.']);
+            http_response_code(200); // Conflict
             exit();
         }
 
@@ -61,7 +74,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             // Execute the query
             if ($stmt_insert->execute()) {
-                
                 echo json_encode(['success' => true, 'message' => 'Game booked successfully.']);
             } else {
                 echo json_encode(['success' => false, 'message' => 'Failed to book game: ' . $stmt_insert->error]);

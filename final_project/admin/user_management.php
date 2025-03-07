@@ -82,12 +82,17 @@ $result = $conn->query($sql);
     <?php include 'navbar.php' ?>
     <div class="uper">
         <div class="search-form">
-            <form method="GET" action="">
+            <form method="GET" action="" onsubmit="return validateSearch()">
                 <div class="search-div">
-                    <div><input type="text" name="search" placeholder="Search by name" value="<?php echo htmlspecialchars($searchTerm); ?>"></div>
-                    <div><button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button></div>
+                    <div>
+                        <input id="searchField" type="text" name="search" placeholder="Search by name"
+                            value="<?php echo htmlspecialchars($searchTerm); ?>">
+                    </div>
+                    <div>
+                        <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </div>
                 </div>
-                <a href="user_management.php">Clear</a>
+                <a href="game_management.php" id="clearLink">Clear</a>
             </form>
         </div>
         <div class="adduser right">
@@ -115,85 +120,120 @@ $result = $conn->query($sql);
 
     <div class="tablearea">
         <?php if ($result->num_rows > 0) : ?>
-            <!-- Desktop Table View -->
-            <div class="desktop-view">
-                <table border="1">
-                    <tr>
-                        <th>Action</th>
-                        <th>Full Name</th>
-                        <th>Email</th>
-                        <th>Gender</th>
-                        <th>Phone no</th>
-                        <th>Username</th>
-                        <th>Membership</th>
-                    </tr>
-                    <?php while ($row = $result->fetch_assoc()) : ?>
-                        <tr>
-                            <td class="action-buttons">
-                                <a href="user_management/user_form.php?id=<?php echo $row['id']; ?>" class="edit"><i class="fa-solid fa-pencil"></i></a>
-                                <a href="#" class="delete" onclick="confirmDelete(<?php echo $row['id']; ?>)"><i class="fas fa-trash-alt"></i></a>
-                                <a href="user_management/view_user.php?id=<?php echo $row['id']; ?>" class="view"><i class="fa-solid fa-eye"></i></a>
-                            </td>
-                            <td class="sametd"><?php echo $row['full_name']; ?></td>
-                            <td class="sametd"><?php echo $row['email']; ?></td>
-                            <td class="sametd"><?php echo ($row['gender'] === 'Other') ? 'N/A' : $row['gender']; ?></td>
-                            <td class="sametd"><?php echo $row['phone_no']; ?></td>
-                            <td class="sametd"><?php echo $row['username']; ?></td>
-                            <td class="sametd"><?php echo $row['membership_name']; ?></td>
-                        </tr>
-                    <?php endwhile; ?>
-                </table>
-            </div>
+        <!-- Desktop Table View -->
+        <div class="desktop-view">
+            <table border="1">
+                <tr>
+                    <th>Action</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Gender</th>
+                    <th>Phone no</th>
+                    <th>Username</th>
+                    <th>Membership</th>
+                </tr>
+                <?php while ($row = $result->fetch_assoc()) : ?>
+                <tr>
+                    <td class="action-buttons">
+                        <a href="user_management/user_form.php?id=<?php echo $row['id']; ?>" class="edit"><i
+                                class="fa-solid fa-pencil"></i></a>
+                        <a href="#" class="delete" onclick="confirmDelete(<?php echo $row['id']; ?>)"><i
+                                class="fas fa-trash-alt"></i></a>
+                        <a href="user_management/view_user.php?id=<?php echo $row['id']; ?>" class="view"><i
+                                class="fa-solid fa-eye"></i></a>
+                    </td>
+                    <td class="sametd"><?php echo $row['full_name']; ?></td>
+                    <td class="sametd"><?php echo $row['email']; ?></td>
+                    <td class="sametd"><?php echo ($row['gender'] === 'Other') ? 'N/A' : $row['gender']; ?></td>
+                    <td class="sametd"><?php echo $row['phone_no']; ?></td>
+                    <td class="sametd"><?php echo $row['username']; ?></td>
+                    <td class="sametd"><?php echo $row['membership_name']; ?></td>
+                </tr>
+                <?php endwhile; ?>
+            </table>
+        </div>
 
-            <!-- Mobile and Tablet Card View -->
-            <div class="mobile-view">
-                <?php
+        <!-- Mobile and Tablet Card View -->
+        <div class="mobile-view">
+            <?php
                 // Reset the result pointer to reuse the data
                 $result->data_seek(0);
                 while ($row = $result->fetch_assoc()) : ?>
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title"><?php echo $row['full_name']; ?></h5>
-                            <p class="card-text"><strong>Email:</strong> <?php echo $row['email']; ?></p>
-                            <p class="card-text"><strong>Gender:</strong> <?php echo ($row['gender'] === 'Other') ? 'N/A' : $row['gender']; ?></p>
-                            <p class="card-text"><strong>Phone:</strong> <?php echo $row['phone_no']; ?></p>
-                            <p class="card-text"><strong>Username:</strong> <?php echo $row['username']; ?></p>
-                            <p class="card-text"><strong>Membership:</strong> <?php echo $row['membership_name']; ?></p>
-                            <div class="action-buttons">
-                                <a href="user_management/user_form.php?id=<?php echo $row['id']; ?>" class="edit"><i class="fa-solid fa-pencil"></i></a>
-                                <a href="#" class="delete" onclick="confirmDelete(<?php echo $row['id']; ?>)"><i class="fas fa-trash-alt"></i></a>
-                                <a href="user_management/view_user.php?id=<?php echo $row['id']; ?>" class="view"><i class="fa-solid fa-eye"></i></a>
-                            </div>
-                        </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><?php echo $row['full_name']; ?></h5>
+                    <p class="card-text"><strong>Email:</strong> <?php echo $row['email']; ?></p>
+                    <p class="card-text"><strong>Gender:</strong>
+                        <?php echo ($row['gender'] === 'Other') ? 'N/A' : $row['gender']; ?></p>
+                    <p class="card-text"><strong>Phone:</strong> <?php echo $row['phone_no']; ?></p>
+                    <p class="card-text"><strong>Username:</strong> <?php echo $row['username']; ?></p>
+                    <p class="card-text"><strong>Membership:</strong> <?php echo $row['membership_name']; ?></p>
+                    <div class="action-buttons">
+                        <a href="user_management/user_form.php?id=<?php echo $row['id']; ?>" class="edit"><i
+                                class="fa-solid fa-pencil"></i></a>
+                        <a href="#" class="delete" onclick="confirmDelete(<?php echo $row['id']; ?>)"><i
+                                class="fas fa-trash-alt"></i></a>
+                        <a href="user_management/view_user.php?id=<?php echo $row['id']; ?>" class="view"><i
+                                class="fa-solid fa-eye"></i></a>
                     </div>
-                <?php endwhile; ?>
+                </div>
             </div>
+            <?php endwhile; ?>
+        </div>
 
-            <!-- Pagination Links -->
-            <div class="pagination">
-                <?php if ($page > 1) : ?>
-                    <a href="?page=<?php echo $page - 1; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>">Previous</a>
-                <?php endif; ?>
+        <!-- Pagination Links -->
+        <div class="pagination">
+            <?php if ($page > 1) : ?>
+            <a
+                href="?page=<?php echo $page - 1; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>">Previous</a>
+            <?php endif; ?>
 
-                <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
-                    <a href="?page=<?php echo $i; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>" <?php echo ($page == $i) ? 'class="active"' : ''; ?>><?php echo $i; ?></a>
-                <?php endfor; ?>
+            <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
+            <a href="?page=<?php echo $i; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>"
+                <?php echo ($page == $i) ? 'class="active"' : ''; ?>><?php echo $i; ?></a>
+            <?php endfor; ?>
 
-                <?php if ($page < $totalPages) : ?>
-                    <a href="?page=<?php echo $page + 1; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>">Next</a>
-                <?php endif; ?>
-            </div>
+            <?php if ($page < $totalPages) : ?>
+            <a
+                href="?page=<?php echo $page + 1; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>">Next</a>
+            <?php endif; ?>
+        </div>
         <?php else : ?>
-            <p>No records found!!</p>
+        <p>No records found!!</p>
         <?php endif; ?>
     </div>
 
     <script>
-        function confirmDelete(userId) {
-            if (confirm("Are you sure you want to delete this user?")) {
-                window.location.href = "user_management/delete_user.php?id=" + userId;
-            }
+            function validateSearch() {
+        var searchField = document.getElementById('searchField');
+
+        // If the search field is empty, prevent the form from submitting and return false to avoid page reload
+        if (searchField.value.trim() === "") {
+            return false; // Prevent form submission
         }
+        return true; // Allow form submission if there's text in the field
+    }
+
+    // Handle clear button click event
+    document.getElementById('clearLink').addEventListener('click', function(event) {
+        var searchField = document.getElementById('searchField');
+
+        // If the search field is empty, prevent default behavior (no page reload)
+        if (searchField.value.trim() === "") {
+            event.preventDefault(); // Prevent page reload
+        } else {
+            // Clear the search field content and submit the form to refresh the page
+            searchField.value = ""; 
+            this.closest('form').submit(); // Trigger the form submission
+        }
+    });
+
+    function confirmDelete(userId) {
+        if (confirm("Are you sure you want to delete this user?")) {
+            window.location.href = "user_management/delete_user.php?id=" + userId;
+        }
+    }
     </script>
 </body>
+
 </html>
