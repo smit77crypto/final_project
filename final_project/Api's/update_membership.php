@@ -28,64 +28,71 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Decode the JWT token to get the username
         $decode = JWT::decode($token, new Key($secret_key, 'HS256'));
         $username = $decode->username; // Extract username from decoded token
-        // SQL query to update the membership_id for the given username
-        $sql = "UPDATE register SET membership_id = ? WHERE username = ?";
 
-        // Prepare the SQL statement
-        if ($stmt = $conn->prepare($sql)) {
-            // Bind parameters to the prepared statement
-            $stmt->bind_param("is", $membership_id, $username); // 'i' for integer, 's' for string (username)
+        // Query to fetch current membership_id from the database
+        $sql = "SELECT membership_id FROM register WHERE username = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('s', $username); // 's' indicates the parameter type is string (username)
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-            // Execute the statement
-            if ($stmt->execute()) {
-                // Query to select the user by username
-                $query = "SELECT * FROM register WHERE username = ? LIMIT 1";
-                $stmt = $conn->prepare($query);
-                $stmt->bind_param('s', $username); // 's' indicates the parameter type is string
-                $stmt->execute();
-
-                // Get the result
-                $result = $stmt->get_result();
-
-                // Check if a user was found
-                if ($user = $result->fetch_assoc()) {
-                    // Prepare the payload
-                    $payload = [
-                        'username' => $user['username'],
-                        'user_id' => $user['id'],
-                        'user_phone' => $user['phone_no'],
-                        'user_email' => $user['email'],
-                        'full_name' => $user['full_name'],
-                        'membership_id' => $user['membership_id']
-                    ];
-                    // Secret key for encoding the JWT
-                    $secret_key = 'yo12ur'; 
-                    
-                    // Use the JWT library to encode the payload
-                    $jwt = JWT::encode($payload, $secret_key, 'HS256');
-
-                    // Output the JWT token (or return it)
-                } else {
-                    echo "User not found.";
-                }
-
-                            
-                echo json_encode(['success' => true, 'message' => 'Membership updated successfully','token'=> $jwt]);
+        if ($user = $result->fetch_assoc()) {
+            // Check if the current membership_id is the same as the provided one
+            if ($user['membership_id'] == $membership_id) {
+                // Membership is already updated, send a response indicating so
+                echo json_encode(['success' => true, 'message' => 'Membership already updated by admin']);
             } else {
-                // If the query failed
-                echo json_encode(['success' => false, 'message' => 'Failed to update membership ID: ' . $stmt->error]);
-            }
+                // Membership is not updated yet, so proceed with the update
+                $sql_update = "UPDATE register SET membership_id = ? WHERE username = ?";
+                if ($update_stmt = $conn->prepare($sql_update)) {
+                    // Bind the parameters for the update query
+                    $update_stmt->bind_param("is", $membership_id, $username); // 'i' for integer, 's' for string (username)
 
-            // Close the prepared statement
-            $stmt->close();
+                    // Execute the update query
+                    if ($update_stmt->execute()) {
+                        // Query to select the user by username to fetch fresh data
+                        $query = "SELECT * FROM register WHERE username = ? LIMIT 1";
+                        $stmt = $conn->prepare($query);
+                        $stmt->bind_param('s', $username); // 's' indicates the parameter type is string
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+
+                        if ($user = $result->fetch_assoc()) {
+                            // Prepare the payload with the updated user data
+                            $payload = [
+                                'username' => $user['username'],
+                                'user_id' => $user['id'],
+                                'user_phone' => $user['phone_no'],
+                                'user_email' => $user['email'],
+                                'full_name' => $user['full_name'],
+                                'membership_id' => $user['membership_id']
+                            ];
+                            // Secret key for encoding the JWT
+                            $jwt = JWT::encode($payload, $secret_key, 'HS256');
+
+                            // Return success message with the updated token
+                            echo json_encode(['success' => true, 'message' => 'Membership updated successfully', 'token' => $jwt]);
+                        } else {
+                            echo json_encode(['success' => false, 'message' => 'User not found']);
+                        }
+                    } else {
+                        echo json_encode(['success' => false, 'message' => 'Failed to update membership ID: ' . $update_stmt->error]);
+                    }
+                    // Close the update statement
+                    $update_stmt->close();
+                } else {
+                    echo json_encode(['success' => false, 'message' => 'Failed to prepare the update query']);
+                }
+            }
         } else {
-            // If preparing the query failed
-            echo json_encode(['success' => false, 'message' => 'Failed to prepare the update query']);
+            echo json_encode(['success' => false, 'message' => 'User not found']);
         }
 
+        // Close the prepared statement
+        $stmt->close();
         // Close the database connection
         $conn->close();
-        
+
     } catch (Exception $e) {
         // If the token is invalid or expired
         echo json_encode(['success' => false, 'message' => 'Invalid token or error: ' . $e->getMessage()]);

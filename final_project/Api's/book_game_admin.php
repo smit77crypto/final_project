@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($formattedDate === $currentDateString) {
                 $allowedBookingDate = true;
             } else {
-                echo json_encode(['success' => false, 'message' => 'You can only book for today.']);
+                echo json_encode(['success' => false, 'message' => 'Bookin Fail, Normal Membership']);
                 exit();
             }
             break;
@@ -94,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($formattedDate === $currentDateString || $formattedDate === $tomorrow) {
                 $allowedBookingDate = true;
             } else {
-                echo json_encode(['success' => false, 'message' => 'You can only book for today or tomorrow.']);
+                echo json_encode(['success' => false, 'message' => 'Bookin Fail, Silver Membership']);
                 exit();
             }
             break;

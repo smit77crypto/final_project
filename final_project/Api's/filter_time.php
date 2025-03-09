@@ -5,6 +5,14 @@ header("Access-Control-Allow-Methods: GET, POST");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
 
+// Function to convert 12-hour AM/PM format to 24-hour format
+function convertTo24HourFormat($timeStr)
+{
+    // Convert time from 12-hour format (with AM/PM) to 24-hour format
+    $dateTime = DateTime::createFromFormat('h:iA', $timeStr);
+    return $dateTime ? $dateTime->format('H:i') : false; // Return 24-hour format (HH:mm)
+}
+
 // Function to sort slots by start time
 function sortSlotsByTime($slots)
 {
@@ -61,41 +69,37 @@ if (isset($data['id']) && isset($data['date'])) {
         $slots = explode(",", $row["slots"]);
         $filter_values = explode(",", $row["filter_value"]);
 
-        // Sort slots before filtering
+        // Sort slots before filtering (if needed)
         $slots = sortSlotsByTime($slots);
 
-        // Get current date and time
-        $now = new DateTime();
-        $today_str = $now->format('Y-m-d');
+        // Set the timezone to Indian Standard Time (IST)
+        $timezone = new DateTimeZone('Asia/Kolkata');
+
+        // Get the current time in IST
+        $current_time = new DateTime('now', $timezone); // Get the current time in IST
+        $current_time_24hr = $current_time->format('H:i'); // Get current time in 24-hour format (HH:mm)
 
         // Initialize an array for filtered slots
         $filtered_slots = [];
 
         // Check if the requested date is today
-        if ($requested_date_str == $today_str) {
+        if ($requested_date_str == $current_time->format('Y-m-d')) {
             foreach ($slots as $slot) {
-                // Extract start and end time from the slot (example: "10:00-10:30AM")
-                $time_parts = explode("-", $slot);
-                if (count($time_parts) != 2) continue; // Skip invalid slot formats
+                // Extract start and end times from the slot (e.g., "1:00PM-2:00PM")
+                list($start_time_str, $end_time_str) = explode('-', $slot);
 
-                $start_time_str = trim($time_parts[0]); // Example: "10:00"
-                $end_time_str = trim($time_parts[1]);   // Example: "10:30AM"
+                // Convert end time to 24-hour format using IST
+                $end_time_24hr = convertTo24HourFormat($end_time_str);
 
-                // Create DateTime objects for start and end times with AM/PM included
-                $start_time = DateTime::createFromFormat('h:iA', $start_time_str . substr($end_time_str, -2)); // Extract AM/PM from end time
-                $end_time = DateTime::createFromFormat('h:iA', $end_time_str);
-
-                if ($start_time && $end_time) {
-                    $start_time->setDate($now->format('Y'), $now->format('m'), $now->format('d'));
-                    $end_time->setDate($now->format('Y'), $now->format('m'), $now->format('d'));
-
-                    // Compare with current time
-                    if ($now < $end_time) {
+                // Compare only the end time to the current time
+                if ($end_time_24hr) {
+                    // Only show slots where the current time is less than the end time
+                    if ($current_time_24hr < $end_time_24hr) {
                         $filtered_slots[] = $slot;
                     }
                 }
             }
-        } elseif ($requested_date_obj > $now) {
+        } elseif ($requested_date_obj > $current_time) {
             // Future date: Show all slots
             $filtered_slots = $slots;
         } else {
@@ -122,3 +126,4 @@ if (isset($data['id']) && isset($data['date'])) {
 } else {
     echo json_encode(["error" => "No id or date provided"]);
 }
+?>

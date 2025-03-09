@@ -15,7 +15,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 
-function sendEmail( $name,$email, $phone, $slots, $date, $submission_time) {
+function sendEmail( $name, $email, $phone_no,$game_name, $slot, $date, $submission_time) {
     $smtp_pw = trim(file_get_contents('my.txt'));
 
     $mail = new PHPMailer(true);
@@ -36,19 +36,19 @@ function sendEmail( $name,$email, $phone, $slots, $date, $submission_time) {
 
         // Email content
         $mail->isHTML(true);
-        $mail->Subject =  "New Contact Us Message from " . htmlspecialchars($name);
+        $mail->Subject =  "Slot Booking Details " . htmlspecialchars($name);
         $mail->Body = '<h3>Hello ' . htmlspecialchars($name) . ',</h3>
-            <p>message from user</p>
+            <p>message from Admin</p>
             <ul>
                 <li><b>Name:</b> ' . htmlspecialchars($name) . '</li>
                 <li><b>Email:</b> ' . htmlspecialchars($email) . '</li>
-                <li><b>Phone No:</b> ' . htmlspecialchars($phone) . '</li>
+                <li><b>Phone No:</b> ' . htmlspecialchars($phone_no) . '</li>
                 <li><b>Message Send At:</b> ' . htmlspecialchars($submission_time) . '</li>
             </ul>
             <h4>Slot Detail:-</h4>
-            <p>Game Name'. htmlspecialchars($game_name).'</p>
-            <p>slot-time'. htmlspecialchars($slot).'</p>
-            <p>slot-Date'. htmlspecialchars($date).'</p>
+            <p>Game Name :-'. htmlspecialchars($game_name).'</p>
+            <p>time :-'. htmlspecialchars($slot).'</p>
+            <p>Date :-'. htmlspecialchars($date).'</p>
             <p>Best Regards,<br> '. htmlspecialchars($name) .' </p>';
         $mail->AltBody = '';
 
@@ -79,6 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Decode the JWT token to get the username
         $decode = JWT::decode($token, new Key($secret_key, 'HS256'));
         $username = $decode->username; 
+        $name = $decode->full_name;
         $email = $decode->user_email;
         $phone_no = $decode->user_phone;
       
@@ -124,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Execute the query
             if ($stmt_insert->execute()) {
                 $submission_time = date('Y-m-d H:i:s');
-                sendEmail($name, $email, $phone, $game_name, $slot, $date, $submission_time);
+                sendEmail($name, $email, $phone_no, $game_name, $slot, $date, $submission_time);
                 echo json_encode(['success' => true, 'message' => 'Game booked successfully.']);
             } else {
                 echo json_encode(['success' => false, 'message' => 'Failed to book game: ' . $stmt_insert->error]);
