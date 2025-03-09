@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($token)) {
         echo json_encode(['sucess'=>false]);
     }else{
-        $secret_key = yo12ur; 
+        $secret_key = 'yo12ur'; 
         // Decode the JWT token
         $decode = JWT::decode($token, new Key($secret_key, 'HS256'));
         // You can access the decoded data as an object (e.g., $decode->username)
