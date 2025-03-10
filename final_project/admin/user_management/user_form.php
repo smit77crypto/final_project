@@ -39,7 +39,7 @@ function sendEmail($email, $full_name, $username, $password, $submission_time) {
                 <li><b>Password:</b> ' . htmlspecialchars($password) . '</li>
             </ul>
             <p>Click below to log in:</p>
-            <p><a href="http://192.168.0.130/assignment-4/index.php" style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; display: inline-block;">Login Now</a></p>
+            <p><a href="http://localhost/assignment-4/index.php" style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; display: inline-block;">Login Now</a></p>
             <p>If you want to change your password then first login with your current password and change it.</p>
             <p>Best Regards,<br> GetInPlay</p>';
         $mail->AltBody = 'Hello ' . $full_name . ', Thank you for registering with us.';
