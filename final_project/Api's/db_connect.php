@@ -1,5 +1,5 @@
 <?php
-$servername = "localhost"; // Use your actual server name (e.g., "localhost" or an IP address)
+$servername = "localhost"; // Use your actual server name (e.g., "192.168.0.130" or an IP address)
 $username = "root"; // Your database username
 $password = "root"; // Your database password
 $dbname = "getinplay"; // Your database name
