@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Validate images and move them to a folder
     $uploadDir = "uploads/";
-
+    $targetDir = "../uploads/";
     // Define a default path in case of empty image
     $defaultGameImagePath = "uploads/default_card.jpg";
     $defaultSliderImagePath = "uploads/default_slider.jpg";
@@ -39,18 +39,18 @@ if (empty($gameImage['name'])) {
             // If there's a result, use the image path from the database
             if (!empty($row['card_image'])) {
                 $gameImagePath = $row['card_image'];
-                move_uploaded_file($gameImageTmpName, $gameImagePath);
+                
             } else {
                 $gameImagePath = $defaultGameImagePath;
-                move_uploaded_file($gameImageTmpName, $gameImagePath);
+              
             }
         } else {
             $gameImagePath = $defaultGameImagePath;
-            move_uploaded_file($gameImageTmpName, $gameImagePath);
+          
         }
     } else {
         $gameImagePath = $defaultGameImagePath;
-        move_uploaded_file($gameImageTmpName, $gameImagePath); // If no $gameId, use default game image
+        
     }
 } else {
     // If a game image is uploaded, handle it
@@ -67,7 +67,11 @@ if (empty($gameImage['name'])) {
 
     // If the image is valid, move it to the upload directory
     $gameImagePath = $uploadDir . basename($gameImageName);
-    move_uploaded_file($gameImageTmpName, $gameImagePath);
+    $uploadPath = $targetDir . basename($gameImageName);
+    if (!file_exists($gameImagePath)) {
+        move_uploaded_file($gameImageTmpName, $uploadPath);
+    }
+   
 }
 
 
@@ -109,7 +113,9 @@ if (empty($sliderImage['name'])) {
 
     // If the image is valid, move it to the upload directory
     $sliderImagePath = $uploadDir . basename($sliderImageName);
-    move_uploaded_file($sliderImageTmpName, $sliderImagePath);
+    $uploadPath = $targetDir . basename($sliderImageName);
+
+    move_uploaded_file($sliderImageTmpName, $uploadPath);
 }
 
     // Now you can use $gameImagePath and $sliderImagePath as the paths to your images
