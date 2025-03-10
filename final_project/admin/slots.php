@@ -1,4 +1,6 @@
 <?php
+date_default_timezone_set('Asia/Kolkata'); // Set the default timezone to Indian time
+
 if (!isset($_GET['game_id'])) {
     die("Game ID is missing.");
 }
@@ -106,6 +108,7 @@ $filtered_slots = array_filter($available_slots, function ($slot) use ($selected
 </head>
 <body>
 <?php include "navbar.php" ?>
+<div class="body_css">
     <h1><?php echo ($name); ?> Slots</h1>
     <div class="date-picker">
     <?php
@@ -221,7 +224,7 @@ $filtered_slots = array_filter($available_slots, function ($slot) use ($selected
         ?>
     </div>
 </div>
-
+    </div>
     <script>
         // JavaScript for handling the popup and API submission
         const overlay = document.getElementById('overlay');
