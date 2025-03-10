@@ -239,7 +239,7 @@ class PHPMailer
      * The hostname to use in the Message-ID header and as default HELO string.
      * If empty, PHPMailer attempts to find one with, in order,
      * $_SERVER['SERVER_NAME'], gethostname(), php_uname('n'), or the value
-     * 'localhost.localdomain'.
+     * '192.168.0.130.localdomain'.
      *
      * @see PHPMailer::$Helo
      *
@@ -279,7 +279,7 @@ class PHPMailer
      *
      * @var string
      */
-    public $Host = 'localhost';
+    public $Host = '192.168.0.130';
 
     /**
      * The default SMTP server port.
@@ -2160,7 +2160,7 @@ class PHPMailer
         $this->smtp->setDebugOutput($this->Debugoutput);
         $this->smtp->setVerp($this->do_verp);
         if ($this->Host === null) {
-            $this->Host = 'localhost';
+            $this->Host = '192.168.0.130';
         }
         $hosts = explode(';', $this->Host);
         $lastexception = null;
@@ -2229,13 +2229,13 @@ class PHPMailer
                     $this->smtp->hello($hello);
                     //Automatically enable TLS encryption if:
                     //* it's not disabled
-                    //* we are not connecting to localhost
+                    //* we are not connecting to 192.168.0.130
                     //* we have openssl extension
                     //* we are not already using SSL
                     //* the server offers STARTTLS
                     if (
                         $this->SMTPAutoTLS &&
-                        $this->Host !== 'localhost' &&
+                        $this->Host !== '192.168.0.130' &&
                         $sslext &&
                         $secure !== 'ssl' &&
                         $this->smtp->getServerExt('STARTTLS')
@@ -4211,7 +4211,7 @@ class PHPMailer
 
     /**
      * Get the server hostname.
-     * Returns 'localhost.localdomain' if unknown.
+     * Returns '192.168.0.130.localdomain' if unknown.
      *
      * @return string
      */
@@ -4228,7 +4228,7 @@ class PHPMailer
             $result = php_uname('n');
         }
         if (!static::isValidHost($result)) {
-            return 'localhost.localdomain';
+            return '192.168.0.130.localdomain';
         }
 
         return $result;
