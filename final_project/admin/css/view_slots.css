@@ -68,7 +68,7 @@ h1 {
     display: flex;
     gap: 10px;
     margin-bottom: 20px;
-    justify-content: flex-end;
+    justify-content: space-evenly;
 }
 
 .filter-buttons button {
