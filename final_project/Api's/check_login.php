@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = trim($user_password);
 
     // Connect to MySQL Database
-    $servername = "192.168.0.130";
+    $servername = "localhost";
     $dbname = "getinplay";
     $dbuser = "root";
     $dbpassword = "root";
