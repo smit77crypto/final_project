@@ -178,6 +178,9 @@ button {
     margin-top: 20px;
     width: 70%;
 }
+span{
+  color: red;
+}
 /* Styling for the selected slots container */
 #selected-list {
     display: flex;
