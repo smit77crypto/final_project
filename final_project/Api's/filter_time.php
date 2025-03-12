@@ -8,31 +8,14 @@ header("Content-Type: application/json");
 // Function to convert 12-hour AM/PM format to 24-hour format
 function convertTo24HourFormat($timeStr)
 {
+    // Remove extra spaces if there are any
+    $timeStr = trim($timeStr);
+
     // Convert time from 12-hour format (with AM/PM) to 24-hour format
     $dateTime = DateTime::createFromFormat('h:iA', $timeStr);
-    return $dateTime ? $dateTime->format('H:i') : false; // Return 24-hour format (HH:mm)
-}
-
-// Function to sort slots by start time
-function sortSlotsByTime($slots)
-{
-    usort($slots, function ($a, $b) {
-        // Extract start times (e.g., "10:00" from "10:00-10:30AM")
-        preg_match('/(\d{1,2}:\d{2}[APM]+)/', $a, $startA);
-        preg_match('/(\d{1,2}:\d{2}[APM]+)/', $b, $startB);
-
-        if (!isset($startA[1]) || !isset($startB[1])) {
-            return 0; // If no valid start time, keep the original order
-        }
-
-        // Convert to DateTime objects for comparison
-        $timeA = DateTime::createFromFormat('h:iA', $startA[1]);
-        $timeB = DateTime::createFromFormat('h:iA', $startB[1]);
-
-        return $timeA <=> $timeB; // Ascending order
-    });
-
-    return $slots;
+    
+    // If successful, return the time in 24-hour format (HH:mm)
+    return $dateTime ? $dateTime->format('H:i') : false;
 }
 
 // Get the raw POST data (for GET request with JSON body)
@@ -69,9 +52,6 @@ if (isset($data['id']) && isset($data['date'])) {
         $slots = explode(",", $row["slots"]);
         $filter_values = explode(",", $row["filter_value"]);
 
-        // Sort slots before filtering (if needed)
-        $slots = sortSlotsByTime($slots);
-
         // Set the timezone to Indian Standard Time (IST)
         $timezone = new DateTimeZone('Asia/Kolkata');
 
@@ -81,10 +61,11 @@ if (isset($data['id']) && isset($data['date'])) {
 
         // Initialize an array for filtered slots
         $filtered_slots = [];
+        $filtered_filter_values = [];
 
         // Check if the requested date is today
         if ($requested_date_str == $current_time->format('Y-m-d')) {
-            foreach ($slots as $slot) {
+            foreach ($slots as $index => $slot) {
                 // Extract start and end times from the slot (e.g., "1:00PM-2:00PM")
                 list($start_time_str, $end_time_str) = explode('-', $slot);
 
@@ -96,15 +77,18 @@ if (isset($data['id']) && isset($data['date'])) {
                     // Only show slots where the current time is less than the end time
                     if ($current_time_24hr < $end_time_24hr) {
                         $filtered_slots[] = $slot;
+                        $filtered_filter_values[] = $filter_values[$index]; // Match filter value with the slot
                     }
                 }
             }
         } elseif ($requested_date_obj > $current_time) {
             // Future date: Show all slots
             $filtered_slots = $slots;
+            $filtered_filter_values = $filter_values;  // No filtering needed for future dates
         } else {
             // Past date: No slots available
             $filtered_slots = [];
+            $filtered_filter_values = [];
         }
 
         // Prepare response
@@ -112,7 +96,7 @@ if (isset($data['id']) && isset($data['date'])) {
             "id" => $row["id"],
             "name" => $row["name"],
             "slots" => $filtered_slots, // Filtered slots
-            "filter" => $filter_values  // Filter values as is
+            "filter" => $filtered_filter_values  // Filter values as is
         ];
     } else {
         $response = ["error" => "Game not found"];
