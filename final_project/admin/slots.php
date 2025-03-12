@@ -178,16 +178,6 @@ $filtered_slots = array_filter($available_slots, function ($slot) use ($selected
         <?php endforeach; ?>
         </div>
 
-        <!-- AM/PM Filter -->
-         <div class="ampmfltr">
-        <?php $periods = ['All', 'AM', 'PM']; ?>
-        <?php foreach ($periods as $period): ?>
-            <a href="slots.php?game_id=<?= $game_id ?>&date=<?= $selected_date ?>&filter=<?= $selected_filter ?>&period=<?= $period ?>&time_of_day=<?= $selected_time_of_day ?>">
-                <button class="<?= ($period === $selected_period) ? 'active' : '' ?>"><?= $period ?></button>
-            </a>
-        <?php endforeach; ?>
-        </div
-        >
         <!-- Time of Day Filter -->
          <div class="mrngfltr">
         <?php $times_of_day = ['All', 'Morning', 'Afternoon', 'Evening', 'Night']; ?>

@@ -1,6 +1,6 @@
 <nav>
     <div class="logo">
-        <img src="uploads/gip_logo.png" alt="logo" width="50px" height="50px">
+        <img src="uploads/gip_logo.png" alt="logo" width="auto" height="50px">
     </div>
     <div class="left">
         <ul class="ul-box">
