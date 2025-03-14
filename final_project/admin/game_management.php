@@ -11,12 +11,16 @@ $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $recordsPerPage;
 
 // Base query
+// Base query
 $query = "SELECT * FROM games WHERE deleteval=1";
 
 // Modify query if searching
 if (!empty($searchTerm)) {
     $query .= " AND name LIKE '%" . $conn->real_escape_string($searchTerm) . "%'";
 }
+
+// Add order and pagination
+$query .= " ORDER BY id DESC LIMIT $offset, $recordsPerPage";
 
 // Fetch total number of records
 $totalRecordsQuery = "SELECT COUNT(*) as total FROM games WHERE deleteval=1";
@@ -28,9 +32,6 @@ $totalRecordsResult = $conn->query($totalRecordsQuery);
 $totalRecords = $totalRecordsResult->fetch_assoc()['total'];
 $totalPages = ceil($totalRecords / $recordsPerPage);
 
-// Modify query to include pagination
-$query .= " LIMIT $offset, $recordsPerPage";
-
 // Execute query
 $result = $conn->query($query);
 
@@ -38,6 +39,14 @@ $result = $conn->query($query);
 if (!$result) {
     die("Query Error: " . $conn->error);
 }
+
+// Check if there are any records to display
+if ($totalRecords == 0) {
+    $noResultsMessage = "No records found!!";
+} else {
+    $noResultsMessage = "";
+}
+$showpagesec = $totalRecords > 0;
 ?>
 
 <!DOCTYPE html>
@@ -117,8 +126,8 @@ if (!$result) {
 
 <body>
     <?php include 'navbar.php' ?>
-    <div class="uper">
-        <div class="search-form">
+   <div class="main">
+   <div class="search-form">
             <form method="GET" action="" onsubmit="return validateSearch()">
                 <div class="search-div">
                     <div>
@@ -132,62 +141,66 @@ if (!$result) {
                 <a href="game_management.php" id="clearLink">Clear</a>
             </form>
         </div>
-
-        <div class="btn1">
-            <a href="game_management/game_form.php" style="text-decoration:none;">
-                <div><i style="color:white" class="fa-solid fa-user-plus"></i> <strong>ADD GAME</strong></div>
-            </a>
+  
+        <div class="sb">
+            <div class="records-per-page" style="visibility: <?php echo $showpagesec ? 'visible' : 'hidden'; ?>;">
+                <form method="GET" action="">
+                    <label for="recordsPerPage">Show</label>
+                    <select name="recordsPerPage" id="recordsPerPage" onchange="this.form.submit()">
+                        <option value="5" <?php echo $recordsPerPage == 5 ? 'selected' : ''; ?>>5</option>
+                        <option value="10" <?php echo $recordsPerPage == 10 ? 'selected' : ''; ?>>10</option>
+                        <option value="15" <?php echo $recordsPerPage == 15 ? 'selected' : ''; ?>>15</option>
+                    </select>
+                    <label for="recordsPerPage">entries</label>
+                    <input type="hidden" name="search" value="<?php echo htmlspecialchars($searchTerm); ?>">
+                </form>
+            </div>
+            <div class="adduser">
+                <a href="game_management/game_form.php" style="text-decoration:none; color:white">
+                    <div class="btn1">
+                        <div><i class="fa-solid fa-user-plus"></i></div>
+                        <div style="font-weight: bold">ADD GAME</div>
+                    </div>
+                </a>
+            </div>
+            
         </div>
-    </div>
-    
-    <!-- Records per page dropdown -->
-    <div class="records-per-page">
-        <form method="GET" action="">
-            <label for="recordsPerPage">Show</label>
-            <select name="recordsPerPage" id="recordsPerPage" onchange="this.form.submit()">
-                <option value="5" <?php echo $recordsPerPage == 5 ? 'selected' : ''; ?>>5</option>
-                <option value="10" <?php echo $recordsPerPage == 10 ? 'selected' : ''; ?>>10</option>
-                <option value="15" <?php echo $recordsPerPage == 15 ? 'selected' : ''; ?>>15</option>
-            </select>
-            <label for="recordsPerPage">entries</label>
-            <input type="hidden" name="search" value="<?php echo htmlspecialchars($searchTerm); ?>">
-        </form>
-    </div>
     
     <!-- Desktop Table View -->
-    <div class="desktop-view">
-        <table border='1'>
-            <tr>
-                <th>Action</th>
-                <th>Name</th>
-                <th>Price (30 min)</th>
-                <th>Price (60 min)</th>
-                <th>Card Image</th>
-                <th>Slider Image</th>
-                <th>Slots</th>
-            </tr>
-            <?php while ($row = $result->fetch_assoc()) : ?>
-            <tr>
-                <td class='action-buttons'>
-                    <a href='game_management/game_form.php?id=<?php echo $row["id"] ?>' class='edit'><i
-                            class='fa-solid fa-pencil'></i></a>
-                    <a href="javascript:void(0);" class="delete" onclick="confirmDelete(<?php echo $row['id']; ?>)">
-                        <i class="fas fa-trash-alt"></i>
-                    </a>
-                    <a href='game_management/view_game.php?id=<?php echo $row["id"] ?>' class='view'><i
-                            class='fa-solid fa-eye'></i></a>
-                </td>
-                <td><?php echo htmlspecialchars($row["name"]); ?></td>
-                <td><?php echo htmlspecialchars($row["half_hour"]); ?></td>
-                <td><?php echo htmlspecialchars($row["hour"]); ?></td>
-                <td><img src=<?php echo htmlspecialchars($row["card_image"]); ?> alt='Game Image' width='50'></td>
-                <td><img src=<?php echo htmlspecialchars($row["slider_image"]); ?> alt='Slider Image' width='50'></td>
-                <td><button class='view-slots-btn' data-game-id='<?php echo $row["id"]; ?>'><i
-                            class="fa-solid fa-eye"></i></button></td>
-            </tr>
-            <?php endwhile; ?>
-        </table>
-    </div>
+    <!-- Inside the table view, below the table -->
+<?php if ($totalRecords == 0) : ?>
+    <p class="no-records-message" style="text-align:center"><?php echo $noResultsMessage; ?></p>
+<?php else: ?>
+    <table border='1'>
+        <tr>
+            <th>Action</th>
+            <th>Name</th>
+            <th>Price (30 min)</th>
+            <th>Price (1 hr)</th>
+            <th>Card Image</th>
+            <th>Slider Image</th>
+            <th>Slots</th>
+        </tr>
+        <?php while ($row = $result->fetch_assoc()) : ?>
+        <tr>
+            <td class='action-buttons'>
+                <a href='game_management/game_form.php?id=<?php echo $row["id"] ?>' class='edit'><i class='fa-solid fa-pencil'></i></a>
+                <a href="javascript:void(0);" class="delete" onclick="confirmDelete(<?php echo $row['id']; ?>)">
+                    <i class="fas fa-trash-alt"></i>
+                </a>
+                <a href='game_management/view_game.php?id=<?php echo $row["id"] ?>' class='view'><i class='fa-solid fa-eye'></i></a>
+            </td>
+            <td><?php echo htmlspecialchars($row["name"]); ?></td>
+            <td><?php echo htmlspecialchars($row["half_hour"]); ?></td>
+            <td><?php echo htmlspecialchars($row["hour"]); ?></td>
+            <td><img src=<?php echo htmlspecialchars($row["card_image"]); ?> alt='Game Image' width='50'></td>
+            <td><img src=<?php echo htmlspecialchars($row["slider_image"]); ?> alt='Slider Image' width='50'></td>
+            <td><button class='view-slots-btn' data-game-id='<?php echo $row["id"]; ?>'><i class="fa-solid fa-eye"></i></button></td>
+        </tr>
+        <?php endwhile; ?>
+    </table>
+<?php endif; ?>
+
 
     <!-- Mobile and Tablet Card View -->
     <div class="mobile-view">
@@ -250,6 +263,8 @@ if (!$result) {
 
     <!-- Background Blur Overlay -->
     <div id="overlay" class="overlay"></div>
+   </div>
+        
 
     <script>
         function validateSearch() {

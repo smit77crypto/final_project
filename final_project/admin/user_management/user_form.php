@@ -178,27 +178,6 @@ if ($userId) {
         $membership_id = $user['membership_id'];
     }
 }
-
-// If updating, fetch the user data
-if ($userId) {
-    include('../connect_database.php');
-    $sql = "SELECT * FROM register WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $userId);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $user = $result->fetch_assoc();
-
-    if ($user) {
-        // Pre-fill the form with existing data
-        $full_name = $user['full_name'];
-        $email = $user['email'];
-        $phone_no = $user['phone_no'];
-        $gender = $user['gender'];
-        $username = $user['username'];
-        $membership_id = $user['membership_id'];
-    }
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">

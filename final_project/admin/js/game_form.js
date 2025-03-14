@@ -177,17 +177,10 @@ function updateSelectedSlots() {
     document.getElementById('selected-list').innerHTML = selectedSlots.map(slot => `
         <div class="selected-slot">
             ${slot}
-            <span class="remove-slot" onclick="removeSlot('${slot}')"><i class="fa-solid fa-trash-can"></i></span>
         </div>
     `).join('');
 
     validateSlots(); // Validate selection in real-time
-}
-
-// Remove Slot
-function removeSlot(slot) {
-    document.querySelector(`input[value="${slot}"]`).checked = false;
-    updateSelectedSlots();
 }
 
 // Save Game with Validation

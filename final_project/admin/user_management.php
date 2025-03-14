@@ -37,8 +37,9 @@ if (!empty($searchTerm)) {
 $totalRecordsResult = $conn->query($totalRecordsQuery);
 $totalRecords = $totalRecordsResult->fetch_assoc()['total'];
 $totalPages = ceil($totalRecords / $recordsPerPage);
+$showpagesec = $totalRecords > 0;
 
-// Fetch user data with JOIN on membership table
+// Fetch user data with JOIN on membership table, ordered by `r.id` DESC
 $sql = "SELECT r.*, m.name AS membership_name 
         FROM register r
         LEFT JOIN membership m ON r.membership_id = m.id
@@ -59,10 +60,12 @@ if (!empty($searchTerm)) {
     $sql .= implode(" OR ", $conditions) . ")";
 }
 
-$sql .= " ORDER BY r.full_name LIMIT $offset, $recordsPerPage";
+// Order by `r.id` in descending order and apply pagination
+$sql .= " ORDER BY r.id DESC LIMIT $offset, $recordsPerPage";
 
 $result = $conn->query($sql);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -80,8 +83,8 @@ $result = $conn->query($sql);
 
 <body>
     <?php include 'navbar.php' ?>
-    <div class="uper">
-        <div class="search-form">
+    <div class="main">
+    <div class="search-form">
             <form method="GET" action="" onsubmit="return validateSearch()">
                 <div class="search-div">
                     <div>
@@ -95,29 +98,30 @@ $result = $conn->query($sql);
                 <a href="game_management.php" id="clearLink">Clear</a>
             </form>
         </div>
-        <div class="adduser right">
-            <a href="user_management/user_form.php" style="text-decoration:none; color:white">
-                <div class="btn1">
-                    <div><i class="fa-solid fa-user-plus"></i></div>
-                    <div style="font-weight: bold">ADD USER</div>
-                </div>
-            </a>
+        <div class="sb">
+        <div class="records-per-page" style="visibility: <?php echo $showpagesec ? 'visible' : 'hidden'; ?>;">
+                <form method="GET" action="">
+                    <label for="recordsPerPage">Show</label>
+                    <select name="recordsPerPage" id="recordsPerPage" onchange="this.form.submit()">
+                        <option value="5" <?php echo $recordsPerPage == 5 ? 'selected' : ''; ?>>5</option>
+                        <option value="10" <?php echo $recordsPerPage == 10 ? 'selected' : ''; ?>>10</option>
+                        <option value="15" <?php echo $recordsPerPage == 15 ? 'selected' : ''; ?>>15</option>
+                    </select>
+                    <label for="recordsPerPage">entries</label>
+                    <input type="hidden" name="search" value="<?php echo htmlspecialchars($searchTerm); ?>">
+                </form>
+            </div>
+            <div class="adduser">
+                <a href="user_management/user_form.php" style="text-decoration:none; color:white">
+                    <div class="btn1">
+                        <div><i class="fa-solid fa-user-plus"></i></div>
+                        <div style="font-weight: bold">ADD USER</div>
+                    </div>
+                </a>
+            </div>
+            
         </div>
-    </div>
-
-    <!-- Records per page dropdown -->
-    <div class="records-per-page">
-        <form method="GET" action="">
-            <label for="recordsPerPage">Show</label>
-            <select name="recordsPerPage" id="recordsPerPage" onchange="this.form.submit()">
-                <option value="5" <?php echo $recordsPerPage == 5 ? 'selected' : ''; ?>>5</option>
-                <option value="10" <?php echo $recordsPerPage == 10 ? 'selected' : ''; ?>>10</option>
-                <option value="15" <?php echo $recordsPerPage == 15 ? 'selected' : ''; ?>>15</option>
-            </select>
-            <label for="recordsPerPage">entries</label>
-            <input type="hidden" name="search" value="<?php echo htmlspecialchars($searchTerm); ?>">
-        </form>
-    </div>
+        
 
     <div class="tablearea">
         <?php if ($result->num_rows > 0) : ?>
@@ -203,6 +207,8 @@ $result = $conn->query($sql);
         <p>No records found!!</p>
         <?php endif; ?>
     </div>
+    </div>
+        
 
     <script>
             function validateSearch() {

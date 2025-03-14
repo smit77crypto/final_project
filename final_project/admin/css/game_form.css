@@ -186,35 +186,27 @@ span{
     display: flex;
     flex-flow: left;
     flex-wrap: wrap;
-    justify-content: left;
-    gap: 1rem;
+    justify-content: flex-start;
+    gap: .5rem;
+
     /* background-color: #fff; */
     padding: 10px;
-   
-    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
-    margin-top: 10px;
-    border-radius: 5px;
-    max-height: 300px; /* Optional: set a max-height for scrolling */
     overflow-y: auto; /* Allows scrolling if content exceeds max height */
 }
 
 /* Each individual selected slot */
 .selected-slot {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     padding: 8px 10px;
-    border: 1px solid #ddd;
-    margin-bottom: 5px;
-    border-radius: 15px;
-    background-color: #d32f2f;  /* Red background like the slot button */
-    color: #fff; /* White text for contrast */
+    text-align: center;
+    border: 2px solid red;
+    border-radius: 10px;
+    width: 145px;
     font-size: 1rem;
     font-weight: bold; /* Optional: makes text bold */
 }
 
 /* Styling for the remove button */
-.remove-slot {
+/* .remove-slot {
     color: #fff;
     font-size: 1.2rem;
     cursor: pointer;
@@ -227,15 +219,15 @@ span{
 }
 .remove-slot i {
     color: white;
-    margin-right: 5px; /* Space between icon and text */
+    margin-right: 5px; 
 }
 .remove-slot:hover {
-    color: #ffebee; /* Light pink on hover for better visibility */
-}
+    color: #ffebee; 
+} */
 
 /* Hover effect for selected slots */
 .selected-slot:hover {
-    background-color: #b71c1c; /* Darker red when hovered */
+    background-color: #dea8a8; /* Darker red when hovered */
 }
 
 /* Optional: Add a shadow effect to the selected slot */

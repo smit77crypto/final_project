@@ -1,10 +1,6 @@
 /* General Styles */
-.uper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15rem;
-    flex-wrap: wrap;
+.main{
+    padding: 20px;
 }
 .btn1 {
     border-radius: 10px;
@@ -18,8 +14,8 @@
     transition: background-color 0.3s ease, transform 0.3s ease;
   }
 .btn1 div {
-    color: white; /* Makes the text color white */
-    font-weight: bold; /* Keep the text bold */
+    color: white; 
+    font-weight: bold;
   }
   
 .btn1:hover {
@@ -29,22 +25,21 @@
   }
 .btn1 div i {
     color: white;
-    /* margin-left: 5px; */
-  }
-.adduser {
-    margin-top: 140px;
 }
-.records-per-page{
-    padding-top: 15px;
-    padding-left: 29px;
+.sb{ 
+   display: flex;
+   align-items:center;
+   justify-content: space-between;
 }
 .search-form {
-    margin-top: 100px;
+    margin-top: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
-    width: 30%;
-  
+   
     text-align: center;
 }
 .search-form .search-div{
@@ -94,7 +89,7 @@
     align-items: center;
     flex-direction: column;
     width: 100%;
-    padding: 20px;
+    
 }
 
 /* Desktop Table View */
@@ -257,10 +252,7 @@ tr:hover {
         width: 80%;
     }
 
-    .uper {
-        gap: 2rem;
-        flex-direction: column;
-    }
+   
 
     .adduser {
         margin-top: 20px;

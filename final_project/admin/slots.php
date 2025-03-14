@@ -34,7 +34,7 @@ function getTimePeriod($time) {
 // Function to fetch slot data from the API
 function fetchSlotData($game_id, $date) {
     // Fetch all slots from the first API (slots_data.php)
-    $slots_api_url = "http://192.168.0.130/final_project/final_project/Api's/filter_time.php";
+    $slots_api_url = "http://localhost/final_project/final_project/Api's/filter_time.php";
     $slots_json_data = json_encode(['id' => $game_id, "date" => $date]);
 
     $slots_options = [
@@ -54,7 +54,7 @@ function fetchSlotData($game_id, $date) {
     $slots_data = json_decode($slots_response, true);
 
     // Fetch booked slots from the second API (book_slots.php)
-    $booked_slots_api_url = "http://192.168.0.130/final_project/final_project/Api's/book_slots.php";
+    $booked_slots_api_url = "http://localhost/final_project/final_project/Api's/book_slots.php";
     $booked_json_data = json_encode(['game_id' => $game_id, 'date' => $date]);
 
     $booked_options = [
@@ -145,15 +145,15 @@ $filtered_slots = array_filter($available_slots, function ($slot) use ($selected
         <?php
         $dates = [
             [
-                'label' => '<small>' . date("M") . '</small><br><span class="date-large">' . date("j") . '</span><br><small>' . date("Y") . '</small>', // Today
+                'label' => '<small>' . date("l") . '</small><br><span class="date-large">' . date("j") . '</span><br><small>' . date("M") . '</small>', // Today
                 'date' => date("Y/m/d")
             ],
             [
-                'label' => '<small>' . date("M", strtotime("+1 day")) . '</small><br><span class="date-large">' . date("j", strtotime("+1 day")) . '</span><br><small>' . date("Y", strtotime("+1 day")) . '</small>', // Tomorrow
+                'label' => '<small>' . date("l", strtotime("+1 day")) . '</small><br><span class="date-large">' . date("j", strtotime("+1 day")) . '</span><br><small>' . date("M", strtotime("+1 day")) . '</small>', // Tomorrow
                 'date' => date("Y/m/d", strtotime("+1 day"))
             ],
             [
-                'label' => '<small>' . date("M", strtotime("+2 days")) . '</small><br><span class="date-large">' . date("j", strtotime("+2 days")) . '</span><br><small>' . date("Y", strtotime("+2 days")) . '</small>', // Day After
+                'label' => '<small>' . date("l", strtotime("+2 days")) . '</small><br><span class="date-large">' . date("j", strtotime("+2 days")) . '</span><br><small>' . date("M", strtotime("+2 days")) . '</small>', // Day After
                 'date' => date("Y/m/d", strtotime("+2 days"))
             ]
         ];
@@ -170,7 +170,7 @@ $filtered_slots = array_filter($available_slots, function ($slot) use ($selected
     <div class="filter-buttons">
         <!-- Duration Filter -->
          <div class="durationfltr">
-        <?php $filters = ['All', '30min', '1hr']; ?>
+        <?php $filters = ['All','30min','1hr']; ?>
         <?php foreach ($filters as $filter): ?>
             <a href="slots.php?game_id=<?= $game_id ?>&date=<?= $selected_date ?>&filter=<?= $filter ?>&period=<?= $selected_period ?>&time_of_day=<?= $selected_time_of_day ?>">
                 <button class="<?= ($filter === $selected_filter) ? 'active' : '' ?>"><?= $filter ?></button>
@@ -180,12 +180,12 @@ $filtered_slots = array_filter($available_slots, function ($slot) use ($selected
 
         <!-- Time of Day Filter -->
          <div class="mrngfltr">
-        <?php $times_of_day = ['All', 'Morning', 'Afternoon', 'Evening', 'Night']; ?>
-        <?php foreach ($times_of_day as $time): ?>
+        <?php $times_of_day = ['All','Morning','Afternoon','Evening','Night']; ?>
+        <?php foreach ($times_of_day as $time):?>
             <a href="slots.php?game_id=<?= $game_id ?>&date=<?= $selected_date ?>&filter=<?= $selected_filter ?>&period=<?= $selected_period ?>&time_of_day=<?= $time ?>">
                 <button class="<?= ($time === $selected_time_of_day) ? 'active' : '' ?>"><?= $time ?></button>
             </a>
-        <?php endforeach; ?>
+        <?php endforeach;?>
         </div>
     </div>
     <div class="slots-container">
@@ -313,7 +313,7 @@ $filtered_slots = array_filter($available_slots, function ($slot) use ($selected
         };
 
         try {
-            const response = await fetch('http://192.168.0.130/final_project/final_project/Api\'s/book_game_admin.php', {
+            const response = await fetch('http://localhost/final_project/final_project/Api\'s/book_game_admin.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

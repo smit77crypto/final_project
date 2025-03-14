@@ -1,5 +1,6 @@
 <?php
 $gameId = isset($_GET['id']) ? $_GET['id'] : '';
+$game_name = $half_hour = $hour = $slots = '';
 if ($gameId) {
     include('../connect_database.php');
     $sql = "SELECT * FROM games WHERE id = ?";
@@ -46,19 +47,21 @@ $selectedSlots = !empty($slots) ? explode(',', $slots) : [];
             <div class="mid">
                 <div class="left1">
                     <h2 id="formTitle" style="visibility:hidden">Game Detail</h2>
-                    <input type="hidden" id="gameId" name="gameId" value="<?php echo $gameId; ?>">
+
+                    <input type="hidden" id="gameId" name="gameId" value="<?php echo $gameId ; ?>">
+
                     <div class="form-group">
                         <label>Game Name <span><?php echo $gameId ? '' : '*'; ?></span></label>
                         <input type="text" id="gameName" name="gameName" value="<?php echo $game_name; ?>">
                         <span class="error-message" id="gameNameError"></span>
                     </div>
                     <div class="form-group">
-                        <label>Price for 30 mins <span><?php echo $gameId ? '' : '*'; ?></span></label></label>
+                        <label>Price(₹) 30 mins <span><?php echo $gameId ? '' : '*'; ?></span></label></label>
                         <input type="text" id="price30" name="price30" value="<?php echo $half_hour; ?>">
                         <span class="error-message" id="price30Error"></span>
                     </div>
                     <div class="form-group">
-                        <label>Price for 1 hour <span><?php echo $gameId ? '' : '*'; ?></span></label></label>
+                        <label>Price(₹) 1 hour <span><?php echo $gameId ? '' : '*'; ?></span></label></label>
                         <input type="text" id="price60" name="price60" value="<?php echo $hour; ?>">
                         <span class="error-message" id="price60Error"></span>
                     </div>

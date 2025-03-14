@@ -24,6 +24,47 @@ $result4 = mysqli_query($conn, $query4);
 $row4 = mysqli_fetch_assoc($result4);
 $gameCount = $row4['count'];
 
+$query1 = "SELECT name FROM games WHERE deleteval = 1";
+$result1 = mysqli_query($conn, $query1);
+
+// Store the game names in an array
+$gameNames = [];
+while ($row = mysqli_fetch_assoc($result1)) {
+    $gameNames[] = $row['name'];
+}
+
+// Second Query: Get the count of bookings for each game where deleteval = 1
+$query2 = "SELECT game_name, COUNT(*) AS booking_count
+           FROM book_game
+           WHERE deleted= 1
+           GROUP BY game_name";
+
+$result2 = mysqli_query($conn, $query2);
+
+// Store the booking counts in an array
+$bookingCounts = [];
+while ($row = mysqli_fetch_assoc($result2)) {
+    $bookingCounts[] = $row['booking_count'];
+}
+
+$query3 = "SELECT 
+    MONTHNAME(book_date) AS month_name, 
+    MONTH(book_date) AS month_number, 
+    COUNT(*) AS booking_count
+FROM book_game
+WHERE deleted = 1
+GROUP BY month_number, month_name";
+
+$result3 = mysqli_query($conn, $query3);
+
+// Store the month names and booking counts in arrays
+$monthNames = [];
+$mbookingCounts = [];
+while ($row = mysqli_fetch_assoc($result3)) {
+    $monthNames[] = $row['month_name'];
+    $mbookingCounts[] = $row['booking_count'];
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -129,14 +170,16 @@ $gameCount = $row4['count'];
 
             <script>
             // Line Chart
+            var monthNames = <?php echo json_encode($monthNames); ?>;
+            var mbookingCounts = <?php echo json_encode($mbookingCounts); ?>;
             var ctxLine = document.getElementById('myLineChart').getContext('2d');
             var myLineChart = new Chart(ctxLine, {
                 type: 'line',
                 data: {
-                    labels: ['January', 'February', 'March', 'April'],
+                    labels: monthNames,
                     datasets: [{
                         label: 'Slot',
-                        data: [10, 30, 25, 40],
+                        data: mbookingCounts,
                         borderColor: 'green',
                         backgroundColor: 'rgba(170, 228, 170, 0.2)',
                         borderWidth: 2,
@@ -144,16 +187,17 @@ $gameCount = $row4['count'];
                     }]
                 }
             });
-
+            var gameNames = <?php echo json_encode($gameNames); ?>;
+            var bookingCounts = <?php echo json_encode($bookingCounts); ?>;
             // Bar Chart
             var ctxBar = document.getElementById('myBarChart').getContext('2d');
             var myBarChart = new Chart(ctxBar, {
                 type: 'bar',
                 data: {
-                    labels: ['Bowling', 'Snooker', 'Chess', 'Pool'],
+                    labels: gameNames,
                     datasets: [{
                         label: 'Trending Game',
-                        data: [20, 35, 15, 40],
+                        data: bookingCounts,
                         borderColor: 'red',
                         backgroundColor: 'rgba(228, 170, 180, 0.2)',
                         borderWidth: 1

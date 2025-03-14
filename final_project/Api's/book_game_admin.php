@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $slot = $data['slot'] ?? null;
     $phone = $data['phone_no'] ?? null;
 
+    
     // Validate required fields
     if (empty($game_id) || empty($date) || empty($slot)) {
         echo json_encode(['success' => false, 'message' => 'Fields (game_id, date, and slot) are required.']);

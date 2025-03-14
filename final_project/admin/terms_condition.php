@@ -72,16 +72,16 @@ $conn->close();
 <body>
     <?php include "navbar.php"; ?>
     <div class="container">
-        <h1>Edit Terms and Conditions</h1>
+        <h1>Terms & Conditions</h1>
 
         <!-- Form to submit the terms and conditions -->
         <div class="textarea-container">
             <textarea id="termsEditor" name="terms"><?php echo htmlspecialchars($terms); ?></textarea>
         </div>
         <div class="form-actions">
-            <button id="save" class="btn btn-save"><i class="fa-solid fa-floppy-disk"></i></button>
-            <button id="cancel" class="btn btn-cancel" onclick="window.location.href='admin_home.php'"><i
-                    class="fa-solid fa-rectangle-xmark"></i></button>
+            <button id="save" class="btn btn-save">save</i></button>
+            <button id="cancel" class="btn btn-cancel" onclick="window.location.href='admin_home.php'">
+                    cancel</button>
         </div>
     </div>
 
