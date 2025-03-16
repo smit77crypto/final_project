@@ -13,6 +13,8 @@ use \Firebase\JWT\Key;
 
 include 'db_connect.php'; // Ensure db_connect.php is correctly configured
 
+date_default_timezone_set('Asia/Kolkata'); // Set your timezone
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
 
@@ -34,18 +36,41 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->execute();
         $result = $stmt->get_result();
 
-        $bookings = [];
-        while ($row = $result->fetch_assoc()) {
-            $bookings[] = $row;
-        }
+        $currentDate = date('Y-m-d');
+        $currentTime = date('H:i');
 
+        $upcoming = [];
+        $past = [];
+
+        while ($row = $result->fetch_assoc()) {
+            $bookingDate = $row['book_date'];
+            $slot = $row['slot'];
+
+            if ($bookingDate < $currentDate) {
+                $past[] = $row;
+            } elseif ($bookingDate > $currentDate) {
+                $upcoming[] = $row;
+            } else {
+                $startTime = explode('-', $slot)[0];
+                $amOrPm = strtoupper(substr($slot, -2));
+                $slotTime = $startTime . $amOrPm; 
+                $slotTime24Hour = date('H:i', strtotime($slotTime));
+                if ($slotTime24Hour < $currentTime) {
+                    $past[] = $row;
+                } else {
+                    $upcoming[] = $row;
+                }     
+            }
+        }
         echo json_encode([
             'success' => true,
-            'bookings' => $bookings
+            'upcoming' => $upcoming,
+            'past' => $past
         ]);
 
     } catch (Exception $e) {
         echo json_encode(['success' => false, 'message' => 'Invalid token or error: ' . $e->getMessage()]);
     }
 }
+
 ?>
