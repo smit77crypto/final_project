@@ -60,7 +60,7 @@ h2{
 }
 
 @media (max-width: 768px) {
-    .desktop-view {
+    table {
         display: none;
     }
 

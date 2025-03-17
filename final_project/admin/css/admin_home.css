@@ -200,44 +200,55 @@ canvas {
   color: red;
 }
 
+@media (max-width: 1052px){
+  .admin-info-container{
+    display: none;
+  }
+  #main-content {
+    margin-left: 0;
+    padding: 10px;
+  }
+  .details {
+    margin-top: 70px;
+  }
+  .container {
+    margin-left: 0;
+    width: 100%;
+    margin: auto;
+  }
+
+  .data {
+    margin-top: 20px;
+    margin-left: 0;
+    width: 100%;
+    height: auto;
+    gap: 1.5rem;
+  }
+
+  .info {
+    width: 45%;
+  }
+
+  .row {
+    flex-direction: column;
+  }
+
+  .col-md-6 {
+    width: 100%;
+  }
+}
 /* Responsive Design for Mobile and Tablet */
 @media (max-width: 1024px) {
   .body-part {
     flex-direction: column;
     height: auto;
   }
-
-  .admin-info-container {
-    position: relative;
-    top: 0;
-    width: 100%;
-    height: auto;
-    padding: 10px;
-    margin-top: 60px;
-
+  .admin-info-container{
+    display: none;
   }
-
-  .admin-details {
-    height: auto;
-    max-width: 100%;
-    margin-top: 0;
+  .details {
+    margin-top: 70px;
   }
-
-  .admin-photo {
-    width: 80px;
-    height: 80px;
-  }
-
-  .admin-name h3 {
-    font-size: 1.2rem;
-  }
-
-  .admin-address,
-  .admin-phone,
-  .admin-email {
-    font-size: 0.9rem;
-  }
-
   #main-content {
     margin-left: 0;
     padding: 10px;
@@ -271,21 +282,12 @@ canvas {
 }
 
 @media (max-width: 768px) {
-  .admin-photo {
-    width: 70px;
-    height: 70px;
+  .details {
+    margin-top: 70px;
   }
-
-  .admin-name h3 {
-    font-size: 1rem;
+  .admin-info-container{
+    display: none;
   }
-
-  .admin-address,
-  .admin-phone,
-  .admin-email {
-    font-size: 0.8rem;
-  }
-
   .info {
     width: 100%;
     max-width: 300px;
@@ -302,33 +304,18 @@ canvas {
 }
 
 @media (max-width: 480px) {
-  .admin-info-container {
-    position: relative;
-    top: 0;
-    width: 100%;
-    height: auto;
-    padding: 10px;
-    margin-top: 30px;
+  .details {
+    margin-top: 70px;
   }
-  .admin-photo {
-    width: 60px;
-    height: 60px;
+  .admin-info-container{
+    display: none;
   }
-
-  .admin-name h3 {
-    font-size: 0.9rem;
-  }
-
-  .admin-address,
-  .admin-phone,
-  .admin-email {
-    font-size: 0.7rem;
-  }
-
   .info-title {
     font-size: 0.9rem;
   }
-
+  .card-body h5{
+    font-size: 1rem;
+  }
   .info-number {
     font-size: 1.2rem;
   }

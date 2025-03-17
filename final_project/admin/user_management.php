@@ -118,8 +118,7 @@ $result = $conn->query($sql);
                         <div style="font-weight: bold">ADD USER</div>
                     </div>
                 </a>
-            </div>
-            
+            </div>  
         </div>
         
 
@@ -130,7 +129,7 @@ $result = $conn->query($sql);
             <table border="1">
                 <tr>
                     <th>Action</th>
-                    <th>Full Name</th>
+                    <th>Name</th>
                     <th>Email</th>
                     <th>Gender</th>
                     <th>Phone no</th>

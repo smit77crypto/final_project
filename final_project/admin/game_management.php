@@ -213,7 +213,7 @@ $showpagesec = $totalRecords > 0;
                 <h5 class="card-title"><?php echo htmlspecialchars($row["name"]); ?></h5>
                 <p class="card-text"><strong>Price (30 min):</strong> <?php echo htmlspecialchars($row["half_hour"]); ?>
                 </p>
-                <p class="card-text"><strong>Price (60 min):</strong> <?php echo htmlspecialchars($row["hour"]); ?></p>
+                <p class="card-text"><strong>Price (1 hr):</strong> <?php echo htmlspecialchars($row["hour"]); ?></p>
                 <p class="card-text"><strong>Card Image:</strong> <img
                         src=<?php echo htmlspecialchars($row["card_image"]); ?> alt='Game Image' width='50'></p>
                 <p class="card-text"><strong>Slider Image:</strong> <img

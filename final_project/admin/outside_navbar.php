@@ -1,5 +1,5 @@
 <nav>
-<div class="right">
+    <div class="logo">
         <img src="../uploads/gip_logo.png" alt="logo" width="auto" height="50px">
     </div>
     <div class="left">
@@ -21,6 +21,14 @@
             </li>
         </ul>
     </div>
+    <div class="profile" onclick="toggleProfilePopup()">
+        <i class="fas fa-user-circle"></i> <!-- Profile Icon -->
+        <!-- Popup that will show on click -->
+        <div class="profile-popup">
+            <a href="admin_profile.php">Profile</a> <!-- Profile Option -->
+            <a href="admin_login.php">Logout</a> <!-- Logout Option -->
+        </div>
+    </div>
     <div class="right">
         <a href="admin_login.php" style="text-decoration:none; color:white">
             <div class="btn">
@@ -38,13 +46,13 @@
         <img src="../uploads/gip_logo.png" alt="logo" width="50px" height="50px">
     </div>
     
-    <div class="right">
-        <a href="admin_login.php" style="text-decoration:none; color:white">
-            <div class="btn">
-                <div><i class="fa-solid fa-right-from-bracket"></i></div>
-                <div style="font-weight: bold">LOG OUT</div>
-            </div>
-        </a>
+    <div class="profile" onclick="toggleProfilePopup()">
+        <i class="fas fa-user-circle"></i> <!-- Profile Icon -->
+        <!-- Popup that will show on click -->
+        <div class="profile-popup">
+            <a href="admin_profile.php">Profile</a> <!-- Profile Option -->
+            <a href="admin_login.php">Logout</a> <!-- Logout Option -->
+        </div>
     </div>
 </nav>
 <div class="mobile-box">
@@ -62,11 +70,31 @@
                 <a class="m-nav-link" href="../terms_condition.php" id="termsLink">Terms and Conditions</a>
             </li>
             <li class="nav-item">
-                <a class="m-nav-link" href="#" id="viewSlotsLink">View Slots</a>
+                <a class="m-nav-link" href="../games_slots.php" id="viewSlotsLink">View Slots</a>
             </li>
+          
         </ul>
     </div>
     <script>
+        // Function to toggle the profile popup for both desktop and mobile
+const profileIcons = document.querySelectorAll('.profile');
+const profilePopups = document.querySelectorAll('.profile-popup');
+
+profileIcons.forEach((profileIcon) => {
+  profileIcon.addEventListener('click', function (event) {
+    event.stopPropagation(); // Prevent the event from bubbling up
+    profileIcon.classList.toggle('show');
+  });
+});
+
+// Close the popup if the user clicks outside the profile
+document.addEventListener('click', function (event) {
+  profileIcons.forEach((profileIcon) => {
+    if (!profileIcon.contains(event.target)) {
+      profileIcon.classList.remove('show');
+    }
+  });
+});
         // Toggle the mobile box visibility with transition
         document.querySelector('.mobile-menu').addEventListener('click', function() {
             var mobileBox = document.querySelector('.mobile-box');

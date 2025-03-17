@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $phone_no = $data['phone_no'];
     $date = $data['date'];
     $slot = $data['slot'];
-
+    $game_name = $data['game_name'];
     include 'db_connect.php';
 
     if ($auth === 'user') {
@@ -36,14 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    $stmt = $conn->prepare("SELECT book_time FROM book_game WHERE phone_no = ? AND date = ? AND slot = ?");
-    $stmt->bind_param('sss', $phone_no, $date, $slot);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        $book_time = $result->fetch_assoc()['book_time'];
-
         $stmt = $conn->prepare("SELECT membership_id FROM register WHERE phone_no = ?");
         $stmt->bind_param('s', $phone_no);
         $stmt->execute();
@@ -51,33 +43,44 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($result->num_rows > 0) {
             $membership_id = $result->fetch_assoc()['membership_id'];
+            echo $membership_id;
+            // Define allowed hours for cancellation based on membership
             $allowed_hours = ($membership_id == 1) ? 4 : (($membership_id == 2) ? 3 : 2);
             
+            // Extract slot start time and convert it to 24-hour format
             $slot_start_time = explode('-', $slot)[0];
-            $amOrPm = strtoupper(substr($slot, -2));
-            $slot_start_time_ap = $slot_start_time . $amOrPm;
-            $slot_start_time_24hr = date('H:i', strtotime(trim($slot_start_time_ap)));
+            $amOrPm = strtoupper(substr($slot, -2)); // Extract AM/PM
+            $slot_start_time_ap = $slot_start_time . $amOrPm; // Combine time with AM/PM
+            $slot_start_time_24hr = date('H:i', strtotime(trim($slot_start_time_ap))); // Convert to 24-hour format
 
-            $current_time_obj = new DateTime();
-            $book_time_obj = new DateTime($date . ' ' . $slot_start_time_24hr);
-            $interval = $current_time_obj->diff($book_time_obj);
-            $hours_diff = (int)$interval->format('%h') + ($interval->days * 24);
+            // Create DateTime objects
+            $current_time_obj = new DateTime(); 
+            $book_time_obj = new DateTime($date . ' ' . $slot_start_time_24hr); 
+   
+            if ($current_time_obj < $book_time_obj) {
+                echo "hello";                
+                $interval = $current_time_obj->diff($book_time_obj);
+                $hours_diff = (int)$interval->format('%h') + ($interval->days * 24);
 
-            if ($hours_diff >= $allowed_hours) {
-                $stmt = $conn->prepare("UPDATE book_game SET deleted = 0 WHERE phone_no = ? AND date = ? AND slot = ?");
-                $stmt->bind_param('sss', $phone_no, $date, $slot);
-                $stmt->execute();
+                // Check if cancellation is allowed based on membership
+                if ($hours_diff >= $allowed_hours) {
+                    
+                    // Proceed with cancellation
+                    $stmt = $conn->prepare("UPDATE book_game SET deleted = 0 WHERE phone_no = ? AND book_date = ? AND slot = ? AND game_name = ?");
+                    $stmt->bind_param('ssss', $phone_no, $date, $slot ,$game_name);
+                    $stmt->execute();
 
-                echo json_encode(['success' => true, 'message' => 'Booking cancelled successfully.']);
+                    echo json_encode(['success' => true, 'message' => 'Booking cancelled successfully.']);
+                } else {
+                    echo json_encode(['success' => false, 'message' => 'Cannot cancel. Allowed cancellation time exceeded.']);
+                }
             } else {
-                echo json_encode(['success' => false, 'message' => 'Cannot cancel. Allowed cancellation time exceeded.']);
+                echo json_encode(['success' => false, 'message' => 'Booking time has already passed.']);
             }
         } else {
             echo json_encode(['success' => false, 'message' => 'Membership not found.']);
         }
-    } else {
-        echo json_encode(['success' => false, 'message' => 'Booking not found.']);
-    }
+  
 
     $stmt->close();
     $conn->close();
