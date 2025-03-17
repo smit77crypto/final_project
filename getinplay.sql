@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 07, 2025 at 06:45 PM
+-- Generation Time: Mar 17, 2025 at 11:05 AM
 -- Server version: 10.11.8-MariaDB-0ubuntu0.24.04.1
 -- PHP Version: 7.4.33
 
@@ -95,7 +95,41 @@ INSERT INTO `book_game` (`id`, `username`, `phone_no`, `email`, `game_name`, `sl
 (82, 'sham123', '1231231231', 'sohan@gmail.com', 'Snooker', '4:00-4:30PM', 1, '2025-03-08'),
 (83, 'sohan_1123', '9664691917', 'smitbarot2004@gmail.com', 'Bowling', '9:00-9:30PM', 1, '2025-03-07'),
 (84, 'sohan_1123', '9664691917', 'smitbarot2004@gmail.com', 'Bowling', '11:00-11:30PM', 1, '2025-03-07'),
-(85, 'swati123', '9345678901', 'swati4@gmail.com', 'Bowling', '2:00-3:00PM', 1, '2025-03-09');
+(85, 'swati123', '9345678901', 'swati4@gmail.com', 'Bowling', '2:00-3:00PM', 1, '2025-03-09'),
+(86, 'getinplay123', '7990153071', 'sohan.21beitg119@gmail.com', 'Chess', '10:00-10:30AM', 1, '2025-03-10'),
+(87, 'getinplay123', '7990153071', 'sohan.21beitg119@gmail.com', 'Bowling', '11:00-11:30AM', 1, '2025-03-10'),
+(88, 'sohan_1123', '9664691917', 'smitbarot20004@gmail.com', '8 Ball Pool', '10:00-11:00AM', 1, '2025-03-10'),
+(89, 'getinplay123', '7990153071', 'sohannn.21beitg119@gmail.com', 'Snooker', '3:00-3:30PM', 1, '2025-03-10'),
+(90, 'getinplay123', '7990153071', 'sohannn.21beitg119@gmail.com', 'Snooker', '3:00-4:00PM', 1, '2025-03-10'),
+(91, 'sham123', '1231231231', 'sohan@gmail.com', 'Snooker', '4:00-4:30PM', 1, '2025-03-10'),
+(92, 'sham123', '1231231231', 'sohan@gmail.com', '8 Ball Pool', '11:30-12:00PM', 1, '2025-03-11'),
+(93, 'getinplay123', '7990153071', 'sohannn.21beitg119@gmail.com', '8 Ball Pool', '3:00-4:00PM', 1, '2025-03-11'),
+(94, 'getinplay123', '7990153071', 'sohannn.21beitg119@gmail.com', '8 Ball Pool', '4:00-4:30PM', 1, '2025-03-11'),
+(95, 'getinplay123', '7990153071', 'sohannn.21beitg119@gmail.com', 'Snooker', '5:30-6:00PM', 1, '2025-03-11'),
+(96, 'getinplay123', '7990153071', 'sohannn.21beitg119@gmail.com', 'Snooker', '7:30-8:00PM', 1, '2025-03-11'),
+(97, 'getinplay123', '7990153071', 'sohannn.21beitg119@gmail.com', 'Badminton', '8:00-8:30PM', 1, '2025-03-11'),
+(98, 'getinplay123', '7990153071', 'sohannn.21beitg119@gmail.com', 'Chess', '7:00-8:00PM', 1, '2025-03-11'),
+(99, 'getinplay123', '7990153071', 'sohannn.21beitg119@gmail.com', 'Chess', '8:00-8:30PM', 1, '2025-03-11'),
+(100, 'sham123', '1231231231', 'sohan@gmail.com', 'Chess', '2:00-3:00PM', 1, '2025-03-13'),
+(101, 'sohan_1123', '9664691917', 'smitbarot20004@gmail.com', 'Chess', '3:00-4:00PM', 1, '2025-03-11'),
+(102, 'getinplay123', '7990153071', 'sohannn.21beitg119@gmail.com', 'Snooker', '10:30-11:00AM', 1, '2025-03-12'),
+(103, 'getinplay123', '7990153071', 'sohannn.21beitg119@gmail.com', 'Snooker', '10:00-11:00AM', 1, '2025-03-12'),
+(104, 'sham123', '1231231231', 'sohan@gmail.com', '8 Ball Pool', '1:00-2:00PM', 1, '2025-03-12'),
+(105, 'getinplay123', '7990153071', 'sohannn.21beitg119@gmail.com', '8 Ball Pool', '8:00-8:30PM', 1, '2025-03-12'),
+(106, 'hello', '9876543210', 'sohan1@gmail.com', '8 Ball Pool', '11:30-12:00PM', 1, '2025-03-12'),
+(107, 'xyz123', '9123456789', 'smit2@gmail.com', '8 Ball Pool', '10:00-11:00AM', 1, '2025-03-12'),
+(108, 'swati123', '9345678901', 'swati4@gmail.com', '8 Ball Pool', '12:00-12:30PM', 1, '2025-03-12'),
+(109, 'bob1234', '9456789012', 'abc5@gmail.com', '8 Ball Pool', '1:30-2:00PM', 1, '2025-03-12'),
+(110, 'bob_123', '9678901234', 'bob7@gmail.com', '8 Ball Pool', '2:30-3:00PM', 1, '2025-03-12'),
+(111, 'svit124323', '9978901234', 'svit17@gmail.com', '8 Ball Pool', '3:30-4:00PM', 1, '2025-03-12'),
+(112, 'smit_123', '9056789012', 'smit26@gmail.com', '8 Ball Pool', '3:00-4:00PM', 1, '2025-03-12'),
+(113, 'sohan_2003', '9045678901', 'sohan25@gmail.com', '8 Ball Pool', '4:00-4:30PM', 1, '2025-03-12'),
+(114, 'sohan_1123', '9664691917', 'smitbarot20004@gmail.com', '8 ball pool', '5:00-6:00PM', 1, '2025-03-12'),
+(115, 'sham123', '1231231231', 'sohan@gmail.com', '8 ball pool', '5:30-6:00PM', 1, '2025-03-12'),
+(116, 'sham123', '1231231231', 'sohan@gmail.com', '8 ball pool', '1:00-2:00PM', 1, '2025-03-13'),
+(117, 'sham123', '1231231231', 'sohan@gmail.com', '8 ball pool', '7:00-7:30PM', 1, '2025-03-12'),
+(118, 'sham123', '1231231231', 'sohan@gmail.com', '8 ball pool', '10:30-11:00PM', 1, '2025-03-12'),
+(119, 'sham123', '1231231231', 'sohan@gmail.com', '8 ball pool', '11:30-12:00PM', 1, '2025-03-13');
 
 -- --------------------------------------------------------
 
@@ -120,13 +154,14 @@ CREATE TABLE `games` (
 --
 
 INSERT INTO `games` (`id`, `name`, `hour`, `half_hour`, `card_image`, `slider_image`, `slots`, `filter_value`, `deleteval`) VALUES
-(1, '8 Ball Pool', 150.00, 90.00, 'uploads/pool.png', 'uploads/sliderpool.jpg', '10:00-10:30AM,11:30-12:00PM,10:00-11:00AM,12:00-12:30PM,1:30-2:00PM,2:30-3:00PM,3:30-4:00PM,1:00-2:00PM,3:00-4:00PM,4:00-4:30PM,5:30-6:00PM,7:00-7:30PM,5:00-6:00PM,8:00-8:30PM,10:30-11:00PM,9:00-10:00PM', '30min,30min,1hr,30min,30min,30min,30min,1hr,1hr,30min,30min,30min,1hr,30min,30min,1hr', 1),
+(1, '8 ball pool', 150.00, 85.00, 'uploads/pool.png', 'uploads/sliderpool.jpg', '10:00-10:30AM,11:30-12:00PM,10:00-11:00AM,12:00-12:30PM,1:30-2:00PM,2:30-3:00PM,3:30-4:00PM,1:00-2:00PM,3:00-4:00PM,4:00-4:30PM,5:30-6:00PM,7:00-7:30PM,5:00-6:00PM,8:00-8:30PM,10:30-11:00PM,9:00-10:00PM', '30min,30min,1hr,30min,30min,30min,30min,1hr,1hr,30min,30min,30min,1hr,30min,30min,1hr', 1),
 (2, 'Snooker', 180.00, 100.00, 'uploads/snooker.jpeg', 'uploads/slidersnooker.jpeg', '10:30-11:00AM,10:00-11:00AM,12:30-1:00PM,1:00-1:30PM,3:00-3:30PM,2:00-3:00PM,3:00-4:00PM,4:00-4:30PM,5:30-6:00PM,7:30-8:00PM,7:00-8:00PM,8:00-8:30PM,9:00-9:30PM,11:00-11:30PM,8:00-9:00PM,10:00-11:00PM', '30min,1hr,30min,30min,30min,1hr,1hr,30min,30min,30min,1hr,30min,30min,30min,1hr,1hr', 1),
 (3, 'Badminton', 120.00, 70.00, 'uploads/badminton.jpeg', 'uploads/sliderbadminton.jpg', '10:00-10:30AM,3:00-3:30PM,2:00-3:00PM,3:00-4:00PM,4:00-4:30PM,5:30-6:00PM,7:30-8:00PM,7:00-8:00PM,8:00-8:30PM,9:00-9:30PM,11:00-11:30PM,8:00-9:00PM,10:00-11:00PM', '30min,30min,1hr,1hr,30min,30min,30min,1hr,30min,30min,30min,1hr,1hr', 1),
 (4, 'Chess', 100.00, 60.00, 'uploads/chess.jpeg', 'uploads/sliderchess.jpeg', '10:00-10:30AM,3:00-3:30PM,2:00-3:00PM,3:00-4:00PM,4:00-4:30PM,5:30-6:00PM,7:30-8:00PM,7:00-8:00PM,8:00-8:30PM,9:00-9:30PM,11:00-11:30PM,8:00-9:00PM,10:00-11:00PM', '30min,30min,1hr,1hr,30min,30min,30min,1hr,30min,30min,30min,1hr,1hr', 1),
 (5, 'Bowling', 180.00, 100.00, 'uploads/bowling.jpeg', 'uploads/sliderbowling.jpg', '11:00-11:30AM,3:00-3:30PM,2:00-3:00PM,3:00-4:00PM,4:00-4:30PM,5:30-6:00PM,7:30-8:00PM,7:00-8:00PM,8:00-8:30PM,9:00-9:30PM,11:00-11:30PM,8:00-9:00PM,10:00-11:00PM', '30min,30min,1hr,1hr,30min,30min,30min,1hr,30min,30min,30min,1hr,1hr', 1),
 (6, '00000', 100.00, 50.00, 'uploads/rick.jpg', 'uploads/rick.jpg', '10:00-10:30AM,11:00-11:30AM', '', 0),
-(7, 'dip', 120.00, 60.00, 'uploads/Screenshot from 2025-03-05 17-49-01.png', 'uploads/Screenshot from 2025-03-05 17-46-34.png', '10:00-10:30AM', '30min', 0);
+(7, 'dip', 120.00, 60.00, 'uploads/Screenshot from 2025-03-05 17-49-01.png', 'uploads/Screenshot from 2025-03-05 17-46-34.png', '10:00-10:30AM', '30min', 0),
+(8, 'volleyball', 321323.00, 323.00, 'uploads/default_card.jpg', 'uploads/default_slider.jpg', '10:00-10:30AM,11:00-11:30AM,11:00-12:00PM,12:00-12:30PM,1:30-2:00PM,3:30-4:00PM,12:00-1:00PM,3:00-4:00PM,4:00-4:30PM,5:00-5:30PM,6:30-7:00PM,7:30-8:00PM,4:00-5:00PM,9:00-9:30PM,10:00-10:30PM,8:00-9:00PM', '30min,30min,1hr,30min,30min,30min,1hr,1hr,30min,30min,30min,30min,1hr,30min,30min,1hr', 1);
 
 -- --------------------------------------------------------
 
@@ -171,7 +206,6 @@ CREATE TABLE `register` (
 --
 
 INSERT INTO `register` (`id`, `full_name`, `email`, `phone_no`, `gender`, `username`, `user_password`, `membership_id`, `deleteval`) VALUES
-(1, 'sohan prajapati', 'sohan1@gmail.com', '9876543210', 'Male', 'hello', '12341234', 1, 1),
 (2, 'smit barot', 'smit2@gmail.com', '9123456789', 'Male', 'xyz123', '$2y$10$aO2wKmuBvXYLZd6ZE0eYW.0oou9p..r2jLd4f70ZWrX8dp7B7VZPu', 2, 1),
 (3, 'rudra', 'rudra3@ac.in', '9234567890', 'Female', 'xyzabc', '$2y$10$O92G4gonuWMBKJ75SQrHxeB5GBrvX3nx95BjeWO8RKIxJlYiAf3NG', 1, 0),
 (4, 'swati', 'swati4@gmail.com', '9345678901', 'Male', 'swati123', '12121212', 3, 1),
@@ -198,9 +232,9 @@ INSERT INTO `register` (`id`, `full_name`, `email`, `phone_no`, `gender`, `usern
 (26, 'smit', 'smit26@gmail.com', '9056789012', 'Male', 'smit_123', '$2y$10$QpEtJGDeWg20zpGb44YccOdnZTUEnJJD01yg/uqfZAbn0HX4aEAG.', 2, 1),
 (28, 'abc', 'sohan.21beitg119@gmail.com', '1212121212', 'Male', 'abc_123', '$2y$10$QjdDFjkAWN3KxiHVpPYjQewMDVDcXlOI8tnyaPGRWB9IYXD3BWceG', 1, 1),
 (29, 'daDAdwd', 'dsds@gmail.com', '4356789043', 'Female', 'asd', 'asdasdasd', 1, 1),
-(35, 'sham', 'sohan@gmail.com', '1231231231', 'Male', 'sham123', '$2y$10$UuTY6BJ1H97hHOHFrvdfpuvzLX8PUbQJyXaU8ngqL7sAfv/1pg5DW', 1, 1),
-(39, 'getinplay', 'sohan.21beitg119@gmail.com', '7990153071', 'Male', 'getinplay123', '$2y$10$PcPkWCQhOYyRvtMxMqtwgOZWal9m5y25IykBF.H925LpRANxeRn.u', 2, 1),
-(40, 'sohan', 'smitbarot2004@gmail.com', '9664691917', 'Male', 'sohan_1123', '$2y$10$fb1BQNDpoz9EMlCLbcy0jO1T1v5zUVXvCAy.4/lcXplM0eI7iyeb6', 1, 1);
+(35, 'sham', 'sohan@gmail.com', '1231231231', 'Male', 'sham123', '$2y$10$UuTY6BJ1H97hHOHFrvdfpuvzLX8PUbQJyXaU8ngqL7sAfv/1pg5DW', 2, 1),
+(39, 'getinplay', 'sohannn.21beitg119@gmail.com', '7990153071', 'Male', 'getinplay123', '$2y$10$PcPkWCQhOYyRvtMxMqtwgOZWal9m5y25IykBF.H925LpRANxeRn.u', 2, 1),
+(40, 'sohan', 'smitbarot20004@gmail.com', '9664691917', 'Male', 'sohan_1123', '$2y$10$fb1BQNDpoz9EMlCLbcy0jO1T1v5zUVXvCAy.4/lcXplM0eI7iyeb6', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -264,13 +298,13 @@ ALTER TABLE `terms`
 -- AUTO_INCREMENT for table `book_game`
 --
 ALTER TABLE `book_game`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
 
 --
 -- AUTO_INCREMENT for table `games`
 --
 ALTER TABLE `games`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `membership`
