@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost"; // Use your actual server name (e.g., "192.168.0.130" or an IP address)
 $username = "root"; // Your database username
-$password = "bgmi"; // Your database password
+$password = "root"; // Your database password
 $dbname = "getinplay"; // Your database name
 
 // Create connection

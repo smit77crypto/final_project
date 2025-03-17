@@ -1,7 +1,7 @@
 <?php
     $servername = "localhost";
     $username1 = "root"; // Change if you have a different username
-    $password = "bgmi"; // Change if you have a MySQL password
+    $password = "root"; // Change if you have a MySQL password
     $dbname = "getinplay";
     
     // Create connection
