@@ -20,6 +20,7 @@ h1 {
 /* Date Picker Styles */
 .date-picker {
     display: flex;
+    height: 80px;
     width: max-content;
     margin-bottom: 20px;
     justify-content: flex-start;
@@ -37,7 +38,7 @@ h1 {
     transition: background-color 0.3s ease, color 0.3s ease;
     font-weight: bold;
     text-align: center;
-    line-height: 0.5; /* Adjusted line-height for better spacing */
+    line-height: 0.37; /* Adjusted line-height for better spacing */
     height: auto; /* Allow height to adjust based on content */
     min-width: 80px; /* Ensure buttons have a minimum width */
 }

@@ -322,12 +322,14 @@ $filtered_slots = array_filter($available_slots, function ($slot) use ($selected
             });
 
             const result = await response.json();
-            if (result.success) {
-                alert('Slot booked successfully!');
-                window.location.reload(); // Refresh the page
-            } else {
-                alert('Failed to book slot: ' + result.message);
-            }
+if (result.success) {
+    alert('Slot booked successfully!');
+    window.location.reload(); // Refresh the page
+} else {
+    alert('Failed to book slot: ' + result.message);
+    window.location.href = 'user_management/user_form.php'; // Redirect on failure
+}
+
         } catch (error) {
             console.error('Error:', error);
             alert('An error occurred while booking the slot.');
