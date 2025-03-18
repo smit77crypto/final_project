@@ -378,6 +378,8 @@ $selectedSlots = !empty($slots) ? explode(',', $slots) : [];
                             </label>
                         </div>
                     </div>
+
+                    <span class="error-message" id="slotError"></span>
                 </div>
             </div>
 
@@ -385,7 +387,7 @@ $selectedSlots = !empty($slots) ? explode(',', $slots) : [];
             <div class="selected-slots" id="selected-slots">
                 <h3>Selected Slots</h3>
                 <div id="selected-list"></div>
-                <span class="error-message" id="slotError"></span>
+                
             </div>
 
             <!-- Form Actions -->
