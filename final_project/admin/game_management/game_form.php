@@ -46,7 +46,7 @@ $selectedSlots = !empty($slots) ? explode(',', $slots) : [];
 
             <div class="mid">
                 <div class="left1">
-       
+                <h2 id="formTitle" style="visibility: hidden"><?php echo $gameId ? 'Update Game' : 'Add Game'; ?></h2>
 
                     <input type="hidden" id="gameId" name="gameId" value="<?php echo $gameId ; ?>">
 
