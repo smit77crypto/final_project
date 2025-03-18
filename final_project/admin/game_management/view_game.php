@@ -78,7 +78,15 @@ $conn->close();
 
         <div class="form-group">
             <label>Slots:</label>
-            <p><?php echo htmlspecialchars($row['slots']); ?></p>
+            <div class="slots-container">
+                <?php 
+                $slots = explode(',', $row['slots']);
+                foreach ($slots as $slot) {
+                    $clean_slot = trim($slot);
+                    echo '<span class="slot-item">' . htmlspecialchars($clean_slot) . '</span>';
+                }
+                ?>
+            </div>
         </div>
 
     </div>

@@ -258,7 +258,7 @@ if ($userId) {
                 <div class="form-group">
                     <label>Membership</label>
                     <select name="membership_id" id="membership" required>
-                        <option value="1" <?php echo ($membership_id == '1') ? 'selected' : ''; ?>>Normal</option>
+                        <option value="1" <?php echo ($membership_id == '1') ? 'selected' : ''; ?>>Basic</option>
                         <option value="2" <?php echo ($membership_id == '2') ? 'selected' : ''; ?>>Silver</option>
                         <option value="3" <?php echo ($membership_id == '3') ? 'selected' : ''; ?>>Gold</option>
                     </select>

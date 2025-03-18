@@ -257,7 +257,7 @@ $showpagesec = $totalRecords > 0;
         <div class="modal-content">
             <span class="close-popup"><i class="fa-solid fa-eye-slash"></i></span>
             <h2>All Slots</h2>
-            <div id="slotsContainer">Loading...</div>
+            <div id="slotsContainer" class="modal-slots-container">Loading...</div>
         </div>
     </div>
 
@@ -301,42 +301,45 @@ $showpagesec = $totalRecords > 0;
     }
 
     $(document).ready(function() {
-        // Show popup and lock background
-        $(".view-slots-btn").on("click", function() {
-            var gameId = $(this).attr("data-game-id");
+           // Show popup and lock background
+    $(".view-slots-btn").on("click", function() {
+        var gameId = $(this).attr("data-game-id");
 
-            $.ajax({
-                url: "fetch_slots.php",
-                type: "POST",
-                data: {
-                    game_id: gameId
-                },
-                dataType: "json",
-                success: function(response) {
-                    if (response.error) {
-                        $("#slotsContainer").html("<p>" + response.error + "</p>");
-                    } else {
-                        var slotText = response.slots.join(", "); // Join slots with commas
-                        $("#slotsContainer").html("<div>" + slotText + "</div>");
-                    }
-                    $("#slotModal").show();
-                    $("#overlay").show(); // Show overlay
-                    $("body").css("overflow", "hidden"); // Lock scroll
-                },
-                error: function(xhr, status, error) {
-                    console.error("AJAX Error:", status, error);
-                    alert("Failed to fetch slots.");
+        $.ajax({
+            url: "fetch_slots.php",
+            type: "POST",
+            data: {
+                game_id: gameId
+            },
+            dataType: "json",
+            success: function(response) {
+                if (response.error) {
+                    $("#slotsContainer").html("<p>" + response.error + "</p>");
+                } else {
+                    // Create individual slot elements
+                    var slotsHtml = response.slots.map(slot => {
+                        return `<span class="modal-slot-item">${slot.trim()}</span>`;
+                    }).join("");
+                    $("#slotsContainer").html(slotsHtml);
                 }
-            });
-        });
-
-        // Close popup and unlock background
-        $(".close-popup, #overlay").on("click", function() {
-            $("#slotModal").hide();
-            $("#overlay").hide(); // Hide overlay
-            $("body").css("overflow", "auto"); // Unlock scroll
+                $("#slotModal").show();
+                $("#overlay").show();
+                $("body").css("overflow", "hidden");
+            },
+            error: function(xhr, status, error) {
+                console.error("AJAX Error:", status, error);
+                alert("Failed to fetch slots.");
+            }
         });
     });
+
+    // Close popup and unlock background
+    $(".close-popup, #overlay").on("click", function() {
+        $("#slotModal").hide();
+        $("#overlay").hide();
+        $("body").css("overflow", "auto");
+    });
+});
     </script>
 </body>
 

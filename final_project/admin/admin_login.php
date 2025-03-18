@@ -15,7 +15,7 @@
             font-family: Arial, sans-serif;
         }
         h2{
-            color: rgb(211, 43, 43);
+            color: #4A5BE6;
         }
         .login-card {
         width: 300px;
@@ -52,7 +52,7 @@
         }
         .login-card .btn {
             margin-top:20px;
-            background-color: rgb(211, 43, 43);
+            background-color: #4A5BE6;
             color: white;
             padding: 10px 20px;
             border: none;
@@ -63,7 +63,7 @@
             transition: background-color 0.3s;
         }
         .login-card .btn:hover {
-            background-color: #41C2CB;
+            background-color:rgb(32, 54, 224);
         }
         .login-card .btn:active {
             background-color:rgb(53, 29, 156);

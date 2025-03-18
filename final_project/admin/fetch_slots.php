@@ -1,35 +1,22 @@
 <?php
 include('connect_database.php');
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+if (isset($_POST['game_id'])) {
+    $gameId = (int)$_POST['game_id'];
+    $query = "SELECT slots FROM games WHERE id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $gameId);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    if (isset($_POST['game_id'])) {
-        $game_id = intval($_POST['game_id']); // Ensure it's an integer
-
-        $query = "SELECT slots FROM games WHERE id = ?";
-        $stmt = $conn->prepare($query);
-        if ($stmt) {
-            $stmt->bind_param("i", $game_id);
-            $stmt->execute();
-            $result = $stmt->get_result();
-
-            if ($result->num_rows > 0) {
-                $row = $result->fetch_assoc();
-                $slots = explode(",", $row['slots']); // Assuming slots are stored as CSV
-                echo json_encode(['slots' => $slots]);
-            } else {
-                echo json_encode(['error' => 'No slots found']);
-            }
-            $stmt->close();
-        } else {
-            echo json_encode(['error' => 'Query preparation failed: ' . $conn->error]);
-        }
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $slots = explode(',', $row['slots']);
+        echo json_encode(['slots' => $slots]);
     } else {
-        echo json_encode(['error' => 'Missing game ID']);
+        echo json_encode(['error' => 'No slots found for this game.']);
     }
 } else {
-    echo json_encode(['error' => 'Invalid request']);
+    echo json_encode(['error' => 'Invalid request.']);
 }
 ?>

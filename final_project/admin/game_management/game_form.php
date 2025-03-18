@@ -86,10 +86,10 @@ $selectedSlots = !empty($slots) ? explode(',', $slots) : [];
 
                     <!-- Time Slots Sections -->
                     <div class="time-slot-section">
-                        <div class="slot-header">
+                        <div class="slot-header" onclick="toggleSlots('morning-slots')">
                             <h3>Morning Slot (10 AM - 12 PM)</h3>
                         </div>
-                        <div class="slot-options" id="morning-slots">
+                        <div class="slot-options" id="morning-slots" style="display: none;">
                             <label class="slot-item">
                                 <input type="checkbox" value="10:00-10:30AM" data-type="30min"
                                     onchange="updateSelectedSlots()"
@@ -126,15 +126,14 @@ $selectedSlots = !empty($slots) ? explode(',', $slots) : [];
                                     onchange="updateSelectedSlots()">
                                 11:00-12:00PM
                             </label>
-
                         </div>
                     </div>
 
                     <div class="time-slot-section">
-                        <div class="slot-header">
+                        <div class="slot-header" onclick="toggleSlots('afternoon-slots')">
                             <h3>Afternoon Slot (12 PM - 4 PM)</h3>
                         </div>
-                        <div class="slot-options" id="afternoon-slots">
+                        <div class="slot-options" id="afternoon-slots" style="display: none;">
                             <label class="slot-item">
                                 <input type="checkbox" value="12:00-12:30PM" data-type="30min"
                                     <?php echo in_array('12:00-12:30PM', $selectedSlots) ? 'checked' : ''; ?>
@@ -210,12 +209,11 @@ $selectedSlots = !empty($slots) ? explode(',', $slots) : [];
                         </div>
                     </div>
 
-
                     <div class="time-slot-section">
-                        <div class="slot-header">
+                        <div class="slot-header" onclick="toggleSlots('evening-slots')">
                             <h3>Evening Slot (4 PM - 8 PM)</h3>
                         </div>
-                        <div class="slot-options" id="evening-slots">
+                        <div class="slot-options" id="evening-slots" style="display: none;">
                             <label class="slot-item">
                                 <input type="checkbox" value="4:00-4:30PM" data-type="30min"
                                     onchange="updateSelectedSlots()"
@@ -302,11 +300,12 @@ $selectedSlots = !empty($slots) ? explode(',', $slots) : [];
                             </label>
                         </div>
                     </div>
+
                     <div class="time-slot-section">
-                        <div class="slot-header">
+                        <div class="slot-header" onclick="toggleSlots('night-slots')">
                             <h3>Night Slot (8 PM - 11:30 PM)</h3>
                         </div>
-                        <div class="slot-options" id="night-slots">
+                        <div class="slot-options" id="night-slots" style="display: none;">
                             <label class="slot-item">
                                 <input type="checkbox" value="8:00-8:30PM" data-type="30min"
                                     onchange="updateSelectedSlots()"
@@ -382,7 +381,6 @@ $selectedSlots = !empty($slots) ? explode(',', $slots) : [];
                 </div>
             </div>
 
-
             <!-- Selected Slots -->
             <div class="selected-slots" id="selected-slots">
                 <h3>Selected Slots</h3>
@@ -399,6 +397,16 @@ $selectedSlots = !empty($slots) ? explode(',', $slots) : [];
         </div>
     </div>
     <script src="../js/game_form.js"></script>
+    <script>
+        function toggleSlots(slotId) {
+            const slotSection = document.getElementById(slotId);
+            if (slotSection.style.display === "none") {
+                slotSection.style.display = "block";
+            } else {
+                slotSection.style.display = "none";
+            }
+        }
+    </script>
 </body>
 
 </html>

@@ -55,16 +55,42 @@ body {
 }
 
 .form-group p {
-    background: #fdf7f7;
+    background: #e9ebf8;
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #E5E5E5;
     font-size: 16px;
+    margin: 8px 0;
 }
 
 /* Button Container */
 .button-container {
     margin-top: 20px;
+}
+
+
+Copy
+.slots-container {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.slot-item {
+    background: #4A5BE6;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    display: inline-block;
+    margin: 2px;
+    transition: transform 0.2s ease;
+}
+
+.slot-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Cancel Button */
