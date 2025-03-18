@@ -410,54 +410,12 @@ submitButton.addEventListener('click', async () => {
                 window.location.reload(); // Refresh the page after a short delay
             }, 2000); // 2 seconds delay
         } else {
-<<<<<<< Updated upstream
-            submitButton.disabled = true;
-        }
-    });
-
-    // Submit booking to API
-    submitButton.addEventListener('click', async () => {
-        const phone = phoneInput.value;
-        const gameId = <?php echo $game_id; ?>;
-        const date = "<?php echo $selected_date; ?>";
-        const slot = selectedSlot;
-
-        const data = {
-            game_id: gameId,
-            date: date,
-            slot: slot,
-            phone_no: phone
-        };
-
-        try {
-            const response = await fetch('http://192.168.0.130/final_project/final_project/Api\'s/book_game_admin.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-
-            const result = await response.json();
-if (result.success) {
-    alert('Slot booked successfully!');
-    window.location.reload(); // Refresh the page
-} else {
-    alert('Failed to book slot: ' + result.message);
-    window.location.href = 'user_management/user_form.php'; // Redirect on failure
-}
-
-        } catch (error) {
-            console.error('Error:', error);
-            alert('An error occurred while booking the slot.');
-=======
             if (result.message == "Phone number is not registered"){
                 showMessage( 'Failed to book slot: ' + result.message , 'user_management/user_form.php');
             }
             else{
                 showMessage( 'Failed to book slot: ' + result.message )
             }
->>>>>>> Stashed changes
         }
     } catch (error) {
         console.error('Error:', error);
