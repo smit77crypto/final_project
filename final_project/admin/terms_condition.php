@@ -52,13 +52,14 @@ $conn->close();
     <link rel="stylesheet" href="path/to/bootstrap.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="css/navbar.css">
-    <link rel="stylesheet" href="css/terms_condition.css">
     <script src="https://cdn.tiny.cloud/1/ipqp5i9ny4hxn2ss2cnvwxmegyb7tn7hp6lrw2ijz0bq5gd6/tinymce/5/tinymce.min.js"
         referrerpolicy="origin"></script>
 
     <!-- Include jQuery before your custom script -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/terms_condition.css">
+    
 
     <style>
     #lastUpdated {
@@ -81,17 +82,22 @@ $conn->close();
         <div class="form-actions">
             <button id="save" class="btn btn-save">save</i></button>
             <button id="cancel" class="btn btn-cancel" onclick="window.location.href='admin_home.php'">
-                    cancel</button>
+                cancel</button>
+        </div>
+        
+    </div>
+    <h3>Last Updated At:</h3>
+    <div class="con">
+        <div class="update">
+            <div><i class="fa-solid fa-calendar-days"></i> : <span
+                    id="updatedDate"><?php echo date('Y-m-d', strtotime($updatedAt)); ?></span></div>
+            <div><i class="fa-solid fa-clock"></i> : <span
+                    id="updatedTime"><?php echo date('H:i:s', strtotime($updatedAt)); ?></span></div>
         </div>
     </div>
+        
 
-    <h3>Last Updated At:</h3>
-    <div class="update">
-        <div><i class="fa-solid fa-calendar-days"></i> : <span
-                id="updatedDate"><?php echo date('Y-m-d', strtotime($updatedAt)); ?></span></div>
-        <div><i class="fa-solid fa-clock"></i> : <span
-                id="updatedTime"><?php echo date('H:i:s', strtotime($updatedAt)); ?></span></div>
-    </div>
+
 
     <script>
     // Initialize TinyMCE editor

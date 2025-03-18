@@ -143,8 +143,7 @@ $result = $conn->query($sql);
                                 class="fa-solid fa-pencil"></i></a>
                         <a href="#" class="delete" onclick="confirmDelete(<?php echo $row['id']; ?>)"><i
                                 class="fas fa-trash-alt"></i></a>
-                        <a href="user_management/view_user.php?id=<?php echo $row['id']; ?>" class="view"><i
-                                class="fa-solid fa-eye"></i></a>
+                        <a href="user_management/view_user.php?id=<?php echo $row['id']; ?>" class="view"><i class="fa-solid fa-file-lines"></i></a>
                     </td>
                     <td class="sametd"><?php echo $row['full_name']; ?></td>
                     <td class="sametd"><?php echo $row['email']; ?></td>
@@ -177,8 +176,7 @@ $result = $conn->query($sql);
                                 class="fa-solid fa-pencil"></i></a>
                         <a href="#" class="delete" onclick="confirmDelete(<?php echo $row['id']; ?>)"><i
                                 class="fas fa-trash-alt"></i></a>
-                        <a href="user_management/view_user.php?id=<?php echo $row['id']; ?>" class="view"><i
-                                class="fa-solid fa-eye"></i></a>
+                        <a href="user_management/view_user.php?id=<?php echo $row['id']; ?>" class="view"><i class="fa-solid fa-file-lines"></i></a>
                     </div>
                 </div>
             </div>

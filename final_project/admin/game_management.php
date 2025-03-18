@@ -188,7 +188,7 @@ $showpagesec = $totalRecords > 0;
                 <a href="javascript:void(0);" class="delete" onclick="confirmDelete(<?php echo $row['id']; ?>)">
                     <i class="fas fa-trash-alt"></i>
                 </a>
-                <a href='game_management/view_game.php?id=<?php echo $row["id"] ?>' class='view'><i class='fa-solid fa-eye'></i></a>
+                <a href='game_management/view_game.php?id=<?php echo $row["id"] ?>' class='view'><i class="fa-solid fa-file-lines"></i></a>
             </td>
             <td><?php echo htmlspecialchars($row["name"]); ?></td>
             <td><?php echo htmlspecialchars($row["half_hour"]); ?></td>
@@ -224,8 +224,7 @@ $showpagesec = $totalRecords > 0;
                     <a href="javascript:void(0);" class="delete" onclick="confirmDelete(<?php echo $row['id']; ?>)">
                         <i class="fas fa-trash-alt"></i>
                     </a>
-                    <a href='game_management/view_game.php?id=<?php echo $row["id"] ?>' class='view'><i
-                            class='fa-solid fa-eye'></i></a>
+                    <a href='game_management/view_game.php?id=<?php echo $row["id"] ?>' class='view'><i class="fa-solid fa-file-lines"></i></a>
                     <button class='view-slots-btn' data-game-id='<?php echo $row["id"]; ?>'><i
                             class="fa-solid fa-eye"></i></button>
                 </div>
