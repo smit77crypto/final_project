@@ -136,9 +136,62 @@ $filtered_slots = array_filter($available_slots, function ($slot) use ($selected
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/view_slots.css">
+    <style>
+        #messageOverlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+#messagePopup {
+    display: none;
+    position: fixed;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+    text-align: center;
+}
+
+#messagePopup h3 {
+    margin-bottom: 10px;
+}
+
+#messagePopup p {
+    margin-bottom: 20px;
+}
+
+#messagePopup button {
+    padding: 10px 20px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#messagePopup button:hover {
+    background: #0056b3;
+}
+    </style>
 </head>
 <body>
 <?php include "navbar.php" ?>
+<!-- Popup for Messages -->
+<div id="messageOverlay"></div>
+<div id="messagePopup">
+    <p id="messageText"></p>
+    <button id="closeMessagePopup">OK</button>
+</div>
 <div class="body_css">
     <h1><?php echo ($name); ?> Slots</h1>
     <div class="date-picker">
@@ -267,33 +320,97 @@ $filtered_slots = array_filter($available_slots, function ($slot) use ($selected
 <script>
     // JavaScript for handling the popup and API submission
     const overlay = document.getElementById('overlay');
-    const popup = document.getElementById('popup');
-    const phoneInput = document.getElementById('phoneNumber');
-    const submitButton = document.getElementById('submitBooking');
-    const closePopupButton = document.getElementById('closePopup');
-    let selectedSlot = null;
+const popup = document.getElementById('popup');
+const phoneInput = document.getElementById('phoneNumber');
+const submitButton = document.getElementById('submitBooking');
+const closePopupButton = document.getElementById('closePopup');
+let selectedSlot = null;
 
-    // Show popup when a slot is clicked
-    document.querySelectorAll('.slot-card.available').forEach(slot => {
-        slot.addEventListener('click', () => {
-            selectedSlot = slot.getAttribute('data-slot');
-            popup.style.display = 'block';
-            overlay.style.display = 'block';
+// Show popup when a slot is clicked
+document.querySelectorAll('.slot-card.available').forEach(slot => {
+    slot.addEventListener('click', () => {
+        selectedSlot = slot.getAttribute('data-slot');
+        popup.style.display = 'block';
+        overlay.style.display = 'block';
+    });
+});
+
+// Close popup
+closePopupButton.addEventListener('click', () => {
+    popup.style.display = 'none';
+    overlay.style.display = 'none';
+});
+
+// Validate phone number in real-time
+phoneInput.addEventListener('input', () => {
+    const phone = phoneInput.value;
+    if (phone.length === 10 && /^\d+$/.test(phone)) {
+        submitButton.disabled = false;
+    } else {
+        submitButton.disabled = true;
+    }
+});
+
+// Function to show the message popup
+function showMessage(message, redirectUrl = null) {
+    document.getElementById('messageText').innerText = message;
+    document.getElementById('messagePopup').style.display = 'block';
+    document.getElementById('messageOverlay').style.display = 'block';
+
+    // Clear previous event listeners to avoid multiple bindings
+    const closeButton = document.getElementById('closeMessagePopup');
+    closeButton.replaceWith(closeButton.cloneNode(true)); // Remove existing event listeners
+
+    // Add new event listener
+    document.getElementById('closeMessagePopup').addEventListener('click', () => {
+        document.getElementById('messagePopup').style.display = 'none';
+        document.getElementById('messageOverlay').style.display = 'none';
+
+        // Redirect if a URL is provided
+        if (redirectUrl) {
+            window.location.href = redirectUrl;
+        }
+    });
+}
+
+
+// Close message popup
+document.getElementById('closeMessagePopup').addEventListener('click', () => {
+    document.getElementById('messagePopup').style.display = 'none';
+    document.getElementById('messageOverlay').style.display = 'none';
+});
+
+// Submit booking to API
+submitButton.addEventListener('click', async () => {
+    const phone = phoneInput.value;
+    const gameId = <?php echo $game_id; ?>;
+    const date = "<?php echo $selected_date; ?>";
+    const slot = selectedSlot;
+
+    const data = {
+        game_id: gameId,
+        date: date,
+        slot: slot,
+        phone_no: phone
+    };
+
+    try {
+        const response = await fetch('http://192.168.0.130/final_project/final_project/Api\'s/book_game_admin.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
         });
-    });
 
-    // Close popup
-    closePopupButton.addEventListener('click', () => {
-        popup.style.display = 'none';
-        overlay.style.display = 'none';
-    });
-
-    // Validate phone number in real-time
-    phoneInput.addEventListener('input', () => {
-        const phone = phoneInput.value;
-        if (phone.length === 10 && /^\d+$/.test(phone)) {
-            submitButton.disabled = false;
+        const result = await response.json();
+        if (result.success) {
+            showMessage('Slot booked successfully!');
+            setTimeout(() => {
+                window.location.reload(); // Refresh the page after a short delay
+            }, 2000); // 2 seconds delay
         } else {
+<<<<<<< Updated upstream
             submitButton.disabled = true;
         }
     });
@@ -333,8 +450,20 @@ if (result.success) {
         } catch (error) {
             console.error('Error:', error);
             alert('An error occurred while booking the slot.');
+=======
+            if (result.message == "Phone number is not registered"){
+                showMessage( 'Failed to book slot: ' + result.message , 'user_management/user_form.php');
+            }
+            else{
+                showMessage( 'Failed to book slot: ' + result.message )
+            }
+>>>>>>> Stashed changes
         }
-    });
+    } catch (error) {
+        console.error('Error:', error);
+        showMessage('An error occurred while booking the slot.');
+    }
+});
 </script>
 </body>
 </html>

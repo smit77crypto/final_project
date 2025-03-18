@@ -72,11 +72,7 @@ document.querySelector('.btn-add').addEventListener('click', function (e) {
         const xhr = new XMLHttpRequest();
         xhr.open("POST", "../game_management/game_data.php", true);
         xhr.onload = function () {
-            if (xhr.status == 200) {
-                alert("successfully data Entered");
-                // Optionally reset the form here
-
-    
+            if (xhr.status == 200) {   
                 // Redirect after successful submission
                 window.location.href = "../game_management.php";  // Redirect to the game management page
             } else {
@@ -196,7 +192,6 @@ function saveGame() {
         return;
     }
     
-    alert("Game information submitted successfully!");
     resetForm();
 }
 
