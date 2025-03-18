@@ -24,7 +24,7 @@ body {
     animation: fadeIn 0.5s ease-in-out;
 }
 #exit{
-    border: 2px solid red;
+    border: 2px solid #E5E5E5;
 }
 
 /* Title */
@@ -36,7 +36,7 @@ body {
 }
 /* Title */
 .card h2 {
-    color: #b30000; /* Dark Red */
+    color: #4A5BE6; /* Dark Red */
     margin-bottom: 20px;
     font-size: 24px;
     font-weight: bold;
@@ -51,14 +51,14 @@ body {
 
 .form-group label {
     font-weight: bold;
-    color: #b30000;
+    color: #122ae2;
 }
 
 .form-group p {
     background: #fdf7f7;
     padding: 10px;
     border-radius: 5px;
-    border: 1px solid #b30000;
+    border: 1px solid #E5E5E5;
     font-size: 16px;
 }
 
@@ -70,7 +70,7 @@ body {
 /* Cancel Button */
 .button-container a {
     display: inline-block;
-    background: #b30000;
+    background: #122ae2;
     color: white;
     padding: 10px 20px;
     font-size: 16px;
@@ -81,7 +81,7 @@ body {
 }
 
 .button-container a:hover {
-    background: #ff4d4d;
+    background: #41C2CB;
     transform: scale(1.05);
 }
 

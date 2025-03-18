@@ -24,13 +24,13 @@ nav {
   top: 0;
   width: 100%;
   z-index: 10;
-  border-bottom: 1px solid #d3d2d2;
+  border-bottom: 1px solid #E5E5E5;
 }
 
 .left {
   width: 70%;
   background-color: white;
-  border: 1px solid #d3d2d2;
+  border: 1px solid #E5E5E5;
   border-radius: 20px;
   display: flex;
   justify-content: center;
@@ -56,14 +56,14 @@ nav {
 }
 
 .left .ul-box li a:hover {
-  color: rgb(211, 43, 43);
+  color: #4A5BE6;
   transform: scale(1.1);
 }
 
 .right .btn {
   border-radius: 10px;
   padding: 5px;
-  background-color: rgb(219, 39, 39);
+  background-color: #4A5BE6;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -77,7 +77,7 @@ nav {
 }
 
 .right .btn:hover {
-  background-color: crimson;
+  background-color: #4A5BE6;
   transform: scale(1.05);
 }
 
@@ -111,12 +111,12 @@ nav {
   color: black;
   text-decoration: none;
   font-weight: bold;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #E5E5E5;
   transition: background-color 0.3s ease;
 }
 
 .profile-popup a:hover {
-  background-color: #f1f1f1;
+  background-color: #a1a7ce;
 }
 
 .profile-popup a:last-child {
@@ -172,7 +172,7 @@ nav {
 
 .nav-item a:hover {
   font-size: 0.9rem;
-  color: red;
+  color: #4A5BE6;
 }
 @media (max-width: 1115px){
   .right{
@@ -265,7 +265,7 @@ nav {
     top: 0;
     width: 100%;
     z-index: 10;
-    border-bottom: 1px solid #d3d2d2;
+    border-bottom: 1px solid #E5E5E5;
   }
 
   .mobile-box {

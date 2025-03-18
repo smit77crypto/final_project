@@ -44,7 +44,7 @@
             width: 94%;
             padding: 10px;
             margin-bottom: 15px;
-            border: 1px solid #ccc;
+            border: 1px solid #E5E5E5;
             border-radius: 5px;
         }
         .login-card input[type="checkbox"] {
@@ -63,7 +63,7 @@
             transition: background-color 0.3s;
         }
         .login-card .btn:hover {
-            background-color:rgb(223, 81, 81);
+            background-color: #41C2CB;
         }
         .login-card .btn:active {
             background-color:rgb(53, 29, 156);

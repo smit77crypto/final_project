@@ -26,8 +26,8 @@ if (!empty($games)) {
     <link rel="stylesheet" href="css/navbar.css">
     <style>
         :root {
-            --primary-red: #dc3545;
-            --dark-red: #bb2d3b;
+            --primary-red: #4A5BE6;
+            --dark-red:rgb(21, 41, 190);
             --light-bg: rgb(255, 255, 255);
         }
 
@@ -59,7 +59,7 @@ if (!empty($games)) {
 
         .game-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 15px rgba(220, 53, 69, 0.2);
+            box-shadow: 0 10px 15px rgba(37, 87, 224, 0.2);
         }
 
         .card-image {

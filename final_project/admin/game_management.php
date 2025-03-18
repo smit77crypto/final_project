@@ -106,12 +106,12 @@ $showpagesec = $totalRecords > 0;
     }
 
     .close-popup:hover {
-        color: #000;
+        color: #41C2CB;
     }
 
     /* Red underline when search field is empty */
     #searchField {
-        border: 1px solid #ccc;
+        border: 1px solid #E5E5E5;
         padding: 8px;
         width: 200px;
         /* margin-bottom: 10px; */
@@ -119,7 +119,7 @@ $showpagesec = $totalRecords > 0;
 
     /* Error styling for search input */
     #searchField:invalid {
-        border-bottom: 2px solid red;
+        border-bottom: 2px solid #E5E5E5;
     }
     </style>
 </head>

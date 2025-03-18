@@ -22,7 +22,7 @@ body {
 }
 
 .admin-details {
-  background-color: rgb(247, 241, 241);
+  background-color: rgb(241, 242, 247);
   border-radius: 10px;
   height: 80vh;
   padding: 20px;
@@ -62,7 +62,7 @@ body {
 
 .admin-name h3 {
   font-size: 1.5rem;
-  color: red;
+  color: #4A5BE6;
 }
 
 .admin-address,
@@ -81,7 +81,7 @@ body {
 
 .label {
   font-weight: bold;
-  color: red;
+  color: #4A5BE6;
 }
 
 
@@ -197,7 +197,7 @@ canvas {
 }
 
 .info i {
-  color: red;
+  color: #4A5BE6;
 }
 
 @media (max-width: 1052px){

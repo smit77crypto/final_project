@@ -5,7 +5,7 @@
 .btn1 {
     border-radius: 10px;
     padding: 5px;
-    background-color: rgb(219, 39, 39);
+    background-color: #4A5BE6;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -20,7 +20,7 @@
   
 .btn1:hover {
     color: white;
-    background-color: crimson;
+    background-color: #1d36f0;
     transform: scale(1.05);
   }
 .btn1 div i {
@@ -51,14 +51,14 @@
 .search-form input[type="text"] {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #E5E5E5;
     border-radius: 4px;
     font-size: 16px;
 }
 
 .search-form button {
     padding: 10px 20px;
-    background-color: rgb(219, 39, 39);
+    background-color: #4A5BE6;
     color: white;
     font-weight: bold;
     border: none;
@@ -68,13 +68,13 @@
 }
 
 .search-form button:hover {
-    background-color: crimson;
+    background-color: #1d36f0;
 }
 
 .search-form a {
     display: block;
     margin-top: 10px;
-    color: red;
+    color: #4A5BE6;
     text-decoration: none;
     font-size: 14px;
 }
@@ -104,28 +104,28 @@ table {
     margin: 20px 0;
     font-size: 18px;
     text-align: left;
-    border: 2px solid black;
+    border: 2px solid #E5E5E5;
     background-color: #fff;
 }
 
 th, td {
     padding: 12px;
-    border: 2px solid black;
+    border: 2px solid #E5E5E5;
     text-align: center;
 }
 
 th {
-    background-color: rgb(219, 39, 39);
+    background-color: #4A5BE6;
     color: white;
     text-transform: uppercase;
 }
 
 tr:nth-child(even) {
-    background-color: #ffe5e5;
+    background-color: #ced4f7;
 }
 
 tr:hover {
-    background-color: #ffb3b3;
+    background-color: #808efd;
     transition: 0.3s;
 }
 
@@ -171,7 +171,7 @@ tr:hover {
 
 .card {
     background-color: #fff;
-    border: 1px solid #ccc;
+    border: 1px solid #E5E5E5;
     border-radius: 8px;
     margin: 10px 0;
     padding: 15px;
@@ -204,16 +204,16 @@ tr:hover {
     color: black;
     padding: 8px 16px;
     text-decoration: none;
-    border: 1px solid #ddd;
+    border: 1px solid #E5E5E5;
     margin: 0 4px;
     border-radius: 4px;
     transition: background-color 0.3s;
 }
 
 .pagination a.active {
-    background-color: rgb(219, 39, 39);
+    background-color: #4A5BE6;
     color: white;
-    border: 1px solid rgb(219, 39, 39);
+    border: 1px solid #E5E5E5;
 }
 
 .pagination a:hover:not(.active) {

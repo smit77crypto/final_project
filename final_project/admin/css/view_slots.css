@@ -10,7 +10,7 @@ body {
 
 h1 {
     font-size: 2.5rem;
-    color: #dc3545;
+    color: #4A5BE6;
     text-align: center;
     margin-top: 45px;
     font-weight: bold;
@@ -43,14 +43,14 @@ h1 {
 }
 
 .date-picker button.active {
-    background-color: #dc3545;
+    background-color: #4A5BE6;
     color: white;
     z-index: 1000;
     box-shadow: 0px 0px 2px 2px gray;
 }
 
 .date-picker button:hover {
-    background-color: #dc3545;
+    background-color: #1630f0;
     color: white;
     box-shadow: 2px 2px 2px 2px gray;
 }
@@ -100,13 +100,13 @@ a{
 }
 
 .filter-buttons button.active {
-    background-color: #dc3545;
+    background-color: #4A5BE6;
     color: white;
     box-shadow: 0px 0px 2px 2px gray;
 }
 
 .filter-buttons button:hover {
-    background-color: #dc3545;
+    background-color: #1630f0;
     color: white;
     box-shadow: 0px 0px 2px 2px gray;
 }
@@ -125,7 +125,7 @@ p{
 
 .slot-card {
     background-color: white;
-    border: 2.9px solid #dc3545;
+    border: 2.9px solid #E5E5E5;
     border-radius: 10px;
     height: 50px; /* Adjust height as needed */
     display: flex; /* Enables flexbox */
@@ -140,13 +140,13 @@ p{
 }
 
 .slot-card.available:hover {
-    background-color: #dc3545;
+    background-color: #4A5BE6;
     color: white;
 }
 
 .slot-card.booked {
     background-color: #6c757d;
-    border-color: #6c757d;
+    border-color: #E5E5E5;
     color: white;
     cursor: not-allowed;
 }
@@ -161,7 +161,7 @@ p{
 }
 
 .booked-details h2 {
-    color: #dc3545;
+    color: #4A5BE6;
     margin-bottom: 20px;
     font-weight: bold;
 }
@@ -173,7 +173,7 @@ p{
 
 .booked-table th, .booked-table td {
     padding: 12px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #E5E5E5;
     text-align: left;
 }
 
@@ -209,7 +209,7 @@ p{
 }
 
 #popup h3 {
-    color: #dc3545;
+    color: #122ae2;
     margin-bottom: 15px;
 }
 
@@ -217,7 +217,7 @@ p{
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #E5E5E5;
     border-radius: 5px;
 }
 
@@ -225,7 +225,7 @@ p{
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    background-color: #dc3545;
+    background-color: #122ae2;
     color: white;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -237,7 +237,7 @@ p{
 }
 
 #popup button:hover {
-    background-color: #a71d2a;
+    background-color: #4A5BE6;
 }
 
 #closePopup {
@@ -245,7 +245,7 @@ p{
 }
 
 #closePopup:hover {
-    background-color: #5a6268;
+    background-color: #565f66;
 }
 
 /* Responsive Styles for Tablet */

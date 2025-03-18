@@ -180,8 +180,8 @@ while ($row = mysqli_fetch_assoc($result3)) {
                     datasets: [{
                         label: 'Slot',
                         data: mbookingCounts,
-                        borderColor: 'green',
-                        backgroundColor: 'rgba(170, 228, 170, 0.2)',
+                        borderColor: '#4A5BE6',
+                        backgroundColor: 'rgba(181, 170, 228, 0.2)',
                         borderWidth: 2,
                         fill: true
                     }]
@@ -198,8 +198,8 @@ while ($row = mysqli_fetch_assoc($result3)) {
                     datasets: [{
                         label: 'Trending Game',
                         data: bookingCounts,
-                        borderColor: 'red',
-                        backgroundColor: 'rgba(228, 170, 180, 0.2)',
+                        borderColor: '#4A5BE6',
+                        backgroundColor: 'rgba(170, 174, 228, 0.2)',
                         borderWidth: 1
                     }]
                 }

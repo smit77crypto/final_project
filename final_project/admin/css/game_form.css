@@ -22,11 +22,11 @@ body {
     align-items: center;
     width: 90%;
     margin: 50px auto;
-    background-color: #f8f2f2;
+    background-color: #dfe1f5;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border: 2px solid #e0e0e0;
+    border: 2px solid #E5E5E5;
    
 }
 
@@ -45,7 +45,7 @@ body {
 
 #formTitle {
     font-size: 2rem;
-    color: #d32f2f;
+    color: #4A5BE6;
     margin-bottom: 20px;
     font-weight: bold;
 }
@@ -69,7 +69,7 @@ body {
     width: 100%;
     padding: 10px;
     font-size: 1rem;
-    border: 1px solid #ccc;
+    border: 1px solid #E5E5E5;
     border-radius: 5px;
     margin-top: 5px;
 }
@@ -93,7 +93,7 @@ button {
 }
 
 .btn.btn-add {
-    background-color: #d32f2f;
+    background-color: #4A5BE6;
     color: #fff;
 }
 .left1, .right1 {
@@ -103,17 +103,17 @@ button {
     height: 100%;
 }
 .btn.btn-add:hover {
-    background-color: #b71c1c;
+    background-color: #142eec;
 }
 
 .btn.btn-cancel {
     background-color: #fff;
-    color: #d32f2f;
-    border: 2px solid #d32f2f;
+    color: #4A5BE6;
+    border: 2px solid #E5E5E5;
 }
 
 .btn.btn-cancel:hover {
-    background-color: #d32f2f;
+    background-color: #142eec;
     color: #fff;
 }
 
@@ -126,9 +126,9 @@ button {
 
 .slot-filter button {
     background-color: #fff;
-    color: #d32f2f;
+    color: #4A5BE6;
     width: fit-content;
-    border: 2px solid #d32f2f;
+    border: 2px solid #E5E5E5;
     padding: 10px 20px;
     margin: 0 5px;
     cursor: pointer;
@@ -136,7 +136,7 @@ button {
 }
 
 .slot-filter button.active {
-    background-color: #d32f2f;
+    background-color: #4A5BE6;
     color: #fff;
 }
 
@@ -144,13 +144,13 @@ button {
 .time-slot-section {
     margin-bottom: 20px;
     background-color: #fafafa;
-    border: 1px solid #ddd;
+    border: 1px solid #E5E5E5;
     padding: 10px;
     border-radius: 5px;
 }
 
 .slot-header {
-    background-color: #d32f2f;
+    background-color: #4A5BE6;
     color: #fff;
     padding: 10px;
     text-align: center;
@@ -198,36 +198,16 @@ span{
 .selected-slot {
     padding: 8px 10px;
     text-align: center;
-    border: 2px solid red;
+    border: 2px solid #E5E5E5;
     border-radius: 10px;
     width: 145px;
     font-size: 1rem;
     font-weight: bold; /* Optional: makes text bold */
 }
 
-/* Styling for the remove button */
-/* .remove-slot {
-    color: #fff;
-    font-size: 1.2rem;
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
-    padding: 0;
-    margin-left: 10px;
-    display: flex;
-    align-items: center;
-}
-.remove-slot i {
-    color: white;
-    margin-right: 5px; 
-}
-.remove-slot:hover {
-    color: #ffebee; 
-} */
-
 /* Hover effect for selected slots */
 .selected-slot:hover {
-    background-color: #dea8a8; /* Darker red when hovered */
+    background-color: #4A5BE6; /* Darker red when hovered */
 }
 
 /* Optional: Add a shadow effect to the selected slot */

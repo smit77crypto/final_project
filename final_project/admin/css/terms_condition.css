@@ -1,8 +1,8 @@
 :root {
-    --primary-red: #c70000;
-    --secondary-red: #ff0000;
+    --primary-red: #4A5BE6;
+    --secondary-red: #8592f7;
     --light-red: #ffffff;
-    --pure-white: #ffd5d5;
+    --pure-white: #c5cbf7;
 }
 
 body {
@@ -39,7 +39,7 @@ textarea {
     width: 100%;
     height: 300px;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #E5E5E5;
     border-radius: 8px;
     font-size: 16px;
     resize: none;
@@ -63,7 +63,7 @@ textarea {
 
 .btn:hover {
     color: white;
-    background-color: crimson;
+    background-color: #41C2CB;
     transform: scale(1.05);
 }
 
@@ -88,7 +88,7 @@ textarea {
 h3 {
     text-align: center;
     margin-top: 30px;
-    color: red;
+    color: #4A5BE6;
     font-size: 1.2rem;
 }
 
@@ -99,7 +99,7 @@ h3 {
     gap: 3rem;
     width: 500px;
     height: 50px;
-    background-color: rgb(247, 241, 241);
+    background-color: rgb(241, 242, 247);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
 }
