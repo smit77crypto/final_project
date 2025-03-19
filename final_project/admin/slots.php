@@ -162,9 +162,6 @@ $filtered_slots = array_filter($available_slots, function ($slot) use ($selected
     text-align: center;
 }
 
-#messagePopup h3 {
-    margin-bottom: 10px;
-}
 
 #messagePopup p {
     margin-bottom: 20px;
@@ -412,9 +409,13 @@ submitButton.addEventListener('click', async () => {
         } else {
             if (result.message == "Phone number is not registered"){
                 showMessage( 'Failed to book slot: ' + result.message , 'user_management/user_form.php');
+                document.getElementById('messageText').style.color = 'red';
+
             }
             else{
                 showMessage( 'Failed to book slot: ' + result.message )
+                document.getElementById('messageText').style.color = 'red';
+
             }
         }
     } catch (error) {

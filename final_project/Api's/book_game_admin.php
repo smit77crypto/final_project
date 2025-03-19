@@ -161,7 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($formattedDate === $currentDateString) {
                 $allowedBookingDate = true;
             } else {
-                echo json_encode(['success' => false, 'message' => 'Bookin Fail, Normal Membership']);
+                echo json_encode(['success' => false, 'message' => 'Booking Fail, Normal Membership']);
                 exit();
             }
             break;

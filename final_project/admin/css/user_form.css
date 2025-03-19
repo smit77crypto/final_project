@@ -120,6 +120,7 @@ select:focus {
 
 .btn-add:hover {
     background-color: #142bda;
+    color: white;
 }
 
 /* Cancel Button */

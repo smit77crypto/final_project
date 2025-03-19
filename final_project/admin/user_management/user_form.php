@@ -228,22 +228,21 @@ if ($userId) {
             <div class="left1">
                 <div class="form-group">
                     <label>Name  <span><?php echo $userId ? '' : '*'; ?></span></label>
-                    <input type="text" name="full_name" id="name" value="<?php echo htmlspecialchars($full_name); ?>"
-                        required>
+                    <input type="text" name="full_name" id="name" value="<?php echo htmlspecialchars($full_name); ?>">
                     <div id="full_name_error" class="error-message"><?php echo $errors['full_name'] ?? ''; ?></div>
                 </div>
 
                 <div class="form-group">
                     <label>Phone Number <span><?php echo $userId ? '' : '*'; ?></span></label>
                     <input type="text" name="phone_no" id="phone" value="<?php echo htmlspecialchars($phone_no); ?>"
-                        required>
+                        >
                     <div id="phone_error" class="error-message"><?php echo $errors['phone_no'] ?? ''; ?></div>
                 </div>
 
                 <div class="form-group">
                     <label>Email  <span><?php echo $userId ? '' : '*'; ?></span></label>
                     <input type="email" name="email" id="email" value="<?php echo htmlspecialchars($email); ?>"
-                        required>
+                        >
                     <div id="email_error" class="error-message"><?php echo $errors['email'] ?? ''; ?></div>
                 </div>
 
@@ -265,8 +264,7 @@ if ($userId) {
             <div class="right1">
                 <div class="form-group">
                     <label>Username <span><?php echo $userId ? '' : '*'; ?></span></label>
-                    <input type="text" name="username" id="username" value="<?php echo htmlspecialchars($username); ?>"
-                        required>
+                    <input type="text" name="username" id="username" value="<?php echo htmlspecialchars($username); ?>">
                     <div id="username_exists_error" class="error-message"><?php echo $errors['username'] ?? ''; ?></div>
                 </div>
 
