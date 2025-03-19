@@ -8,6 +8,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+   
 }
 
 .cen {
@@ -24,8 +25,9 @@ body {
     padding: 20px;
     border-radius: 8px;
     width: 800px;
-    height: 600px;
+    height: 640px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    scroll-behavior: smooth;
 }
 
 /* Form Title */

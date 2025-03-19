@@ -70,19 +70,22 @@ $showpagesec = $totalRecords > 0;
         position: fixed;
         top: 50%;
         left: 50%;
+      
         transform: translate(-50%, -50%);
         background-color: white;
         padding: 20px;
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         z-index: 1000;
-            width: auto; /* Adjust width based on content */
+            width: 500px; /* Adjust width based on content */
             max-width: 40%; /* Ensure it doesn't exceed 90% of the screen width */
             height: auto; /* Adjust height based on content */
             max-height: 90vh; /* Ensure it doesn't exceed 90% of the viewport height */
             overflow-y: auto; /* Add scroll if content exceeds height */
     }
-
+    .pd span{
+        margin-top:-10px;
+    }
     /* Overlay styles */
     #overlay {
             display: none; /* Hidden by default */
@@ -94,7 +97,7 @@ $showpagesec = $totalRecords > 0;
         background-color: rgba(0, 0, 0, 0.5);
         z-index: 999;
     }
-
+   
     /* Close button styles */
     .close-popup {
         position: absolute;
@@ -104,7 +107,7 @@ $showpagesec = $totalRecords > 0;
         font-size: 20px;
         color: #333;
     }
-
+   
     .close-popup:hover {
         color: #41C2CB;
     }
@@ -116,7 +119,11 @@ $showpagesec = $totalRecords > 0;
         width: 200px;
         /* margin-bottom: 10px; */
     }
-
+    .pd{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
     /* Error styling for search input */
     #searchField:invalid {
         border-bottom: 2px solid #E5E5E5;
@@ -254,9 +261,12 @@ $showpagesec = $totalRecords > 0;
     <!-- Popup Modal -->
     <div id="slotModal" class="modal">
         <div class="modal-content">
+            <div class="pd">
             <span class="close-popup"><i class="fa-solid fa-eye-slash"></i></span>
             <h2>All Slots</h2>
-            <div id="slotsContainer" class="modal-slots-container">Loading...</div>
+            </div>
+            
+            <div id="slotsContainer" class="modal-slots-container" >Loading...</div>
         </div>
     </div>
 

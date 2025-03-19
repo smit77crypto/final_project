@@ -214,32 +214,45 @@ nav {
 }
 
 @media (max-width: 771px) {
-  .left {
-    width: 70%;
-    padding: 4px;
+  nav {
+    display: none;
   }
 
-  .ul-box {
-    gap: 0.7rem;
+  .mobile-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* background-color: rgb(241, 240, 240);
+     */
+     background-color: white;
+    padding: 9px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+    border-bottom: 1px solid #E5E5E5;
   }
 
-  .left .ul-box li a {
-    font-size: 9px;
+  .mobile-box {
+    margin-top: 36px;
+    display: none;
+    position: fixed;
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    top: 0;
+    left: 0;
+    background-color: rgb(241, 240, 240);
+    width: max-content;
+    height: 100vh;
+    z-index: 10;
+    overflow: hidden;
   }
 
-  .right .btn {
-    height: 20px;
-    width: 60px;
-    padding: 3px;
-    gap: 3px;
-  }
-
-  .right .btn div {
-    font-size: 0.4rem;
-  }
-
-  .right .btn div i {
-    font-size: 0.4rem;
+  .mobile-box.show {
+    display: block;
+    opacity: 1;
+    transform: translateX(0);
   }
 
   .logo img {

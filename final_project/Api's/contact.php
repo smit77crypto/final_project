@@ -7,7 +7,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 require_once '../admin/vendor/autoload.php';
 
-function sendEmail( $name,$email, $phone, $message, $submission_time) {
+function sendEmail( $name,$email, $phone, $message) {
     $smtp_pw = trim(file_get_contents('my.txt'));
 
     $mail = new PHPMailer(true);
@@ -101,7 +101,7 @@ function sendEmail( $name,$email, $phone, $message, $submission_time) {
                     <li><b>Name:</b> ' . htmlspecialchars($name) . '</li>
                     <li><b>Email:</b> ' . htmlspecialchars($email) . '</li>
                     <li><b>Phone No:</b> ' . htmlspecialchars($phone) . '</li>
-                    <li><b>Message Sent At:</b> ' . htmlspecialchars($submission_time) . '</li>
+                  
                 </ul>
             </div>
             <p><b>Message:</b></p>
@@ -139,14 +139,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $data['email'] ?? '';
     $phone = $data['phone'] ?? '';
     $message = $data['message'] ?? '';
-    $submission_time = date('Y-m-d H:i:s');
     if (empty($message) || empty($email) || empty($phone) || empty($name)) {
         echo json_encode(['success'=>false,'message' => 'all field are required.']);
         http_response_code(400); // Bad Request
         exit();
     }
     else{
-        sendEmail($name, $email, $phone, $message, $submission_time);
+        sendEmail($name, $email, $phone, $message);
         echo json_encode(['success'=>true,'message' => 'Mail Sent Successfully']);
     }
     

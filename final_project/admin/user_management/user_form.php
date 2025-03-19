@@ -106,8 +106,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errors['phone_no'] = 'phone No. already exists. Please choose another one.';
     }
 
-    // Validate phone number (10 digits)
-    if (!preg_match("/^\d{10}$/", $phone_no)) {
+    if(empty($phone_no)){
+        $errors['phone_no'] = 'Please Enter Phone No';
+    }
+    else if (!preg_match("/^\d{10}$/", $phone_no)) {
         $errors['phone_no'] = 'Please enter a valid phone number (10 digits).';
     }
     $sql_check_email = "SELECT * FROM register WHERE email = ? AND id != ?";
@@ -118,15 +120,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result_check_email->num_rows > 0) {
         $errors['email'] = 'Email ID already exists. Please choose another one.';
     }
-
+    if(empty($email)){
+        $errors['email'] = 'Please Enter Email';
+    }
     // Validate email (check format)
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors['email'] = 'Please enter a valid email address.';
     }
 
     // Validate gender
     if (empty($gender)) {
-        $errors['gender'] = 'Please select a gender.';
+        $errors['gender'] = 'Please Select Gender';
     }
 
     // Check if email already exists (except for current user)
@@ -138,14 +142,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt_check_username->bind_param("si", $username, $userId);
     $stmt_check_username->execute();
     $result_check_username = $stmt_check_username->get_result();
-    if ($result_check_username->num_rows > 0) {
+    if(empty($username)){
+        $errors['username'] = 'Please Enter Username';
+    }
+    else if ($result_check_username->num_rows > 0) {
         $errors['username'] = 'Username already exists. Please choose another one.';
     }
 
     // Validate password (required for new users)
-    if (empty($password) && $userId == '') {
-        $errors['password'] = 'Please enter a password.';
-    } elseif (strlen($password) < 8) {
+    if (empty($user_password) && $userId == '') {
+        $errors['password'] = 'Please Enter Password';
+    } elseif (strlen($user_password) < 8) {
         $errors['password'] = 'Password must be at least 8 characters long.';
     }
     // Validate membership selection
@@ -271,7 +278,7 @@ if ($userId) {
 
                 <div class="form-group">
                     <label>Password <span><?php echo $userId ? '' : '*'; ?></span></label>
-                    <input type="password" name="password" id="password" <?php echo !$userId ? 'required' : ''; ?>
+                    <input type="password" name="password" id="password" 
                         <?php echo $userId ? 'disabled' : ''; ?> placeholder="<?php echo $userId ? '********' : ''; ?>">
                     <div id="password_error" class="error-message"><?php echo $errors['password'] ?? ''; ?></div>
                 </div>
@@ -279,7 +286,7 @@ if ($userId) {
                 <div class="form-group">
                     <label>Membership</label>
                     <select name="membership_id" id="membership" required>
-                        <option value="1" <?php echo ($membership_id == '1') ? 'selected' : ''; ?>>Basic</option>
+                        <option value="1" <?php echo ($membership_id == '1') ? 'selected' : ''; ?>>Normal</option>
                         <option value="2" <?php echo ($membership_id == '2') ? 'selected' : ''; ?>>Silver</option>
                         <option value="3" <?php echo ($membership_id == '3') ? 'selected' : ''; ?>>Gold</option>
                     </select>

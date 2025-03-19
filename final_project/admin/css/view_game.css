@@ -13,6 +13,7 @@ body {
 }
 /* Card Container */
 .card {
+    margin: auto;
     margin-top: 100px;
     background: white;
     border-radius: 12px;
@@ -69,9 +70,10 @@ body {
 }
 
 
-Copy
 .slots-container {
     display: flex;
+    
+    align-items: center;
     gap: 8px;
     flex-wrap: wrap;
     margin-top: 10px;
@@ -86,6 +88,8 @@ Copy
     display: inline-block;
     margin: 2px;
     transition: transform 0.2s ease;
+    width: 136px;
+  text-align: center;
 }
 
 .slot-item:hover {
