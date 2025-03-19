@@ -12,36 +12,58 @@ function sendEmail($email, $full_name, $username, $password, $submission_time) {
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com'; // Gmail SMTP Server
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'sohan11903@gmail.com'; // Your Gmail
+        $mail->Username   = 'getinplay.contact@gmail.com'; // Your Gmail
         $mail->Password   = $smtp_pw; // Use Gmail App Password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // SSL
         $mail->Port       = 465;
 
         // Sender and recipient
-        $mail->setFrom('sohan11903@gmail.com', 'Sohan');
+        $mail->setFrom('getinplay.contact@gmail.com', 'GetInPlay');
         $mail->addAddress($email, $full_name);
-        $mail->addReplyTo('sohan11903@gmail.com', 'Sohan');
+        $mail->addReplyTo('getinplay.contact@gmail.com', 'GetInPlay');
 
         // Email content
         $mail->isHTML(true);
         $mail->Subject = 'Registration Successful';
-        $mail->Body = '<h3>Hello ' . htmlspecialchars($full_name) . ',</h3>
-            <p>Thank you for registering with us. Here are your registration details:</p>
-            <ul>
-                <li><b>Full Name:</b> ' . htmlspecialchars($full_name) . '</li>
-                <li><b>Email:</b> ' . htmlspecialchars($email) . '</li>
-                <li><b>Registration Time:</b> ' . htmlspecialchars($submission_time) . '</li>
-            </ul>
-            <h4>Login Information:</h4>
-            <p>You can log in to your account using the following credentials:</p>
-            <ul>
-                <li><b>Username:</b> ' . htmlspecialchars($username) . '</li>
-                <li><b>Password:</b> ' . htmlspecialchars($password) . '</li>
-            </ul>
-            <p>Click below to log in:</p>
-            <p><a href="http://192.168.0.130/assignment-4/index.php" style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; display: inline-block;">Login Now</a></p>
-            <p>If you want to change your password then first login with your current password and change it.</p>
-            <p>Best Regards,<br> GetInPlay</p>';
+        $mail->Body = '
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Registration Confirmation</title>
+        </head>
+        <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f9f9f9; margin: 0; padding: 0;">
+            <div style="max-width: 600px; margin: 20px auto; padding: 20px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
+                <div style="font-size: 24px; font-weight: bold; color: #2c3e50; margin-bottom: 20px;">Hello ' . htmlspecialchars($full_name) . ',</div>
+                <div style="font-size: 16px; color: #555;">
+                    <p>Thank you for registering with us. Here are your registration details:</p>
+                    <div style="margin: 20px 0; padding: 15px; background-color: #f1f1f1; border-radius: 6px;">
+                        <ul style="padding: 0; margin: 0;">
+                            <li style="list-style: none; margin-bottom: 10px;"><b style="color: #2c3e50;">Full Name:</b> ' . htmlspecialchars($full_name) . '</li>
+                            <li style="list-style: none; margin-bottom: 10px;"><b style="color: #2c3e50;">Email:</b> ' . htmlspecialchars($email) . '</li>
+                            <li style="list-style: none; margin-bottom: 10px;"><b style="color: #2c3e50;">Registration Time:</b> ' . htmlspecialchars($submission_time) . '</li>
+                        </ul>
+                    </div>
+                    <h4 style="font-size: 20px; color: #2c3e50; margin-bottom: 10px;">Login Information:</h4>
+                    <div style="margin: 20px 0; padding: 15px; background-color: #f1f1f1; border-radius: 6px;">
+                        <ul style="padding: 0; margin: 0;">
+                            <li style="list-style: none; margin-bottom: 10px;"><b style="color: #2c3e50;">Username:</b> ' . htmlspecialchars($username) . '</li>
+                            <li style="list-style: none; margin-bottom: 10px;"><b style="color: #2c3e50;">Password:</b> ' . htmlspecialchars($password) . '</li>
+                        </ul>
+                    </div>
+                    <p>Click below to log in to your account:</p>
+                    <p><a href="http://192.168.0.130/assignment-4/index.php" style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; display: inline-block; border-radius: 5px;">Login Now</a></p>
+                    <p>If you want to change your password, please log in with your current password and update it from your account settings.</p>
+                </div>
+                <div style="margin-top: 20px; font-size: 14px; color: #777; text-align: center;">
+                    <p>Best Regards,<br>GetInPlay</p>
+                    <p>If you have any questions, feel free to <a href="mailto:getinplay.contact@gmail.com" style="color: #3498db; text-decoration: none;">contact us</a>.</p>
+                </div>
+            </div>
+        </body>
+        </html>
+        ';
         $mail->AltBody = 'Hello ' . $full_name . ', Thank you for registering with us.';
 
         // Send email

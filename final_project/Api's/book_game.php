@@ -24,32 +24,57 @@ function sendEmail( $name, $email, $phone_no,$game_name, $slot, $date, $submissi
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com'; // Gmail SMTP Server
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'sohan11903@gmail.com'; // Your Gmail
+        $mail->Username   = 'getinplay.contact@gmail.com'; // Your Gmail
         $mail->Password   = $smtp_pw; // Use Gmail App Password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // SSL
         $mail->Port       = 465;
 
         // Sender and recipient
-        $mail->setFrom('sohan11903@gmail.com', 'Sohan');
+        $mail->setFrom('getinplay.contact@gmail.com', 'GetInPlay');
         $mail->addAddress($email, $name);
-        $mail->addReplyTo('sohan11903@gmail.com', 'Sohan');
+        $mail->addReplyTo('getinplay.contact@gmail.com', 'GetInPlay');
 
         // Email content
         $mail->isHTML(true);
         $mail->Subject =  "Slot Booking Details " . htmlspecialchars($name);
-        $mail->Body = '<h3>Hello ' . htmlspecialchars($name) . ',</h3>
-            <p>message from Admin</p>
-            <ul>
-                <li><b>Name:</b> ' . htmlspecialchars($name) . '</li>
-                <li><b>Email:</b> ' . htmlspecialchars($email) . '</li>
-                <li><b>Phone No:</b> ' . htmlspecialchars($phone_no) . '</li>
-                <li><b>Message Send At:</b> ' . htmlspecialchars($submission_time) . '</li>
-            </ul>
-            <h4>Slot Detail:-</h4>
-            <p>Game Name :-'. htmlspecialchars($game_name).'</p>
-            <p>time :-'. htmlspecialchars($slot).'</p>
-            <p>Date :-'. htmlspecialchars($date).'</p>
-            <p>Best Regards,<br> '. htmlspecialchars($name) .' </p>';
+        $mail->Body = '
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slot Booking Confirmation</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f9f9f9; margin: 0; padding: 0;">
+    <div style="max-width: 600px; margin: 20px auto; padding: 20px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
+        <div style="font-size: 24px; font-weight: bold; color: #2c3e50; margin-bottom: 20px;">Hello ' . htmlspecialchars($name) . ',</div>
+        <div style="font-size: 16px; color: #555;">
+            <p>Your slot booking details are confirmed. Below are the details:</p>
+            <div style="margin: 20px 0; padding: 15px; background-color: #f1f1f1; border-radius: 6px;">
+                <ul style="padding: 0; margin: 0;">
+                    <li style="list-style: none; margin-bottom: 10px;"><b style="color: #2c3e50;">Name:</b> ' . htmlspecialchars($name) . '</li>
+                    <li style="list-style: none; margin-bottom: 10px;"><b style="color: #2c3e50;">Email:</b> ' . htmlspecialchars($email) . '</li>
+                    <li style="list-style: none; margin-bottom: 10px;"><b style="color: #2c3e50;">Phone No:</b> ' . htmlspecialchars($phone_no) . '</li>
+                </ul>
+            </div>
+            <h4 style="font-size: 20px; color: #2c3e50; margin-bottom: 10px;">Slot Details:</h4>
+            <div style="margin: 20px 0; padding: 15px; background-color: #f1f1f1; border-radius: 6px;">
+                <ul style="padding: 0; margin: 0;">
+                    <li style="list-style: none; margin-bottom: 10px;"><b style="color: #2c3e50;">Game Name:</b> ' . htmlspecialchars($game_name) . '</li>
+                    <li style="list-style: none; margin-bottom: 10px;"><b style="color: #2c3e50;">Time:</b> ' . htmlspecialchars($slot) . '</li>
+                    <li style="list-style: none; margin-bottom: 10px;"><b style="color: #2c3e50;">Date:</b> ' . htmlspecialchars($date) . '</li>
+                </ul>
+            </div>
+            <p>Thank you for booking with us. We look forward to seeing you!</p>
+        </div>
+        <div style="margin-top: 20px; font-size: 14px; color: #777; text-align: center;">
+            <p>Best Regards,<br>' . htmlspecialchars($name) . '</p>
+            <p>If you have any questions, feel free to <a href="mailto:getinplay.contact@gmail.com" style="color: #3498db; text-decoration: none;">contact us</a>.</p>
+        </div>
+    </div>
+</body>
+</html>
+';
         $mail->AltBody = '';
 
         // Send email
@@ -124,7 +149,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             // Execute the query
             if ($stmt_insert->execute()) {
-                $submission_time = date('Y-m-d H:i:s');
                 sendEmail($name, $email, $phone_no, $game_name, $slot, $date, $submission_time);
                 echo json_encode(['success' => true, 'message' => 'Game booked successfully.']);
             } else {
