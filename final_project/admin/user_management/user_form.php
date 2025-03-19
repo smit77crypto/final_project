@@ -145,8 +145,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate password (required for new users)
     if (empty($password) && $userId == '') {
         $errors['password'] = 'Please enter a password.';
+    } elseif (strlen($password) < 8) {
+        $errors['password'] = 'Password must be at least 8 characters long.';
     }
-
     // Validate membership selection
     if (empty($membership_id)) {
         $errors['membership_id'] = 'Please select a membership type.';

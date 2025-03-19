@@ -105,7 +105,9 @@ function sendEmail( $name,$email, $phone, $message, $submission_time) {
                 </ul>
             </div>
             <p><b>Message:</b></p>
-            <p>' . htmlspecialchars($message) . '</p>
+            <div class="details">
+                <p>' . htmlspecialchars($message) . '</p>
+            </div>
         </div>
         <div class="footer">
             <p>Best Regards,<br>' . htmlspecialchars($name) . '</p>

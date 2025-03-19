@@ -52,7 +52,7 @@ function sendEmail( $name, $email, $phone,$game_name, $slot, $date) {
                 <ul style="padding: 0; margin: 0;">
                     <li style="list-style: none; margin-bottom: 10px;"><b style="color: #2c3e50;">Name:</b> ' . htmlspecialchars($name) . '</li>
                     <li style="list-style: none; margin-bottom: 10px;"><b style="color: #2c3e50;">Email:</b> ' . htmlspecialchars($email) . '</li>
-                    <li style="list-style: none; margin-bottom: 10px;"><b style="color: #2c3e50;">Phone No:</b> ' . htmlspecialchars($phone_no) . '</li>
+                    <li style="list-style: none; margin-bottom: 10px;"><b style="color: #2c3e50;">Phone No:</b> ' . htmlspecialchars($phone) . '</li>
                 </ul>
             </div>
             <h4 style="font-size: 20px; color: #2c3e50; margin-bottom: 10px;">Slot Details:</h4>
