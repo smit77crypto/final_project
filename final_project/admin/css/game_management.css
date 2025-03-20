@@ -123,10 +123,7 @@ h2{
     .modal {
         width: 90%;
     }
-    .btn1 {
-        margin-top: -10px;
-        margin-bottom: 10px;
-    }
+   
 }
 
 @media (max-width: 480px) {
@@ -136,8 +133,5 @@ h2{
     .modal {
         width: 90%;
     }
-.btn1 {
-    margin-top: -10px;
-    margin-bottom: 10px;
-}
+
 }

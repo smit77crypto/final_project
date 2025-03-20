@@ -84,9 +84,9 @@ $result = $conn->query($sql);
 <body>
     <?php include 'navbar.php' ?>
     <div class="main">
-   
+
         <div class="sb">
-        <div class="records-per-page" style="visibility: <?php echo $showpagesec ? 'visible' : 'hidden'; ?>;">
+            <div class="records-per-page" style="visibility: <?php echo $showpagesec ? 'visible' : 'hidden'; ?>;">
                 <form method="GET" action="">
                     <label for="recordsPerPage">Show</label>
                     <select name="recordsPerPage" id="recordsPerPage" onchange="this.form.submit()">
@@ -104,7 +104,9 @@ $result = $conn->query($sql);
                         <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                         <input id="searchField" type="text" name="search" placeholder="Search by name"
                             value="<?php echo htmlspecialchars($searchTerm); ?>">
-                        <button><i href="game_management.php" id="clearLink" class="fa-solid fa-xmark"></i></button>
+                        <button id="clearLink">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
                     </div>
                 </form>
             </div>
@@ -115,97 +117,138 @@ $result = $conn->query($sql);
                         <div style="font-weight: bold">ADD USER</div>
                     </div>
                 </a>
-            </div>  
-        </div>
-        
+            </div>
 
-    <div class="tablearea">
-        <?php if ($result->num_rows > 0) : ?>
-        <!-- Desktop Table View -->
-        <div class="desktop-view">
-            <table border="1">
-                <tr>
-                    <th>Action</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Gender</th>
-                    <th>Phone no</th>
-                    <th>Username</th>
-                    <th>Membership</th>
-                </tr>
-                <?php while ($row = $result->fetch_assoc()) : ?>
-                <tr>
-                    <td class="action-buttons">
-                        <a href="user_management/user_form.php?id=<?php echo $row['id']; ?>" class="edit"><i
-                                class="fa-solid fa-pencil"></i></a>
-                        <a href="#" class="delete" onclick="confirmDelete(<?php echo $row['id']; ?>)"><i
-                                class="fas fa-trash-alt"></i></a>
-                        <a href="user_management/view_user.php?id=<?php echo $row['id']; ?>" class="view"><i class="fa-solid fa-file-lines"></i></a>
-                    </td>
-                    <td class="sametd"><?php echo $row['full_name']; ?></td>
-                    <td class="sametd"><?php echo $row['email']; ?></td>
-                    <td class="sametd"><?php echo ($row['gender'] === 'Other') ? 'N/A' : $row['gender']; ?></td>
-                    <td class="sametd"><?php echo $row['phone_no']; ?></td>
-                    <td class="sametd"><?php echo $row['username']; ?></td>
-                    <td class="sametd"><?php echo $row['membership_name']; ?></td>
-                </tr>
-                <?php endwhile; ?>
-            </table>
+        </div>
+        <div class="mobile-up-div">
+            <div class="search-form">
+                <form method="GET" action="" onsubmit="return validateMobileSearch()">
+                    <div class="search-div">
+                        <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        <input id="searchFieldMobile" type="text" name="search" placeholder="Search by name"
+                            value="<?php echo htmlspecialchars($searchTerm); ?>">
+                        <button id="clearLinkMobile">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="dw">
+                <div class="records-per-page" style="visibility: <?php echo $showpagesec ? 'visible' : 'hidden'; ?>;">
+                    <form method="GET" action="">
+                        <label for="recordsPerPage">Show</label>
+                        <select name="recordsPerPage" id="recordsPerPage" onchange="this.form.submit()">
+                            <option value="5" <?php echo $recordsPerPage == 5 ? 'selected' : ''; ?>>5</option>
+                            <option value="10" <?php echo $recordsPerPage == 10 ? 'selected' : ''; ?>>10</option>
+                            <option value="15" <?php echo $recordsPerPage == 15 ? 'selected' : ''; ?>>15</option>
+                        </select>
+                        <label for="recordsPerPage">entries</label>
+                        <input type="hidden" name="search" value="<?php echo htmlspecialchars($searchTerm); ?>">
+                    </form>
+                </div>
+                <div class="adduser">
+                    <a href="user_management/user_form.php" style="text-decoration:none; color:white">
+                        <div class="btn1">
+                            <div><i class="fa-solid fa-user-plus"></i></div>
+                            <div style="font-weight: bold">ADD USER</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
         </div>
 
-        <!-- Mobile and Tablet Card View -->
-        <div class="mobile-view">
-            <?php
+
+        <div class="tablearea">
+            <?php if ($result->num_rows > 0) : ?>
+            <!-- Desktop Table View -->
+            <div class="desktop-view">
+                <table border="1">
+                    <tr>
+                        <th>Action</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Gender</th>
+                        <th>Phone no</th>
+                        <th>Username</th>
+                        <th>Membership</th>
+                    </tr>
+                    <?php while ($row = $result->fetch_assoc()) : ?>
+                    <tr>
+                        <td class="action-buttons">
+                            <a href="user_management/user_form.php?id=<?php echo $row['id']; ?>" class="edit"><i
+                                    class="fa-solid fa-pencil"></i></a>
+                            <a href="#" class="delete" onclick="confirmDelete(<?php echo $row['id']; ?>)"><i
+                                    class="fas fa-trash-alt"></i></a>
+                            <a href="user_management/view_user.php?id=<?php echo $row['id']; ?>" class="view"><i
+                                    class="fa-solid fa-file-lines"></i></a>
+                        </td>
+                        <td class="sametd"><?php echo $row['full_name']; ?></td>
+                        <td class="sametd"><?php echo $row['email']; ?></td>
+                        <td class="sametd"><?php echo ($row['gender'] === 'Other') ? 'N/A' : $row['gender']; ?></td>
+                        <td class="sametd"><?php echo $row['phone_no']; ?></td>
+                        <td class="sametd"><?php echo $row['username']; ?></td>
+                        <td class="sametd"><?php echo $row['membership_name']; ?></td>
+                    </tr>
+                    <?php endwhile; ?>
+                </table>
+            </div>
+
+            <!-- Mobile and Tablet Card View -->
+            <div class="mobile-view">
+                <?php
                 // Reset the result pointer to reuse the data
                 $result->data_seek(0);
                 while ($row = $result->fetch_assoc()) : ?>
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title"><?php echo $row['full_name']; ?></h5>
-                    <p class="card-text"><strong>Email:</strong> <?php echo $row['email']; ?></p>
-                    <p class="card-text"><strong>Gender:</strong>
-                        <?php echo ($row['gender'] === 'Other') ? 'N/A' : $row['gender']; ?></p>
-                    <p class="card-text"><strong>Phone:</strong> <?php echo $row['phone_no']; ?></p>
-                    <p class="card-text"><strong>Username:</strong> <?php echo $row['username']; ?></p>
-                    <p class="card-text"><strong>Membership:</strong> <?php echo $row['membership_name']; ?></p>
-                    <div class="action-buttons">
-                        <a href="user_management/user_form.php?id=<?php echo $row['id']; ?>" class="edit"><i
-                                class="fa-solid fa-pencil"></i></a>
-                        <a href="#" class="delete" onclick="confirmDelete(<?php echo $row['id']; ?>)"><i
-                                class="fas fa-trash-alt"></i></a>
-                        <a href="user_management/view_user.php?id=<?php echo $row['id']; ?>" class="view"><i class="fa-solid fa-file-lines"></i></a>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo $row['full_name']; ?></h5>
+                        <p class="card-text"><strong>Email:</strong> <?php echo $row['email']; ?></p>
+                        <p class="card-text"><strong>Gender:</strong>
+                            <?php echo ($row['gender'] === 'Other') ? 'N/A' : $row['gender']; ?></p>
+                        <p class="card-text"><strong>Phone:</strong> <?php echo $row['phone_no']; ?></p>
+                        <p class="card-text"><strong>Username:</strong> <?php echo $row['username']; ?></p>
+                        <p class="card-text"><strong>Membership:</strong> <?php echo $row['membership_name']; ?></p>
+                        <div class="action-buttons">
+                            <a href="user_management/user_form.php?id=<?php echo $row['id']; ?>" class="edit"><i
+                                    class="fa-solid fa-pencil"></i></a>
+                            <a href="#" class="delete" onclick="confirmDelete(<?php echo $row['id']; ?>)"><i
+                                    class="fas fa-trash-alt"></i></a>
+                            <a href="user_management/view_user.php?id=<?php echo $row['id']; ?>" class="view"><i
+                                    class="fa-solid fa-file-lines"></i></a>
+                        </div>
                     </div>
                 </div>
+                <?php endwhile; ?>
             </div>
-            <?php endwhile; ?>
-        </div>
 
-        <!-- Pagination Links -->
-        <div class="pagination">
-            <?php if ($page > 1) : ?>
-            <a
-                href="?page=<?php echo $page - 1; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>"><i class="fa-solid fa-arrow-left-long"></i></a>
+            <!-- Pagination Links -->
+            <div class="pagination">
+                <?php if ($page > 1) : ?>
+                <a
+                    href="?page=<?php echo $page - 1; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>"><i
+                        class="fa-solid fa-arrow-left-long"></i></a>
+                <?php endif; ?>
+
+                <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
+                <a href="?page=<?php echo $i; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>"
+                    <?php echo ($page == $i) ? 'class="active"' : ''; ?>><?php echo $i; ?></a>
+                <?php endfor; ?>
+
+                <?php if ($page < $totalPages) : ?>
+                <a
+                    href="?page=<?php echo $page + 1; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>"><i
+                        class="fa-solid fa-arrow-right-long"></i></a>
+                <?php endif; ?>
+            </div>
+            <?php else : ?>
+            <p>No records found!!</p>
             <?php endif; ?>
-
-            <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
-            <a href="?page=<?php echo $i; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>"
-                <?php echo ($page == $i) ? 'class="active"' : ''; ?>><?php echo $i; ?></a>
-            <?php endfor; ?>
-
-            <?php if ($page < $totalPages) : ?>
-            <a
-                href="?page=<?php echo $page + 1; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>"><i class="fa-solid fa-arrow-right-long"></i></a>
-            <?php endif; ?>
         </div>
-        <?php else : ?>
-        <p>No records found!!</p>
-        <?php endif; ?>
     </div>
-    </div>
-        
+
 
     <script>
-            function validateSearch() {
+    function validateSearch() {
         var searchField = document.getElementById('searchField');
 
         // If the search field is empty, prevent the form from submitting and return false to avoid page reload
@@ -214,7 +257,17 @@ $result = $conn->query($sql);
         }
         return true; // Allow form submission if there's text in the field
     }
+    function validateMobileSearch() {
+        var searchField = document.getElementById('searchFieldMobile');
 
+        // If the search field is empty, prevent the form from submitting and return false to avoid page reload
+        if (searchField.value.trim() === "") {
+            return false; // Prevent form submission
+        }
+        return true; // Allow form submission if there's text in the field
+    }
+   
+    
     // Handle clear button click event
     document.getElementById('clearLink').addEventListener('click', function(event) {
         var searchField = document.getElementById('searchField');
@@ -223,9 +276,21 @@ $result = $conn->query($sql);
         if (searchField.value.trim() === "") {
             event.preventDefault(); // Prevent page reload
         } else {
+
             // Clear the search field content and submit the form to refresh the page
-            searchField.value = ""; 
-            this.closest('form').submit(); // Trigger the form submission
+            searchField.value = "";
+            window.location.href = 'user_management.php';
+
+        }
+    });
+    document.getElementById('clearLinkMobile').addEventListener('click', function(event) {
+        var searchField = document.getElementById('searchFieldMobile');
+        if (searchField.value.trim() === "") {
+            event.preventDefault();
+        } else {
+            searchField.value = "";
+
+            window.location.href = 'game_management.php';
         }
     });
 

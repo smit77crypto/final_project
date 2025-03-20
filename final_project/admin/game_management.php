@@ -1,28 +1,20 @@
 <?php
-// Database connection
 include('connect_database.php');
 
-// Initialize search term
 $searchTerm = isset($_GET['search']) ? trim($_GET['search']) : '';
 
-// Pagination variables
-$recordsPerPage = isset($_GET['recordsPerPage']) ? (int)$_GET['recordsPerPage'] : 5; // Default to 5 records per page
+$recordsPerPage = isset($_GET['recordsPerPage']) ? (int)$_GET['recordsPerPage'] : 5;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $recordsPerPage;
 
-// Base query
-// Base query
 $query = "SELECT * FROM games WHERE deleteval=1";
 
-// Modify query if searching
 if (!empty($searchTerm)) {
     $query .= " AND name LIKE '%" . $conn->real_escape_string($searchTerm) . "%'";
 }
 
-// Add order and pagination
 $query .= " ORDER BY id DESC LIMIT $offset, $recordsPerPage";
 
-// Fetch total number of records
 $totalRecordsQuery = "SELECT COUNT(*) as total FROM games WHERE deleteval=1";
 if (!empty($searchTerm)) {
     $totalRecordsQuery .= " AND name LIKE '%" . $conn->real_escape_string($searchTerm) . "%'";
@@ -32,15 +24,12 @@ $totalRecordsResult = $conn->query($totalRecordsQuery);
 $totalRecords = $totalRecordsResult->fetch_assoc()['total'];
 $totalPages = ceil($totalRecords / $recordsPerPage);
 
-// Execute query
 $result = $conn->query($query);
 
-// Check for query errors
 if (!$result) {
     die("Query Error: " . $conn->error);
 }
 
-// Check if there are any records to display
 if ($totalRecords == 0) {
     $noResultsMessage = "No records found!!";
 } else {
@@ -64,14 +53,11 @@ $showpagesec = $totalRecords > 0;
     <link rel="stylesheet" href="css/user_management.css">
     <link rel="stylesheet" href="css/game_management.css">
     <style>
-    /* Modal styles */
     #slotModal {
         display: none;
-        /* Hidden by default */
         position: fixed;
         top: 50%;
         left: 50%;
-
         transform: translate(-50%, -50%);
         background-color: white;
         padding: 20px;
@@ -79,25 +65,14 @@ $showpagesec = $totalRecords > 0;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         z-index: 1000;
         width: 500px;
-        /* Adjust width based on content */
         max-width: 40%;
-        /* Ensure it doesn't exceed 90% of the screen width */
         height: auto;
-        /* Adjust height based on content */
         max-height: 90vh;
-        /* Ensure it doesn't exceed 90% of the viewport height */
         overflow-y: auto;
-        /* Add scroll if content exceeds height */
     }
 
-    .pd span {
-        margin-top: -10px;
-    }
-
-    /* Overlay styles */
     #overlay {
         display: none;
-        /* Hidden by default */
         position: fixed;
         top: 0;
         left: 0;
@@ -107,7 +82,6 @@ $showpagesec = $totalRecords > 0;
         z-index: 999;
     }
 
-    /* Close button styles */
     .close-popup {
         position: absolute;
         top: 10px;
@@ -121,23 +95,17 @@ $showpagesec = $totalRecords > 0;
         color: #41C2CB;
     }
 
-
     .pd {
         display: flex;
         align-items: center;
         justify-content: center;
     }
-
-    /* Error styling for search input */
-   
     </style>
 </head>
 
 <body>
     <?php include 'navbar.php' ?>
     <div class="main">
-
-
         <div class="sb">
             <div class="records-per-page" style="visibility: <?php echo $showpagesec ? 'visible' : 'hidden'; ?>;">
                 <form method="GET" action="">
@@ -157,7 +125,9 @@ $showpagesec = $totalRecords > 0;
                         <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                         <input id="searchField" type="text" name="search" placeholder="Search by name"
                             value="<?php echo htmlspecialchars($searchTerm); ?>">
-                        <button><i href="game_management.php" id="clearLink" class="fa-solid fa-xmark"></i></button>
+                        <button id="clearLink">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
                     </div>
                 </form>
             </div>
@@ -169,11 +139,43 @@ $showpagesec = $totalRecords > 0;
                     </div>
                 </a>
             </div>
-
         </div>
-
-        <!-- Desktop Table View -->
-        <!-- Inside the table view, below the table -->
+        <div class="mobile-up-div">
+            <div class="search-form">
+                <form method="GET" action="" onsubmit="return validateMobileSearch()">
+                    <div class="search-div">
+                        <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        <input id="searchFieldMobile" type="text" name="search" placeholder="Search by name"
+                            value="<?php echo htmlspecialchars($searchTerm); ?>">
+                        <button id="clearLinkMobile">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="dw">
+                <div class="records-per-page" style="visibility: <?php echo $showpagesec ? 'visible' : 'hidden'; ?>;">
+                    <form method="GET" action="">
+                        <label for="recordsPerPage">Show</label>
+                        <select name="recordsPerPage" id="recordsPerPage" onchange="this.form.submit()">
+                            <option value="5" <?php echo $recordsPerPage == 5 ? 'selected' : ''; ?>>5</option>
+                            <option value="10" <?php echo $recordsPerPage == 10 ? 'selected' : ''; ?>>10</option>
+                            <option value="15" <?php echo $recordsPerPage == 15 ? 'selected' : ''; ?>>15</option>
+                        </select>
+                        <label for="recordsPerPage">entries</label>
+                        <input type="hidden" name="search" value="<?php echo htmlspecialchars($searchTerm); ?>">
+                    </form>
+                </div>
+                <div class="adduser">
+                    <a href="game_management/game_form.php" style="text-decoration:none; color:white">
+                        <div class="btn1">
+                            <div><i class="fa-solid fa-user-plus"></i></div>
+                            <div style="font-weight: bold">ADD GAME</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
         <?php if ($totalRecords == 0) : ?>
         <p class="no-records-message" style="text-align:center"><?php echo $noResultsMessage; ?></p>
         <?php else: ?>
@@ -209,12 +211,8 @@ $showpagesec = $totalRecords > 0;
             <?php endwhile; ?>
         </table>
         <?php endif; ?>
-
-
-        <!-- Mobile and Tablet Card View -->
         <div class="mobile-view">
             <?php
-        // Reset the result pointer to reuse the data
         $result->data_seek(0);
         while ($row = $result->fetch_assoc()) : ?>
             <div class="card">
@@ -244,81 +242,84 @@ $showpagesec = $totalRecords > 0;
             </div>
             <?php endwhile; ?>
         </div>
-
-        <!-- Pagination Links -->
         <div class="pagination">
             <?php if ($page > 1) : ?>
             <a
-                href="?page=<?php echo $page - 1; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>"><i class="fa-solid fa-arrow-left-long"></i></a>
+                href="?page=<?php echo $page - 1; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>"><i
+                    class="fa-solid fa-arrow-left-long"></i></a>
             <?php endif; ?>
-
             <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
             <a href="?page=<?php echo $i; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>"
                 <?php echo ($page == $i) ? 'class="active"' : ''; ?>><?php echo $i; ?></a>
             <?php endfor; ?>
-
             <?php if ($page < $totalPages) : ?>
             <a
-                href="?page=<?php echo $page + 1; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>"><i class="fa-solid fa-arrow-right-long"></i></a>
+                href="?page=<?php echo $page + 1; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>"><i
+                    class="fa-solid fa-arrow-right-long"></i></a>
             <?php endif; ?>
         </div>
-
-        <!-- Popup Modal -->
         <div id="slotModal" class="modal">
             <div class="modal-content">
                 <div class="pd">
                     <span class="close-popup"><i class="fa-solid fa-eye-slash"></i></span>
                     <h2>All Slots</h2>
                 </div>
-
                 <div id="slotsContainer" class="modal-slots-container">Loading...</div>
             </div>
         </div>
-
-        <!-- Background Blur Overlay -->
         <div id="overlay" class="overlay"></div>
     </div>
-
-
     <script>
     function validateSearch() {
         var searchField = document.getElementById('searchField');
-
-        // If the search field is empty, prevent the form from submitting
         if (searchField.value.trim() === "") {
-            // Prevent form submission (no page refresh)
             return false;
         }
-        return true; // Allow form submission
+        return true;
     }
-
-    // Handle clear button click event
-    document.getElementById('clearLink').addEventListener('click', function(event) {
-        var searchField = document.getElementById('searchField');
-
-        // If the search field is already empty, prevent default behavior (page reload)
+    document.getElementById('clearLinkMobile').addEventListener('click', function(event) {
+        var searchField = document.getElementById('searchFieldMobile');
         if (searchField.value.trim() === "") {
-            event.preventDefault(); // Prevent the page reload
+            event.preventDefault();
         } else {
-            // Clear the search field content and submit the form
             searchField.value = "";
+
+            window.location.href = 'game_management.php';
         }
     });
 
+    function validateMobileSearch() {
+        var searchField = document.getElementById('searchFieldMobile');
+        if (searchField.value.trim() === "") {
+            return false;
+        }
+        return true;
+    }
+    document.getElementById('clearLink').addEventListener('click', function(event) {
+        var searchField = document.getElementById('searchField');
+
+        // If the search field is empty, prevent default behavior (no page reload)
+        if (searchField.value.trim() === "") {
+            event.preventDefault(); // Prevent page reload
+        } else {
+
+            // Clear the search field content and submit the form to refresh the page
+            searchField.value = "";
+            window.location.href = 'game_management.php';
+
+        }
+    });
 
     function confirmDelete(gameId) {
         if (confirm("Are you sure you want to delete this game?")) {
             var url = "game_management/delete_game.php?id=" + gameId;
-            console.log(url); // Log the URL to check if it's correct
+            console.log(url);
             window.location.href = url;
         }
     }
-
     $(document).ready(function() {
-        // Show popup and lock background
         $(".view-slots-btn").on("click", function() {
             var gameId = $(this).attr("data-game-id");
-
             $.ajax({
                 url: "fetch_slots.php",
                 type: "POST",
@@ -330,7 +331,6 @@ $showpagesec = $totalRecords > 0;
                     if (response.error) {
                         $("#slotsContainer").html("<p>" + response.error + "</p>");
                     } else {
-                        // Create individual slot elements
                         var slotsHtml = response.slots.map(slot => {
                             return `<span class="modal-slot-item">${slot.trim()}</span>`;
                         }).join("");
@@ -346,8 +346,6 @@ $showpagesec = $totalRecords > 0;
                 }
             });
         });
-
-        // Close popup and unlock background
         $(".close-popup, #overlay").on("click", function() {
             $("#slotModal").hide();
             $("#overlay").hide();

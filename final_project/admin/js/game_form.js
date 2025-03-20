@@ -178,7 +178,7 @@ function updateSelectedSlots() {
 
     document.getElementById('selected-list').innerHTML = selectedSlots.map(slot => `
         <div class="selected-slot">
-            ${slot}
+            ${slot} <span class="remove-slot" onclick="removeSlot('${slot}')"><i class="fa-solid fa-trash-can"></i></span>
         </div>
     `).join('');
 
@@ -210,7 +210,10 @@ function resetForm() {
     hideForm();
     document.querySelectorAll(".error-message").forEach(error => error.style.display = "none");
 }
-
+function removeSlot(slot) {
+    document.querySelector(`input[value="${slot}"]`).checked = false;
+    updateSelectedSlots();
+}
 // Helper Functions to Show and Hide Errors
 function showError(id, message) {
     const errorElement = document.getElementById(id);

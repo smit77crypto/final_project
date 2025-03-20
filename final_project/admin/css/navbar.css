@@ -88,10 +88,14 @@ nav {
 /* Profile Popup */
 .profile {
   position: relative;
-  display: none;
+  
   cursor: pointer;
 }
-
+.profile img{
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
 .profile-popup {
   display: none;
   position: absolute;
@@ -111,6 +115,7 @@ nav {
   color: black;
   text-decoration: none;
   font-weight: bold;
+  font-size: 1rem;
   border-bottom: 1px solid #E5E5E5;
   transition: background-color 0.3s ease;
 }

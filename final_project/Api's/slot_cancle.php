@@ -29,7 +29,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $secret_key = 'yo12ur';
         try {
             $decoded = JWT::decode($token, new Key($secret_key, 'HS256'));
-            $phone_no = $decoded->user_phone_no;
+           
+            $phone_no = $decoded->user_phone;
+            
+            // $membership_id = $decoded->user_membership_id;
         } catch (Exception $e) {
             echo json_encode(['success' => false, 'message' => 'Invalid token']);
             exit;
@@ -58,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($result->num_rows > 0) {
             $membership_id = $result->fetch_assoc()['membership_id'];
-            echo $membership_id;
+            
             // Define allowed hours for cancellation based on membership
             $allowed_hours = ($membership_id == 1) ? 4 : (($membership_id == 2) ? 3 : 2);
             
@@ -73,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $book_time_obj = new DateTime($date . ' ' . $slot_start_time_24hr); 
    
             if ($current_time_obj < $book_time_obj) {
-                echo "hello";                
+                             
                 $interval = $current_time_obj->diff($book_time_obj);
                 $hours_diff = (int)$interval->format('%h') + ($interval->days * 24);
 

@@ -22,21 +22,14 @@
         </ul>
     </div>
     <div class="profile" onclick="toggleProfilePopup()">
-        <i class="fas fa-user-circle"></i> <!-- Profile Icon -->
-        <!-- Popup that will show on click -->
+        <img src="../uploads/bravo.jpeg" alt="">
         <div class="profile-popup">
-            <a href="admin_profile.php">Profile</a> <!-- Profile Option -->
-            <a href="admin_login.php">Logout</a> <!-- Logout Option -->
+            <a href="../admin_profile.php">Profile</a>
+            <a href="../admin_history.php">History</a> <!-- Profile Option -->
+            <a href="../admin_login.php">Logout</a> <!-- Logout Option -->
         </div>
     </div>
-    <div class="right">
-        <a href="admin_login.php" style="text-decoration:none; color:white">
-            <div class="btn">
-                <div><i class="fa-solid fa-right-from-bracket"></i></div>
-                <div style="font-weight: bold">LOG OUT</div>
-            </div>
-        </a>
-    </div>
+   
 </nav>
 <nav class="mobile-nav">
     <div class="mobile-menu">
@@ -47,11 +40,11 @@
     </div>
     
     <div class="profile" onclick="toggleProfilePopup()">
-        <i class="fas fa-user-circle"></i> <!-- Profile Icon -->
-        <!-- Popup that will show on click -->
+        <img src="../uploads/bravo.jpeg" alt="">
         <div class="profile-popup">
-            <a href="admin_profile.php">Profile</a> <!-- Profile Option -->
-            <a href="admin_login.php">Logout</a> <!-- Logout Option -->
+            <a href="../admin_profile.php">Profile</a>
+            <a href="../admin_history.php">History</a> <!-- Profile Option -->
+            <a href="../admin_login.php">Logout</a> <!-- Logout Option -->
         </div>
     </div>
 </nav>

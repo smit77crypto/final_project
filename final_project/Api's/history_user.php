@@ -30,8 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $decode = JWT::decode($token, new Key($secret_key, 'HS256'));
         $username = $decode->username;
 
-        // Fetch data from the book_game table where username matches
-        $stmt = $conn->prepare("SELECT * FROM book_game WHERE username = ?");
+        // Fetch data from the book_game table where username matches and deleted = 1
+        $stmt = $conn->prepare("SELECT * FROM book_game WHERE username = ? AND DELETED = 1");
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -62,10 +62,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 }     
             }
         }
+
+        // Fetch data from the book_game table where username matches and deleted = 0
+        $stmtDeleted = $conn->prepare("SELECT * FROM book_game WHERE username = ? AND DELETED = 0");
+        $stmtDeleted->bind_param("s", $username);
+        $stmtDeleted->execute();
+        $resultDeleted = $stmtDeleted->get_result();
+
+        $deleted = [];
+        while ($rowDeleted = $resultDeleted->fetch_assoc()) {
+            $deleted[] = $rowDeleted;
+        }
+
+        // Count the number of past, upcoming, and deleted bookings
+        $pastCount = count($past);
+        $upcomingCount = count($upcoming);
+        $deleteCount = count($deleted);
+
         echo json_encode([
             'success' => true,
             'upcoming' => $upcoming,
-            'past' => $past
+            'upcomingCount' => $upcomingCount,
+            'past' => $past,
+            'pastCount' => $pastCount,
+            'deleted' => $deleted,
+            'deleteCount' => $deleteCount
         ]);
 
     } catch (Exception $e) {

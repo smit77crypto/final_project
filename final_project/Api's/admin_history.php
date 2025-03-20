@@ -15,42 +15,76 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     // Get the current date (or any other format that matches your DB's date format)
     $currentDate = date('Y-m-d'); // Adjust format as needed
 
-    // Prepare the SQL query to select records with a past date
-    $query = "SELECT * FROM book_game WHERE book_date < ? ORDER BY id DESC";
-    
-    if ($stmt = $conn->prepare($query)) {
+    // Prepare the SQL queries to select records with a past date
+    $query1 = "SELECT * FROM book_game WHERE book_date < ? AND DELETED=1 ORDER BY id DESC";
+    $query2 = "SELECT * FROM book_game WHERE book_date < ? AND DELETED=0 ORDER BY id DESC"; // Assuming you want to check non-deleted bookings here
+
+    // Initialize arrays for past and canceled bookings
+    $pastBookings = [];
+    $cancleBookings = [];
+
+    // Prepare first statement
+    if ($stmt1 = $conn->prepare($query1)) {
         // Bind parameters to the query
-        $stmt->bind_param("s", $currentDate); // "s" is for string (date format)
-
-        // Execute the query
-        $stmt->execute();
-
-        // Get the result
-        $result = $stmt->get_result();
+        $stmt1->bind_param("s", $currentDate); // "s" is for string (date format)
         
-        // Initialize an empty array to hold the results
-        $pastBookings = [];
-
+        // Execute the query
+        $stmt1->execute();
+        
+        // Get the result for the first query
+        $result1 = $stmt1->get_result();
+        
         // Fetch all rows as an associative array
-        while ($row = $result->fetch_assoc()) {
+        while ($row = $result1->fetch_assoc()) {
             $pastBookings[] = $row;
         }
 
-        // Return the result as JSON
-        echo json_encode([
-            'status' => 'success',
-            'data' => $pastBookings
-        ]);
-
-        // Close the statement
-        $stmt->close();
+        // Close the first statement
+        $stmt1->close();
     } else {
-        // Handle SQL errors
+        // Handle errors for the first query
         echo json_encode([
             'status' => 'error',
-            'message' => 'Database query failed.'
+            'message' => 'Failed to prepare query for past bookings.'
         ]);
+        exit;
     }
+
+    // Prepare second statement
+    if ($stmt2 = $conn->prepare($query2)) {
+        // Bind parameters to the query
+        $stmt2->bind_param("s", $currentDate); // "s" is for string (date format)
+        
+        // Execute the query
+        $stmt2->execute();
+        
+        // Get the result for the second query
+        $result2 = $stmt2->get_result();
+        
+        // Fetch all rows as an associative array
+        while ($row = $result2->fetch_assoc()) {
+            $cancleBookings[] = $row;
+        }
+
+        // Close the second statement
+        $stmt2->close();
+    } else {
+        // Handle errors for the second query
+        echo json_encode([
+            'status' => 'error',
+            'message' => 'Failed to prepare query for canceled bookings.'
+        ]);
+        exit;
+    }
+
+    // Return the result as JSON including the count
+    echo json_encode([
+        'status' => 'success',
+        'data' => $pastBookings,
+        'pastBookingsCount' => count($pastBookings), // Count of past bookings
+        'cancle' => $cancleBookings,
+        'cancleBookingsCount' => count($cancleBookings) // Count of canceled bookings
+    ]);
 
     // Close the connection
     $conn->close();

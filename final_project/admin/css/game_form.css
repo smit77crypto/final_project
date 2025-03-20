@@ -203,8 +203,8 @@ span{
     flex-wrap: wrap;
     justify-content: flex-start;
     gap: .5rem;
-
-    /* background-color: #fff; */
+    /* width: 120%; */
+    background-color: #fff;
     padding: 10px;
     overflow-y: auto; /* Allows scrolling if content exceeds max height */
 }
@@ -215,7 +215,7 @@ span{
     text-align: center;
     border: 2px solid #747474;
     border-radius: 10px;
-    width: 145px;
+    width: 164px;
     font-size: 1rem;
     font-weight: bold; /* Optional: makes text bold */
 }
@@ -345,7 +345,9 @@ span{
       font-size: 0.9rem;
       padding: 6px 12px;
     }
-  
+    #selected-list{
+      width: 90%;
+    }
     .slot-filter button {
       flex: 1 1 100%; /* Full width for buttons on small screens */
     }
