@@ -62,7 +62,8 @@ body {
 
 .admin-name h3 {
   font-size: 1.5rem;
-  color: #4A5BE6;
+  /* color: #4A5BE6; */
+  color: black;
 }
 
 .admin-address,
@@ -81,7 +82,8 @@ body {
 
 .label {
   font-weight: bold;
-  color: #4A5BE6;
+  /* color: #4A5BE6; */
+  color: black;
 }
 
 

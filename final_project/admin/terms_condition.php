@@ -73,7 +73,7 @@ $conn->close();
 <body>
     <?php include "navbar.php"; ?>
     <div class="container">
-        <h1>Terms & Conditions</h1>
+        <h1>Terms & Condition</h1>
 
         <!-- Form to submit the terms and conditions -->
         <div class="textarea-container">

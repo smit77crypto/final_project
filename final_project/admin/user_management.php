@@ -84,20 +84,7 @@ $result = $conn->query($sql);
 <body>
     <?php include 'navbar.php' ?>
     <div class="main">
-    <div class="search-form">
-            <form method="GET" action="" onsubmit="return validateSearch()">
-                <div class="search-div">
-                    <div>
-                        <input id="searchField" type="text" name="search" placeholder="Search by name"
-                            value="<?php echo htmlspecialchars($searchTerm); ?>">
-                    </div>
-                    <div>
-                        <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    </div>
-                </div>
-                <a href="game_management.php" id="clearLink">Clear</a>
-            </form>
-        </div>
+   
         <div class="sb">
         <div class="records-per-page" style="visibility: <?php echo $showpagesec ? 'visible' : 'hidden'; ?>;">
                 <form method="GET" action="">
@@ -109,6 +96,16 @@ $result = $conn->query($sql);
                     </select>
                     <label for="recordsPerPage">entries</label>
                     <input type="hidden" name="search" value="<?php echo htmlspecialchars($searchTerm); ?>">
+                </form>
+            </div>
+            <div class="search-form">
+                <form method="GET" action="" onsubmit="return validateSearch()">
+                    <div class="search-div">
+                        <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        <input id="searchField" type="text" name="search" placeholder="Search by name"
+                            value="<?php echo htmlspecialchars($searchTerm); ?>">
+                        <button><i href="game_management.php" id="clearLink" class="fa-solid fa-xmark"></i></button>
+                    </div>
                 </form>
             </div>
             <div class="adduser">
@@ -187,7 +184,7 @@ $result = $conn->query($sql);
         <div class="pagination">
             <?php if ($page > 1) : ?>
             <a
-                href="?page=<?php echo $page - 1; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>">Previous</a>
+                href="?page=<?php echo $page - 1; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>"><i class="fa-solid fa-arrow-left-long"></i></a>
             <?php endif; ?>
 
             <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
@@ -197,7 +194,7 @@ $result = $conn->query($sql);
 
             <?php if ($page < $totalPages) : ?>
             <a
-                href="?page=<?php echo $page + 1; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>">Next</a>
+                href="?page=<?php echo $page + 1; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>"><i class="fa-solid fa-arrow-right-long"></i></a>
             <?php endif; ?>
         </div>
         <?php else : ?>

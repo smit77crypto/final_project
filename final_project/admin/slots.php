@@ -195,15 +195,15 @@ $filtered_slots = array_filter($available_slots, function ($slot) use ($selected
         <?php
         $dates = [
             [
-                'label' => '<small>' . date("l") . '</small><br><span class="date-large">' . date("j") . '</span><br><small>' . date("M") . '</small>', // Today
+                'label' => '<small>' . substr(date("l"),0,3) . '</small><br><span class="date-large">' . date("j") . '</span><br><small>' . date("M") . '</small>', // Today
                 'date' => date("Y/m/d")
             ],
             [
-                'label' => '<small>' . date("l", strtotime("+1 day")) . '</small><br><span class="date-large">' . date("j", strtotime("+1 day")) . '</span><br><small>' . date("M", strtotime("+1 day")) . '</small>', // Tomorrow
+                'label' => '<small>' . substr(date("l", strtotime("+1 day")),0,3) . '</small><br><span class="date-large">' . date("j", strtotime("+1 day")) . '</span><br><small>' . date("M", strtotime("+1 day")) . '</small>', // Tomorrow
                 'date' => date("Y/m/d", strtotime("+1 day"))
             ],
             [
-                'label' => '<small>' . date("l", strtotime("+2 days")) . '</small><br><span class="date-large">' . date("j", strtotime("+2 days")) . '</span><br><small>' . date("M", strtotime("+2 days")) . '</small>', // Day After
+                'label' => '<small>' . substr(date("l", strtotime("+2 days")),0,3) . '</small><br><span class="date-large">' . date("j", strtotime("+2 days")) . '</span><br><small>' . date("M", strtotime("+2 days")) . '</small>', // Day After
                 'date' => date("Y/m/d", strtotime("+2 days"))
             ]
         ];
@@ -255,7 +255,7 @@ $filtered_slots = array_filter($available_slots, function ($slot) use ($selected
 
     <!-- Booked Slots Details Section -->
     <div class="booked-details">
-        <h2>Booked Slots Details</h2>
+        <h2>Booking Details</h2>
         <table class="booked-table">
             <thead>
                 <tr>

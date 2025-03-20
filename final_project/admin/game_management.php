@@ -66,29 +66,38 @@ $showpagesec = $totalRecords > 0;
     <style>
     /* Modal styles */
     #slotModal {
-            display: none; /* Hidden by default */
+        display: none;
+        /* Hidden by default */
         position: fixed;
         top: 50%;
         left: 50%;
-      
+
         transform: translate(-50%, -50%);
         background-color: white;
         padding: 20px;
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         z-index: 1000;
-            width: 500px; /* Adjust width based on content */
-            max-width: 40%; /* Ensure it doesn't exceed 90% of the screen width */
-            height: auto; /* Adjust height based on content */
-            max-height: 90vh; /* Ensure it doesn't exceed 90% of the viewport height */
-            overflow-y: auto; /* Add scroll if content exceeds height */
+        width: 500px;
+        /* Adjust width based on content */
+        max-width: 40%;
+        /* Ensure it doesn't exceed 90% of the screen width */
+        height: auto;
+        /* Adjust height based on content */
+        max-height: 90vh;
+        /* Ensure it doesn't exceed 90% of the viewport height */
+        overflow-y: auto;
+        /* Add scroll if content exceeds height */
     }
-    .pd span{
-        margin-top:-10px;
+
+    .pd span {
+        margin-top: -10px;
     }
+
     /* Overlay styles */
     #overlay {
-            display: none; /* Hidden by default */
+        display: none;
+        /* Hidden by default */
         position: fixed;
         top: 0;
         left: 0;
@@ -97,7 +106,7 @@ $showpagesec = $totalRecords > 0;
         background-color: rgba(0, 0, 0, 0.5);
         z-index: 999;
     }
-   
+
     /* Close button styles */
     .close-popup {
         position: absolute;
@@ -107,48 +116,28 @@ $showpagesec = $totalRecords > 0;
         font-size: 20px;
         color: #333;
     }
-   
+
     .close-popup:hover {
         color: #41C2CB;
     }
 
-    /* Red underline when search field is empty */
-    #searchField {
-        border: 1px solid #E5E5E5;
-        padding: 8px;
-        width: 200px;
-        /* margin-bottom: 10px; */
-    }
-    .pd{
+
+    .pd {
         display: flex;
         align-items: center;
         justify-content: center;
     }
+
     /* Error styling for search input */
-    #searchField:invalid {
-        border-bottom: 2px solid #E5E5E5;
-    }
+   
     </style>
 </head>
 
 <body>
     <?php include 'navbar.php' ?>
-   <div class="main">
-   <div class="search-form">
-            <form method="GET" action="" onsubmit="return validateSearch()">
-                <div class="search-div">
-                    <div>
-                        <input id="searchField" type="text" name="search" placeholder="Search by name"
-                            value="<?php echo htmlspecialchars($searchTerm); ?>">
-                    </div>
-                    <div>
-                        <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    </div>
-                </div>
-                <a href="game_management.php" id="clearLink">Clear</a>
-            </form>
-        </div>
-  
+    <div class="main">
+
+
         <div class="sb">
             <div class="records-per-page" style="visibility: <?php echo $showpagesec ? 'visible' : 'hidden'; ?>;">
                 <form method="GET" action="">
@@ -162,6 +151,16 @@ $showpagesec = $totalRecords > 0;
                     <input type="hidden" name="search" value="<?php echo htmlspecialchars($searchTerm); ?>">
                 </form>
             </div>
+            <div class="search-form">
+                <form method="GET" action="" onsubmit="return validateSearch()">
+                    <div class="search-div">
+                        <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        <input id="searchField" type="text" name="search" placeholder="Search by name"
+                            value="<?php echo htmlspecialchars($searchTerm); ?>">
+                        <button><i href="game_management.php" id="clearLink" class="fa-solid fa-xmark"></i></button>
+                    </div>
+                </form>
+            </div>
             <div class="adduser">
                 <a href="game_management/game_form.php" style="text-decoration:none; color:white">
                     <div class="btn1">
@@ -170,119 +169,125 @@ $showpagesec = $totalRecords > 0;
                     </div>
                 </a>
             </div>
-            
+
         </div>
-    
-    <!-- Desktop Table View -->
-    <!-- Inside the table view, below the table -->
-<?php if ($totalRecords == 0) : ?>
-    <p class="no-records-message" style="text-align:center"><?php echo $noResultsMessage; ?></p>
-<?php else: ?>
-    <table border='1'>
-        <tr>
-            <th>Action</th>
-            <th>Name</th>
-            <th>Price (30 min)</th>
-            <th>Price (1 hr)</th>
-            <th>Card Image</th>
-            <th>Slider Image</th>
-            <th>Slots</th>
-        </tr>
-        <?php while ($row = $result->fetch_assoc()) : ?>
-        <tr>
-            <td class='action-buttons'>
-                <a href='game_management/game_form.php?id=<?php echo $row["id"] ?>' class='edit'><i class='fa-solid fa-pencil'></i></a>
-                <a href="javascript:void(0);" class="delete" onclick="confirmDelete(<?php echo $row['id']; ?>)">
-                    <i class="fas fa-trash-alt"></i>
-                </a>
-                <a href='game_management/view_game.php?id=<?php echo $row["id"] ?>' class='view'><i class="fa-solid fa-file-lines"></i></a>
-            </td>
-            <td><?php echo htmlspecialchars($row["name"]); ?></td>
-            <td><?php echo htmlspecialchars($row["half_hour"]); ?></td>
-            <td><?php echo htmlspecialchars($row["hour"]); ?></td>
-            <td><img src=<?php echo htmlspecialchars($row["card_image"]); ?> alt='Game Image' width='50'></td>
-            <td><img src=<?php echo htmlspecialchars($row["slider_image"]); ?> alt='Slider Image' width='50'></td>
-            <td><button class='view-slots-btn' data-game-id='<?php echo $row["id"]; ?>'><i class="fa-solid fa-eye"></i></button></td>
-        </tr>
-        <?php endwhile; ?>
-    </table>
-<?php endif; ?>
 
-
-    <!-- Mobile and Tablet Card View -->
-    <div class="mobile-view">
-        <?php
-        // Reset the result pointer to reuse the data
-        $result->data_seek(0);
-        while ($row = $result->fetch_assoc()) : ?>
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title"><?php echo htmlspecialchars($row["name"]); ?></h5>
-                <p class="card-text"><strong>Price (30 min):</strong> <?php echo htmlspecialchars($row["half_hour"]); ?>
-                </p>
-                <p class="card-text"><strong>Price (1 hr):</strong> <?php echo htmlspecialchars($row["hour"]); ?></p>
-                <p class="card-text"><strong>Card Image:</strong> <img
-                        src=<?php echo htmlspecialchars($row["card_image"]); ?> alt='Game Image' width='50'></p>
-                <p class="card-text"><strong>Slider Image:</strong> <img
-                        src=<?php echo htmlspecialchars($row["slider_image"]); ?> alt='Slider Image' width='50'></p>
-                <div class="action-buttons">
+        <!-- Desktop Table View -->
+        <!-- Inside the table view, below the table -->
+        <?php if ($totalRecords == 0) : ?>
+        <p class="no-records-message" style="text-align:center"><?php echo $noResultsMessage; ?></p>
+        <?php else: ?>
+        <table border='1'>
+            <tr>
+                <th>Action</th>
+                <th>Name</th>
+                <th>Price (30 min)</th>
+                <th>Price (1 hr)</th>
+                <th>Card Image</th>
+                <th>Slider Image</th>
+                <th>Slots</th>
+            </tr>
+            <?php while ($row = $result->fetch_assoc()) : ?>
+            <tr>
+                <td class='action-buttons'>
                     <a href='game_management/game_form.php?id=<?php echo $row["id"] ?>' class='edit'><i
                             class='fa-solid fa-pencil'></i></a>
                     <a href="javascript:void(0);" class="delete" onclick="confirmDelete(<?php echo $row['id']; ?>)">
                         <i class="fas fa-trash-alt"></i>
                     </a>
-                    <a href='game_management/view_game.php?id=<?php echo $row["id"] ?>' class='view'><i class="fa-solid fa-file-lines"></i></a>
-                    <button class='view-slots-btn' data-game-id='<?php echo $row["id"]; ?>'><i
-                            class="fa-solid fa-eye"></i></button>
+                    <a href='game_management/view_game.php?id=<?php echo $row["id"] ?>' class='view'><i
+                            class="fa-solid fa-file-lines"></i></a>
+                </td>
+                <td><?php echo htmlspecialchars($row["name"]); ?></td>
+                <td><?php echo htmlspecialchars($row["half_hour"]); ?></td>
+                <td><?php echo htmlspecialchars($row["hour"]); ?></td>
+                <td><img src=<?php echo htmlspecialchars($row["card_image"]); ?> alt='Game Image' width='50'></td>
+                <td><img src=<?php echo htmlspecialchars($row["slider_image"]); ?> alt='Slider Image' width='50'></td>
+                <td><button class='view-slots-btn' data-game-id='<?php echo $row["id"]; ?>'><i
+                            class="fa-solid fa-eye"></i></button></td>
+            </tr>
+            <?php endwhile; ?>
+        </table>
+        <?php endif; ?>
+
+
+        <!-- Mobile and Tablet Card View -->
+        <div class="mobile-view">
+            <?php
+        // Reset the result pointer to reuse the data
+        $result->data_seek(0);
+        while ($row = $result->fetch_assoc()) : ?>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><?php echo htmlspecialchars($row["name"]); ?></h5>
+                    <p class="card-text"><strong>Price (30 min):</strong>
+                        <?php echo htmlspecialchars($row["half_hour"]); ?>
+                    </p>
+                    <p class="card-text"><strong>Price (1 hr):</strong> <?php echo htmlspecialchars($row["hour"]); ?>
+                    </p>
+                    <p class="card-text"><strong>Card Image:</strong> <img
+                            src=<?php echo htmlspecialchars($row["card_image"]); ?> alt='Game Image' width='50'></p>
+                    <p class="card-text"><strong>Slider Image:</strong> <img
+                            src=<?php echo htmlspecialchars($row["slider_image"]); ?> alt='Slider Image' width='50'></p>
+                    <div class="action-buttons">
+                        <a href='game_management/game_form.php?id=<?php echo $row["id"] ?>' class='edit'><i
+                                class='fa-solid fa-pencil'></i></a>
+                        <a href="javascript:void(0);" class="delete" onclick="confirmDelete(<?php echo $row['id']; ?>)">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                        <a href='game_management/view_game.php?id=<?php echo $row["id"] ?>' class='view'><i
+                                class="fa-solid fa-file-lines"></i></a>
+                        <button class='view-slots-btn' data-game-id='<?php echo $row["id"]; ?>'><i
+                                class="fa-solid fa-eye"></i></button>
+                    </div>
                 </div>
             </div>
+            <?php endwhile; ?>
         </div>
-        <?php endwhile; ?>
-    </div>
 
-    <!-- Pagination Links -->
-    <div class="pagination">
-        <?php if ($page > 1) : ?>
-        <a
-            href="?page=<?php echo $page - 1; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>">Previous</a>
-        <?php endif; ?>
+        <!-- Pagination Links -->
+        <div class="pagination">
+            <?php if ($page > 1) : ?>
+            <a
+                href="?page=<?php echo $page - 1; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>"><i class="fa-solid fa-arrow-left-long"></i></a>
+            <?php endif; ?>
 
-        <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
-        <a href="?page=<?php echo $i; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>"
-            <?php echo ($page == $i) ? 'class="active"' : ''; ?>><?php echo $i; ?></a>
-        <?php endfor; ?>
+            <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
+            <a href="?page=<?php echo $i; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>"
+                <?php echo ($page == $i) ? 'class="active"' : ''; ?>><?php echo $i; ?></a>
+            <?php endfor; ?>
 
-        <?php if ($page < $totalPages) : ?>
-        <a
-            href="?page=<?php echo $page + 1; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>">Next</a>
-        <?php endif; ?>
-    </div>
+            <?php if ($page < $totalPages) : ?>
+            <a
+                href="?page=<?php echo $page + 1; ?>&search=<?php echo $searchTerm; ?>&recordsPerPage=<?php echo $recordsPerPage; ?>"><i class="fa-solid fa-arrow-right-long"></i></a>
+            <?php endif; ?>
+        </div>
 
-    <!-- Popup Modal -->
-    <div id="slotModal" class="modal">
-        <div class="modal-content">
-            <div class="pd">
-            <span class="close-popup"><i class="fa-solid fa-eye-slash"></i></span>
-            <h2>All Slots</h2>
+        <!-- Popup Modal -->
+        <div id="slotModal" class="modal">
+            <div class="modal-content">
+                <div class="pd">
+                    <span class="close-popup"><i class="fa-solid fa-eye-slash"></i></span>
+                    <h2>All Slots</h2>
+                </div>
+
+                <div id="slotsContainer" class="modal-slots-container">Loading...</div>
             </div>
-            
-            <div id="slotsContainer" class="modal-slots-container" >Loading...</div>
         </div>
+
+        <!-- Background Blur Overlay -->
+        <div id="overlay" class="overlay"></div>
     </div>
 
-    <!-- Background Blur Overlay -->
-    <div id="overlay" class="overlay"></div>
-   </div>
-        
 
     <script>
-        function validateSearch() {
+    function validateSearch() {
         var searchField = document.getElementById('searchField');
 
         // If the search field is empty, prevent the form from submitting
         if (searchField.value.trim() === "") {
             // Prevent form submission (no page refresh)
-            return false; 
+            return false;
         }
         return true; // Allow form submission
     }
@@ -310,45 +315,45 @@ $showpagesec = $totalRecords > 0;
     }
 
     $(document).ready(function() {
-           // Show popup and lock background
-    $(".view-slots-btn").on("click", function() {
-        var gameId = $(this).attr("data-game-id");
+        // Show popup and lock background
+        $(".view-slots-btn").on("click", function() {
+            var gameId = $(this).attr("data-game-id");
 
-        $.ajax({
-            url: "fetch_slots.php",
-            type: "POST",
-            data: {
-                game_id: gameId
-            },
-            dataType: "json",
-            success: function(response) {
-                if (response.error) {
-                    $("#slotsContainer").html("<p>" + response.error + "</p>");
-                } else {
-                    // Create individual slot elements
-                    var slotsHtml = response.slots.map(slot => {
-                        return `<span class="modal-slot-item">${slot.trim()}</span>`;
-                    }).join("");
-                    $("#slotsContainer").html(slotsHtml);
+            $.ajax({
+                url: "fetch_slots.php",
+                type: "POST",
+                data: {
+                    game_id: gameId
+                },
+                dataType: "json",
+                success: function(response) {
+                    if (response.error) {
+                        $("#slotsContainer").html("<p>" + response.error + "</p>");
+                    } else {
+                        // Create individual slot elements
+                        var slotsHtml = response.slots.map(slot => {
+                            return `<span class="modal-slot-item">${slot.trim()}</span>`;
+                        }).join("");
+                        $("#slotsContainer").html(slotsHtml);
+                    }
+                    $("#slotModal").show();
+                    $("#overlay").show();
+                    $("body").css("overflow", "hidden");
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX Error:", status, error);
+                    alert("Failed to fetch slots.");
                 }
-                $("#slotModal").show();
-                $("#overlay").show();
-                $("body").css("overflow", "hidden");
-            },
-            error: function(xhr, status, error) {
-                console.error("AJAX Error:", status, error);
-                alert("Failed to fetch slots.");
-            }
+            });
+        });
+
+        // Close popup and unlock background
+        $(".close-popup, #overlay").on("click", function() {
+            $("#slotModal").hide();
+            $("#overlay").hide();
+            $("body").css("overflow", "auto");
         });
     });
-
-    // Close popup and unlock background
-    $(".close-popup, #overlay").on("click", function() {
-        $("#slotModal").hide();
-        $("#overlay").hide();
-        $("body").css("overflow", "auto");
-    });
-});
     </script>
 </body>
 

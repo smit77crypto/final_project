@@ -79,7 +79,7 @@
 <body>
 
     <div class="login-card">
-        <h2>Admin Login</h2>
+        <h2>Login</h2>
         <form id="loginForm">
             <label for="username">Username</label>
             <input type="text" id="username"  >
@@ -91,7 +91,7 @@
                 <input type="checkbox" id="showPassword"> Show Password
             </label>
 
-            <button type="submit" class="btn">Login</button>
+            <button type="submit" class="btn">Sign In</button>
             <div class="error" id="error-message"></div>
         </form>
     </div>

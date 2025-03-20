@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $username = $decode->username;
 
         // Fetch data from the book_game table where username matches
-        $stmt = $conn->prepare("SELECT * FROM book_game WHERE username = ? and deleted=1");
+        $stmt = $conn->prepare("SELECT * FROM book_game WHERE username = ?");
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();

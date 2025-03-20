@@ -41,12 +41,13 @@ $selectedSlots = !empty($slots) ? explode(',', $slots) : [];
     <div class="container">
         <div class="form-container" id="gameForm">
             <div>
-                <h2 id="formTitle"><?php echo $gameId ? 'Update Game' : 'Add Game'; ?></h2>
+                <h3 id="formTitle"><?php echo $gameId ? 'Update Game' : 'Add Game'; ?></h3>
             </div>
 
             <div class="mid">
                 <div class="left1">
-                <h2 id="formTitle" style="visibility: hidden"><?php echo $gameId ? 'Update Game' : 'Add Game'; ?></h2>
+                    <h2 id="formTitle" style="visibility: hidden"><?php echo $gameId ? 'Update Game' : 'Add Game'; ?>
+                    </h2>
 
                     <input type="hidden" id="gameId" name="gameId" value="<?php echo $gameId ; ?>">
 
@@ -387,27 +388,28 @@ $selectedSlots = !empty($slots) ? explode(',', $slots) : [];
             <div class="selected-slots" id="selected-slots">
                 <h3>Selected Slots</h3>
                 <div id="selected-list"></div>
-                
+
             </div>
 
             <!-- Form Actions -->
             <div class="form-actions">
-                <button class="btn btn-add" type="submit"><?php echo $gameId ? 'Update' : 'Add'; ?></button>
+                <button type="submit" class="btn btn-add"><?php echo $gameId ? 'Update' : 'Add'; ?></button>
                 <button type="button" class="btn btn-cancel"
                     onclick="window.location.href='../game_management.php'">Cancel</button>
             </div>
+            
         </div>
     </div>
     <script src="../js/game_form.js"></script>
     <script>
-        function toggleSlots(slotId) {
-            const slotSection = document.getElementById(slotId);
-            if (slotSection.style.display === "none") {
-                slotSection.style.display = "block";
-            } else {
-                slotSection.style.display = "none";
-            }
+    function toggleSlots(slotId) {
+        const slotSection = document.getElementById(slotId);
+        if (slotSection.style.display === "none") {
+            slotSection.style.display = "block";
+        } else {
+            slotSection.style.display = "none";
         }
+    }
     </script>
 </body>
 

@@ -151,7 +151,7 @@ while ($row = mysqli_fetch_assoc($result3)) {
                         <!-- Line Chart -->
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Book Slot Overview</h5>
+                                <h5 class="card-title">Slot Overview</h5>
                                 <canvas id="myLineChart"></canvas>
                             </div>
                         </div>
@@ -160,7 +160,7 @@ while ($row = mysqli_fetch_assoc($result3)) {
                         <!-- Bar Chart -->
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Trending Game</h5>
+                                <h5 class="card-title">Trending Games</h5>
                                 <canvas id="myBarChart"></canvas>
                             </div>
                         </div>
@@ -180,7 +180,7 @@ while ($row = mysqli_fetch_assoc($result3)) {
                     datasets: [{
                         label: 'Slot',
                         data: mbookingCounts,
-                        borderColor: '#4A5BE6',
+                        borderColor: 'black',
                         backgroundColor: 'rgba(181, 170, 228, 0.2)',
                         borderWidth: 2,
                         fill: true
@@ -198,7 +198,7 @@ while ($row = mysqli_fetch_assoc($result3)) {
                     datasets: [{
                         label: 'Trending Game',
                         data: bookingCounts,
-                        borderColor: '#4A5BE6',
+                        borderColor: 'black',
                         backgroundColor: 'rgba(170, 174, 228, 0.2)',
                         borderWidth: 1
                     }]

@@ -7,7 +7,7 @@ function getSelectedSlots() {
     return selectedSlot.join(","); // Store the slots as a comma-separated string
 }
 function getFilterSlots() {
-    let filterSlots=[];
+    let filterSlots = [];
     const slotCheckboxes = document.querySelectorAll('input[type="checkbox"]:checked');
     slotCheckboxes.forEach((checkbox) => {
         filterSlots.push(checkbox.getAttribute('data-type'));
@@ -21,14 +21,17 @@ document.querySelector('.btn-add').addEventListener('click', function (e) {
     let isValid = true;
     const gameName = document.getElementById("gameName").value;
     if (!gameName) {
-        document.getElementById("gameNameError").textContent = "Game Name is required.";
+        document.getElementById("gameNameError").textContent = "Please Enter GameName";
         isValid = false;
     } else {
         document.getElementById("gameNameError").textContent = "";
     }
 
     const price30 = document.getElementById("price30").value;
-    if (!price30 || isNaN(price30) || parseFloat(price30) <= 0 || !/^\d+(\.\d{1,2})?$/.test(price30)) {
+    if (!price30) {
+        document.getElementById("price30Error").textContent = "Please Enter Price";
+        isValid = false;
+    } else if (isNaN(price30) || parseFloat(price30) <= 0 || !/^\d+(\.\d{1,2})?$/.test(price30)) {
         document.getElementById("price30Error").textContent = "Please enter a valid positive price for 30 mins (no letters allowed).";
         isValid = false;
     } else {
@@ -36,13 +39,16 @@ document.querySelector('.btn-add').addEventListener('click', function (e) {
     }
 
     const price60 = document.getElementById("price60").value;
-    if (!price60 || isNaN(price60) || parseFloat(price60) <= 0 || !/^\d+(\.\d{1,2})?$/.test(price60)) {
+    if (!price60) {
+        document.getElementById("price60Error").textContent = "Please Enter Price";
+        isValid = false;
+    } else if (isNaN(price60) || parseFloat(price60) <= 0 || !/^\d+(\.\d{1,2})?$/.test(price60)) {
         document.getElementById("price60Error").textContent = "Please enter a valid positive price for 1 hour (no letters allowed).";
         isValid = false;
     } else {
         document.getElementById("price60Error").textContent = "";
     }
-    
+
     const selectedSlots = getSelectedSlots(); // You should define this function to get selected slots
     if (selectedSlots === "") {
         document.getElementById("slotError").textContent = "Please select at least one time slot.";
@@ -72,7 +78,7 @@ document.querySelector('.btn-add').addEventListener('click', function (e) {
         const xhr = new XMLHttpRequest();
         xhr.open("POST", "../game_management/game_data.php", true);
         xhr.onload = function () {
-            if (xhr.status == 200) {   
+            if (xhr.status == 200) {
                 // Redirect after successful submission
                 window.location.href = "../game_management.php";  // Redirect to the game management page
             } else {
@@ -81,7 +87,7 @@ document.querySelector('.btn-add').addEventListener('click', function (e) {
         };
         xhr.send(formData);
     }
-    
+
 });
 let selectedSlots = [];
 
@@ -98,7 +104,7 @@ function validateGameName() {
     const error = document.getElementById("gameNameError");
 
     if (!gameName) {
-        showError("gameNameError", "Game name is required.");
+        showError("gameNameError", "Please Enter GameName");
     } else if (gameName.length < 3) {
         showError("gameNameError", "Game name must be at least 3 characters.");
     } else {
@@ -113,7 +119,7 @@ function validatePrice(event) {
     const errorId = input.id === "price30" ? "price30Error" : "price60Error";
 
     if (!value) {
-        showError(errorId, "Price is required.");
+        showError(errorId, "Please Enter Price");
     } else if (isNaN(value) || parseFloat(value) <= 0) {
         showError(errorId, "Enter a valid positive number.");
     } else {
@@ -138,15 +144,15 @@ function validateImage(event) {
 }
 
 // Function to Validate Selected Slots
-function validateSlots() {
-    if (selectedSlots.length === 0) {
-        showError("slotError", "At least one time slot must be selected.");
-        return false;
-    } else {
-        hideError("slotError");
-        return true;
-    }
-}
+// function validateSlots() {
+//     if (selectedSlots.length === 0) {
+//         showError("slotError", "At least one time slot must be selected.");
+//         return false;
+//     } else {
+//         hideError("slotError");
+//         return true;
+//     }
+// }
 
 // Filter Slots
 // Filter Slots
@@ -160,7 +166,7 @@ function filterSlots(type) {
         }
     });
 }
-window.onload = function() {
+window.onload = function () {
     updateSelectedSlots(); // Ensure selected slots are displayed when the page loads
 };
 // Update Selected Slots
@@ -191,7 +197,7 @@ function saveGame() {
         alert("Please fix validation errors before submitting.");
         return;
     }
-    
+
     resetForm();
 }
 

@@ -224,7 +224,7 @@ if ($userId) {
 </head>
 
 <body>
-<?php include '../outside_navbar.php' ?>
+    <?php include '../outside_navbar.php' ?>
     <form class="form-container" id="userForm" method="POST">
         <h2 id="formTitle"><?php echo $userId ? 'Update User' : 'Add User'; ?></h2>
 
@@ -235,38 +235,38 @@ if ($userId) {
         <div class="cen">
             <div class="left1">
                 <div class="form-group">
-                    <label>Name  <span><?php echo $userId ? '' : '*'; ?></span></label>
+                    <label>Name <span><?php echo $userId ? '' : '*'; ?></span></label>
                     <input type="text" name="full_name" id="name" value="<?php echo htmlspecialchars($full_name); ?>">
                     <div id="full_name_error" class="error-message"><?php echo $errors['full_name'] ?? ''; ?></div>
                 </div>
 
                 <div class="form-group">
                     <label>Phone Number <span><?php echo $userId ? '' : '*'; ?></span></label>
-                    <input type="text" name="phone_no" id="phone" value="<?php echo htmlspecialchars($phone_no); ?>"
-                        >
+                    <input type="text" name="phone_no" id="phone" value="<?php echo htmlspecialchars($phone_no); ?>">
                     <div id="phone_error" class="error-message"><?php echo $errors['phone_no'] ?? ''; ?></div>
                 </div>
 
                 <div class="form-group">
-                    <label>Email  <span><?php echo $userId ? '' : '*'; ?></span></label>
-                    <input type="email" name="email" id="email" value="<?php echo htmlspecialchars($email); ?>"
-                        >
+                    <label>Email <span><?php echo $userId ? '' : '*'; ?></span></label>
+                    <input type="email" name="email" id="email" value="<?php echo htmlspecialchars($email); ?>">
                     <div id="email_error" class="error-message"><?php echo $errors['email'] ?? ''; ?></div>
                 </div>
-
-                <label for="gender">Gender  <span><?php echo $userId ? '' : '*'; ?></span></label>
-                <div class="gender-options">
-                    <div>
-                        <input type="radio" id="male" name="gender" value="Male"
-                            <?php echo ($gender == 'Male') ? 'checked' : ''; ?>>
-                        <label for="male">Male</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="female" name="gender" value="Female"
-                            <?php echo ($gender == 'Female') ? 'checked' : ''; ?>>
-                        <label for="female">Female</label>
+                <div class="gen">
+                    <label for="gender">Gender <span><?php echo $userId ? '' : '*'; ?></span></label>
+                    <div class="gender-options">
+                        <div>
+                            <input type="radio" id="male" name="gender" value="Male"
+                                <?php echo ($gender == 'Male') ? 'checked' : ''; ?>>
+                            <label for="male">Male</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="female" name="gender" value="Female"
+                                <?php echo ($gender == 'Female') ? 'checked' : ''; ?>>
+                            <label for="female">Female</label>
+                        </div>
                     </div>
                 </div>
+
                 <div id="gender_error" class="error-message"><?php echo $errors['gender'] ?? ''; ?></div>
             </div>
             <div class="right1">
@@ -278,8 +278,8 @@ if ($userId) {
 
                 <div class="form-group">
                     <label>Password <span><?php echo $userId ? '' : '*'; ?></span></label>
-                    <input type="password" name="password" id="password" 
-                        <?php echo $userId ? 'disabled' : ''; ?> placeholder="<?php echo $userId ? '********' : ''; ?>">
+                    <input type="password" name="password" id="password" <?php echo $userId ? 'disabled' : ''; ?>
+                        placeholder="<?php echo $userId ? '********' : ''; ?>">
                     <div id="password_error" class="error-message"><?php echo $errors['password'] ?? ''; ?></div>
                 </div>
 

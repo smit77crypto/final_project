@@ -3,12 +3,6 @@ body {
     font-family: "Work Sans", serif;
     background-color: white;
     color: #333;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-   
 }
 
 .cen {
@@ -18,16 +12,17 @@ body {
 
 /* Form Container */
 .form-container {
-    
-    margin: auto;
-    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    margin: 100px auto;
     background-color: #f2f2f2;
     padding: 20px;
-    border-radius: 8px;
-    width: 800px;
-    height: 640px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    scroll-behavior: smooth;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 2px solid #E5E5E5;
 }
 
 /* Form Title */
@@ -41,7 +36,7 @@ body {
 
 .left1,
 .right1 {
-    width: 45%;
+    width:45%;
 }
 
 /* Form Group */
@@ -55,7 +50,6 @@ span {
 
 /* Label */
 label {
-    display: block;
     font-weight: bold;
     margin-bottom: 8px;
 }
@@ -87,7 +81,14 @@ select:focus {
     display: flex;
     align-items: center;
 }
-
+.gen{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+.gen label{
+    margin-bottom: 0;
+}
 .gender-options div {
     display: flex;
     margin-right: 20px;
@@ -96,11 +97,6 @@ select:focus {
 .gender-options input[type="radio"] {
     margin-right: 5px;
 }
-
-.gender-options label {
-    margin-top: 6px;
-}
-
 /* Error Messages */
 .error-message {
     color: #d32f2f;
@@ -115,7 +111,7 @@ select:focus {
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
-    width: 25%;
+    width: 50%;
     cursor: pointer;
     font-size: 16px;
 }
@@ -132,7 +128,7 @@ select:focus {
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
-    width: 25%;
+    width: 50%;
     cursor: pointer;
     font-size: 16px;
 }
@@ -164,7 +160,7 @@ select:focus {
 /* Responsive Design for Tablet (768px - 1024px) */
 @media (max-width: 1024px) {
     .form-container {
-        width: 90%;
+        width: 60%;
         height: auto;
         padding: 15px;
     }
@@ -179,39 +175,20 @@ select:focus {
         width: 100%;
     }
 
-    .btn-add,
-    .btn-cancel {
-        width: 30%;
-    }
 }
 
 /* Responsive Design for Mobile (up to 767px) */
 @media (max-width: 767px) {
     .form-container {
-        width: 95%;
-        margin-top: 100px;
+        width: 60%;
+        margin-top: 70px;
         padding: 10px;
     }
 
     #formTitle {
-        font-size: 20px;
+        font-size: 1.5rem;
     }
-
-    .gender-options {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .gender-options div {
-        margin-right: 0;
-        margin-bottom: 10px;
-    }
-
-    .btn-add,
-    .btn-cancel {
-        width: 40%;
-        font-size: 14px;
-    }
+    
 
     .form-actions {
         gap: 1rem;
@@ -221,20 +198,16 @@ select:focus {
 /* Responsive Design for Small Mobile (up to 480px) */
 @media (max-width: 480px) {
     .form-container {
-        width: 100%;
+        width:90%;
         margin-top: 70px;
         padding: 10px;
     }
 
     #formTitle {
-        font-size: 18px;
+        font-size: 1.2rem;
     }
 
-    .btn-add,
-    .btn-cancel {
-        width: 45%;
-        font-size: 12px;
-    }
+    
 
     .form-actions {
         gap: 0.5rem;

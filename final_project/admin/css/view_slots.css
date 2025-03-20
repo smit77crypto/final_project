@@ -59,7 +59,7 @@ h1 {
 }
 
 .date-large {
-    font-size: 2.9rem; /* Larger font size for the date */
+    font-size: 1.9rem; /* Larger font size for the date */
     font-weight: bold;
     display: block; /* Ensure it takes full width */
     margin: 5px 0; /* Equal margin for top and bottom */

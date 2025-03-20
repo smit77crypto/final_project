@@ -17,7 +17,7 @@
                 <a class="nav-link" href="../terms_condition.php" id="termsLink">Terms & Condition</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../games_slots.php" id="viewSlotsLink">View Slots</a>
+                <a class="nav-link" href="../games_slots.php" id="viewSlotsLink">Book Game</a>
             </li>
         </ul>
     </div>
@@ -70,7 +70,7 @@
                 <a class="m-nav-link" href="../terms_condition.php" id="termsLink">Terms and Conditions</a>
             </li>
             <li class="nav-item">
-                <a class="m-nav-link" href="../games_slots.php" id="viewSlotsLink">View Slots</a>
+                <a class="m-nav-link" href="../games_slots.php" id="viewSlotsLink">Book Game</a>
             </li>
           
         </ul>

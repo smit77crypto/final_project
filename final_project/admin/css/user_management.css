@@ -30,57 +30,49 @@
    display: flex;
    align-items:center;
    justify-content: space-between;
+   margin-top: 90px;
 }
 .search-form {
-    margin-top: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-   
-    text-align: center;
-}
-.search-form .search-div{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap:1rem;
-}
-.search-form input[type="text"] {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #E5E5E5;
-    border-radius: 4px;
-    font-size: 16px;
+    max-width: 600px; /* Adjust as needed */
+    margin: 0 auto;
 }
 
-.search-form button {
-    padding: 10px 20px;
-    background-color: #4A5BE6;
-    color: white;
-    font-weight: bold;
+.search-div {
+    display: flex;
+    
+    margin-right: 10px;
+    align-items: center;
+   
+    border:1px solid #e6e3e3;
+    border-radius: 10px;
+    gap: 10px; /* Adjust the gap between elements as needed */
+}
+
+.search-div button {
+    margin-left: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-right: 10px;
+}
+
+.search-div button i {
+    font-size: 1.2em;
+    text-decoration: none;
+ 
+}
+
+#searchField {
+    flex: 1;
+    padding: 8px;
     border: none;
     border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
 }
-
-.search-form button:hover {
-    background-color: #1d36f0;
-}
-
-.search-form a {
-    display: block;
-    margin-top: 10px;
-    color: #4A5BE6;
-    text-decoration: none;
-    font-size: 14px;
-}
-
-.search-form a:hover {
-    text-decoration: underline;
+#searchField:focus {
+    outline: none;
+    border: none; /* Optional: If you want to remove the border */
 }
 
 .tablearea {
