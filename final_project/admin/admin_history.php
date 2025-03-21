@@ -28,6 +28,15 @@ session_start();
                 <div class="tab active" data-view="past">Past Bookings</div>
                 <div class="tab" data-view="canceled">Canceled Slots</div>
             </div>
+            <div class="records-per-page">
+                <label for="records">Records per page:</label>
+                <select id="records">
+                    <option value="12" selected>12</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </div>
         </div>
 
         <!-- Cards Container -->
@@ -44,7 +53,7 @@ session_start();
             let currentView = 'past';
             let allData = { past: [], canceled: [] };
             let currentPage = 1;
-            const itemsPerPage = 12;
+            let itemsPerPage = parseInt($('#records').val());
 
             // Load initial data
             loadData();
@@ -152,6 +161,12 @@ session_start();
 
             $('.clear-icon').on('click', function() {
                 $('#search').val('').trigger('input');
+            });
+
+            $('#records').on('change', function () {
+                itemsPerPage = parseInt($(this).val());
+                currentPage = 1;
+                updateDisplay();
             });
 
             $(document).on('click', '.page-item', function () {

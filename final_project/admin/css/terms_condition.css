@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+
 :root {
     --primary-red: #4A5BE6;
     --secondary-red: #8592f7;
@@ -6,6 +8,7 @@
 }
 
 body {
+    font-family: "Work Sans", serif;
     background-color: var(--light-red);
     min-height: 100vh;
     display: flex;
