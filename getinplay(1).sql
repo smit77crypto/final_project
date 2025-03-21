@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 17, 2025 at 11:05 AM
+-- Generation Time: Mar 21, 2025 at 10:24 AM
 -- Server version: 10.11.8-MariaDB-0ubuntu0.24.04.1
 -- PHP Version: 7.4.33
 
@@ -43,13 +43,13 @@ CREATE TABLE `book_game` (
 --
 
 INSERT INTO `book_game` (`id`, `username`, `phone_no`, `email`, `game_name`, `slot`, `deleted`, `book_date`) VALUES
-(1, 'bob123', '4768345448', 'bob12@gmail.com', '8 Ball Pool', '10:00-10:30AM', 1, '2025-03-06'),
-(2, 'alex123', '2437562435', 'alex12@gmail.com', '8 ball pool', '3:00-4:00PM', 1, '2025-03-06'),
-(3, 'abc', '1212121212', 'abc@gmail.com', '8 ball pool', '7:00-7:30PM', 1, '2025-03-06'),
-(4, 'saw', '2354765423', 'saw@gmail.com', '8 ball pool', '9:00-10:00PM', 1, '2025-03-06'),
-(5, 'dadAD', '5443562354', 'dadAD@gmail.com', '8 ball pool', '10:30-11:00PM', 1, '2025-03-08'),
-(6, 'dadAD', '5443562354', 'dadAD@gmail.com', '8 ball pool', '5:00-6:00PM', 1, '2025-03-08'),
-(7, 'dadA', '5443562354', 'dadAD@gmail.com', '8 ball pool', '10:30-11:00PM', 1, '2025-03-08'),
+(1, 'bob123', '4768345448', 'bob12@gmail.com', '8 Ball Pool', '10:00-10:30AM', 1, '2025-02-06'),
+(2, 'alex123', '2437562435', 'alex12@gmail.com', '8 ball pool', '3:00-4:00PM', 1, '2025-02-06'),
+(3, 'abc', '1212121212', 'abc@gmail.com', '8 ball pool', '7:00-7:30PM', 1, '2025-02-06'),
+(4, 'saw', '2354765423', 'saw@gmail.com', '8 ball pool', '9:00-10:00PM', 1, '2025-02-06'),
+(5, 'dadAD', '5443562354', 'dadAD@gmail.com', '8 ball pool', '10:30-11:00PM', 1, '2025-02-08'),
+(6, 'dadAD', '5443562354', 'dadAD@gmail.com', '8 ball pool', '5:00-6:00PM', 1, '2025-01-08'),
+(7, 'dadA', '5443562354', 'dadAD@gmail.com', '8 ball pool', '10:30-11:00PM', 1, '2025-01-08'),
 (8, 'daD', '5443562354', 'dadAD@gmail.com', '8 ball pool', '5:00-6:00PM', 1, '2025-03-08'),
 (9, 'sham123', '1231231231', 'sohan@gmail.com', 'snooker', '12:00-1:00PM', 1, '2025-03-06'),
 (28, 'sham123', '1231231231', 'sohan@gmail.com', '8 Ball Pool', '3:30-4:00PM', 1, '2025-03-08'),
@@ -129,7 +129,99 @@ INSERT INTO `book_game` (`id`, `username`, `phone_no`, `email`, `game_name`, `sl
 (116, 'sham123', '1231231231', 'sohan@gmail.com', '8 ball pool', '1:00-2:00PM', 1, '2025-03-13'),
 (117, 'sham123', '1231231231', 'sohan@gmail.com', '8 ball pool', '7:00-7:30PM', 1, '2025-03-12'),
 (118, 'sham123', '1231231231', 'sohan@gmail.com', '8 ball pool', '10:30-11:00PM', 1, '2025-03-12'),
-(119, 'sham123', '1231231231', 'sohan@gmail.com', '8 ball pool', '11:30-12:00PM', 1, '2025-03-13');
+(119, 'sham123', '1231231231', 'sohan@gmail.com', '8 ball pool', '11:30-12:00PM', 1, '2025-03-13'),
+(120, 'getinplay123', '7990153071', 'sohannn.21beitg119@gmail.com', '8 ball pool', '11:30-12:00PM', 1, '2025-03-17'),
+(121, 'sohan_1123', '9664691917', 'smitbarot20004@gmail.com', '8 ball pool', '4:00-4:30PM', 0, '2025-03-17'),
+(122, 'sham123', '1231231231', 'sohan@gmail.com', 'Snooker', '11:00-11:30PM', 1, '2025-03-17'),
+(123, 'sham123', '1231231231', 'sohan@gmail.com', 'Snooker', '7:30-8:00PM', 1, '2025-03-17'),
+(124, 'sham123', '1231231231', 'sohan@gmail.com', 'Snooker', '7:00-8:00PM', 1, '2025-03-17'),
+(125, 'sham123', '1231231231', 'sohan@gmail.com', 'Snooker', '10:00-11:00PM', 1, '2025-03-17'),
+(126, 'sham123', '1231231231', 'sohan@gmail.com', 'Snooker', '3:00-3:30PM', 1, '2025-03-17'),
+(127, 'sham123', '1231231231', 'sohan@gmail.com', 'Snooker', '3:00-4:00PM', 1, '2025-03-17'),
+(128, 'sham123', '1231231231', 'sohan@gmail.com', 'Snooker', '1:00-1:30PM', 1, '2025-03-17'),
+(129, 'sham123', '1231231231', 'sohan@gmail.com', 'Snooker', '5:30-6:00PM', 1, '2025-03-17'),
+(130, 'sohan_1123', '9664691917', 'smitbarot20004@gmail.com', 'Snooker', '2:00-3:00PM', 1, '2025-03-17'),
+(131, 'sham123', '1231231231', 'sohan@gmail.com', 'Snooker', '4:00-4:30PM', 1, '2025-03-17'),
+(132, 'sohan_1123', '9664691917', 'smitbarot20004@gmail.com', 'Chess', '3:00-4:00PM', 1, '2025-03-17'),
+(134, 'sham123', '1231231231', 'sohan@gmail.com', 'Chess', '4:00-4:30PM', 1, '2025-03-17'),
+(135, 'sohan_1123', '9664691917', 'smitbarot20004@gmail.com', 'Chess', '10:00-11:00PM', 1, '2025-03-17'),
+(137, 'sham123', '1231231231', 'sohan@gmail.com', 'Badminton', '8:00-8:30PM', 1, '2025-03-17'),
+(138, 'sham123', '1231231231', 'sohan@gmail.com', 'Badminton', '11:00-11:30PM', 1, '2025-03-17'),
+(139, 'sham123', '1231231231', 'sohan@gmail.com', '8 ball pool', '5:30-6:00PM', 1, '2025-03-17'),
+(140, 'sham123', '1231231231', 'sohan@gmail.com', 'Badminton', '10:00-11:00PM', 1, '2025-03-17'),
+(141, 'sham123', '1231231231', 'sohan@gmail.com', 'Badminton', '3:00-3:30PM', 1, '2025-03-17'),
+(142, 'sham123', '1231231231', 'sohan@gmail.com', 'Badminton', '9:00-9:30PM', 1, '2025-03-17'),
+(143, 'sham123', '1231231231', 'sohan@gmail.com', 'Badminton', '5:30-6:00PM', 1, '2025-03-17'),
+(144, 'sham123', '1231231231', 'sohan@gmail.com', 'volleyball', '10:00-10:30PM', 1, '2025-03-17'),
+(145, 'sham123', '1231231231', 'sohan@gmail.com', 'volleyball', '9:00-9:30PM', 1, '2025-03-17'),
+(146, 'sham123', '1231231231', 'sohan@gmail.com', '8 ball pool', '3:00-4:00PM', 1, '2025-03-17'),
+(147, 'sham123', '1231231231', 'sohan@gmail.com', '8 ball pool', '3:30-4:00PM', 1, '2025-03-17'),
+(148, 'sham123', '1231231231', 'sohan@gmail.com', 'volleyball', '12:00-1:00PM', 1, '2025-03-19'),
+(149, 'sham123', '1231231231', 'sohan@gmail.com', 'volleyball', '4:00-5:00PM', 1, '2025-03-19'),
+(150, 'sham123', '1231231231', 'sohan@gmail.com', 'volleyball', '4:00-5:00PM', 1, '2025-03-17'),
+(157, 'sham123', '1231231231', 'sohan@gmail.com', 'Snooker', '8:00-9:00PM', 1, '2025-03-17'),
+(158, 'sham123', '1231231231', 'sohan@gmail.com', 'Snooker', '9:00-9:30PM', 1, '2025-03-17'),
+(171, 'sham123', '1231231231', 'sohan@gmail.com', 'volleyball', '4:00-4:30PM', 1, '2025-03-19'),
+(178, 'sohan_1123', '9664691917', 'smitbarot20004@gmail.com', 'volleyball', '1:30-2:00PM', 1, '2025-03-18'),
+(179, 'sohan_1123', '9664691917', 'smitbarot20004@gmail.com', 'Chess', '3:00-4:00PM', 1, '2025-03-18'),
+(180, 'sohan_1123', '9664691917', 'smitbarot20004@gmail.com', 'Chess', '4:00-4:30PM', 1, '2025-03-18'),
+(181, 'sham123', '1231231231', 'sohan@gmail.com', 'Chess', '5:30-6:00PM', 1, '2025-03-18'),
+(182, 'sohan_1123', '9664691917', 'smitbarot20004@gmail.com', 'Badminton', '5:30-6:00PM', 1, '2025-03-18'),
+(183, 'sham123', '1231231231', 'sohan@gmail.com', 'Snooker', '3:00-3:30PM', 1, '2025-03-18'),
+(184, 'getinplay123', '7990153071', 'sohannn.21beitg119@gmail.com', '8 ball pool', '3:30-4:00PM', 1, '2025-03-18'),
+(185, 'getinplay123', '7990153071', 'sohannn.21beitg119@gmail.com', '8 ball pool', '1:00-2:00PM', 1, '2025-03-18'),
+(186, 'getinplay123', '7990153071', 'sohannn.21beitg119@gmail.com', '8 ball pool', '3:00-4:00PM', 1, '2025-03-18'),
+(187, 'getinplay123', '7990153071', 'sohannn.21beitg119@gmail.com', 'Chess', '3:00-3:30PM', 1, '2025-03-18'),
+(188, 'sham123', '1231231231', 'sohan@gmail.com', 'Chess', '2:00-3:00PM', 1, '2025-03-18'),
+(189, 'sham123', '1231231231', 'sohan@gmail.com', '8 ball pool', '4:00-4:30PM', 1, '2025-03-18'),
+(190, 'getinplay123', '7990153071', 'sohannn.21beitg119@gmail.com', '8 ball pool', '5:30-6:00PM', 1, '2025-03-18'),
+(191, 'rudrapatel1601', '7863039472', 'rudra@gmail.com', 'Badminton', '9:00-9:30PM', 1, '2025-03-18'),
+(192, 'rudrapatel1601', '7863039472', 'rudra@gmail.com', 'Badminton', '11:00-11:30PM', 1, '2025-03-18'),
+(193, 'rudrapatel1601', '7863039472', 'superrudra1601@gmail.com', 'Chess', '8:00-9:00PM', 1, '2025-03-18'),
+(194, 'rudrapatel1601', '7863039472', 'superrudra1601@gmail.com', 'Chess', '8:00-8:30PM', 1, '2025-03-18'),
+(195, 'sohan_1123', '9664691917', 'smitbarot20004@gmail.com', 'volleyball', '11:00-11:30AM', 1, '2025-03-19'),
+(196, 'sohan_1123', '9664691917', 'smitbarot20004@gmail.com', 'volleyball', '11:00-12:00PM', 1, '2025-03-19'),
+(197, 'sohan_1123', '9664691917', 'smitbarot20004@gmail.com', 'volleyyball', '11:00-12:00PM', 1, '2025-03-19'),
+(198, 'getinplay123', '7990153071', 'sohannn.21beitg119@gmail.com', '8 ball pool', '11:30-12:00PM', 1, '2025-03-19'),
+(199, 'getinplay123', '7990153071', 'sohannn.21beitg119@gmail.com', '8 ball pool', '12:00-12:30PM', 1, '2025-03-19'),
+(200, 'getinplay123', '7990153071', 'sohannn.21beitg119@gmail.com', '8 ball pool', '10:00-10:30AM', 1, '2025-03-19'),
+(201, 'sham123', '1231231231', 'sohan@gmail.com', '8 ball pool', '5:30-6:00PM', 1, '2025-03-19'),
+(202, 'xyz123', '9123456789', 'smit2@gmail.com', '8 ball pool', '8:00-8:30PM', 1, '2025-03-19'),
+(203, 'xyz123', '9123456789', 'smit2@gmail.com', '8 ball pool', '10:00-11:00AM', 1, '2025-03-19'),
+(204, 'rudrapatel1601', '7863039472', 'superrudra1601@gmail.com', 'volleyball', '4:00-4:30PM', 0, '2025-03-20'),
+(205, 'rudrapatel1601', '7863039472', 'superrudra1601@gmail.com', 'Badminton', '8:00-8:30PM', 1, '2025-03-20'),
+(206, 'sohan_1123', '9664691917', 'smitbarot20004@gmail.com', '8 ball pool', '4:00-4:30PM', 1, '2025-03-19'),
+(207, 'rudrapatel1601', '7863039472', 'superrudra1601@gmail.com', 'Snooker', '5:30-6:00PM', 1, '2025-03-19'),
+(208, 'rudrapatel1601', '7863039472', 'superrudra1601@gmail.com', 'Bowling', '8:00-8:30PM', 1, '2025-03-19'),
+(209, 'rudrapatel1601', '7863039472', 'superrudra1601@gmail.com', 'Bowling', '11:00-11:30PM', 1, '2025-03-19'),
+(210, 'sham123', '1231231231', 'sohan@gmail.com', 'Snooker', '4:00-4:30PM', 1, '2025-03-20'),
+(211, 'rudrapatel1601', '7863039472', 'superrudra1601@gmail.com', 'Badminton', '9:00-9:30PM', 1, '2025-03-20'),
+(212, 'rudrapatel1601', '7863039472', 'superrudra1601@gmail.com', 'Badminton', '4:00-4:30PM', 1, '2025-03-20'),
+(213, 'getinplay123', '7990153071', 'sohannn.21beitg119@gmail.com', 'Bowling', '3:00-3:30PM', 1, '2025-03-20'),
+(214, 'getinplay123', '7990153071', 'sohannn.21beitg119@gmail.com', 'Bowling', '11:00-11:30PM', 1, '2025-03-20'),
+(219, 'rudrapatel1601', '7863039472', 'superrudra1601@gmail.com', 'Snooker', '5:30-6:00PM', 1, '2025-03-20'),
+(220, 'sham123', '1231231231', 'sohan@gmail.com', 'Chess', '9:00-9:30PM', 1, '2025-03-20'),
+(233, 'rudrapatel1601', '7863039472', 'superrudra1601@gmail.com', 'Chess', '8:00-9:00PM', 0, '2025-03-21'),
+(235, 'rudrapatel1601', '7863039472', 'superrudra1601@gmail.com', 'Chess', '8:00-9:00PM', 1, '2025-03-20'),
+(239, 'rudrapatel1601', '7863039472', 'superrudra1601@gmail.com', 'Chess', '7:30-8:00PM', 1, '2025-03-20'),
+(240, 'rudrapatel1601', '7863039472', 'superrudra1601@gmail.com', 'Chess', '7:00-8:00PM', 1, '2025-03-20'),
+(241, 'rudrapatel1601', '7863039472', 'superrudra1601@gmail.com', 'Chess', '8:00-8:30PM', 1, '2025-03-20'),
+(242, 'rudrapatel1601', '7863039472', 'superrudra1601@gmail.com', 'Chess', '11:00-11:30PM', 1, '2025-03-20'),
+(243, 'rudrapatel1601', '7863039472', 'superrudra1601@gmail.com', 'Chess', '10:00-11:00PM', 1, '2025-03-20'),
+(244, 'rudrapatel1601', '7863039472', 'superrudra1601@gmail.com', 'Chess', '3:00-3:30PM', 0, '2025-03-21'),
+(245, 'rudrapatel1601', '7863039472', 'superrudra1601@gmail.com', 'Chess', '2:00-3:00PM', 0, '2025-03-21'),
+(246, 'rudrapatel1601', '7863039472', 'superrudra1601@gmail.com', 'Chess', '3:00-4:00PM', 0, '2025-03-21'),
+(247, 'rudrapatel1601', '7863039472', 'superrudra1601@gmail.com', 'Chess', '4:00-4:30PM', 0, '2025-03-21'),
+(248, 'rudrapatel1601', '7863039472', 'superrudra1601@gmail.com', 'Chess', '9:00-9:30PM', 0, '2025-03-21'),
+(249, 'rudrapatel1601', '7863039472', 'superrudra1601@gmail.com', 'Chess', '8:00-8:30PM', 1, '2025-03-21'),
+(250, 'rudrapatel1601', '7863039472', 'superrudra1601@gmail.com', 'Chess', '7:30-8:00PM', 1, '2025-03-21'),
+(251, 'rudrapatel1601', '7863039472', 'superrudra1601@gmail.com', 'Chess', '5:30-6:00PM', 1, '2025-03-21'),
+(252, 'rudrapatel1601', '7863039472', 'superrudra1601@gmail.com', 'Chess', '11:00-11:30PM', 1, '2025-03-21'),
+(253, 'rudrapatel1601', '7863039472', 'superrudra1601@gmail.com', 'Chess', '10:00-11:00PM', 0, '2025-03-21'),
+(262, 'rudrapatel1601', '7863039472', 'superrudra1601@gmail.com', 'Badminton', '7:30-8:00PM', 1, '2025-03-21'),
+(263, 'rudrapatel1601', '7863039472', 'superrudra1601@gmail.com', 'Badminton', '8:00-8:30PM', 1, '2025-03-21'),
+(264, 'rudrapatel1601', '7863039472', 'superrudra1601@gmail.com', 'Badminton', '10:00-10:30AM', 1, '2025-03-21'),
+(265, 'rudrapatel1601', '7863039472', 'superrudra1601@gmail.com', 'Badminton', '10:00-11:00PM', 1, '2025-03-21');
 
 -- --------------------------------------------------------
 
@@ -161,7 +253,9 @@ INSERT INTO `games` (`id`, `name`, `hour`, `half_hour`, `card_image`, `slider_im
 (5, 'Bowling', 180.00, 100.00, 'uploads/bowling.jpeg', 'uploads/sliderbowling.jpg', '11:00-11:30AM,3:00-3:30PM,2:00-3:00PM,3:00-4:00PM,4:00-4:30PM,5:30-6:00PM,7:30-8:00PM,7:00-8:00PM,8:00-8:30PM,9:00-9:30PM,11:00-11:30PM,8:00-9:00PM,10:00-11:00PM', '30min,30min,1hr,1hr,30min,30min,30min,1hr,30min,30min,30min,1hr,1hr', 1),
 (6, '00000', 100.00, 50.00, 'uploads/rick.jpg', 'uploads/rick.jpg', '10:00-10:30AM,11:00-11:30AM', '', 0),
 (7, 'dip', 120.00, 60.00, 'uploads/Screenshot from 2025-03-05 17-49-01.png', 'uploads/Screenshot from 2025-03-05 17-46-34.png', '10:00-10:30AM', '30min', 0),
-(8, 'volleyball', 321323.00, 323.00, 'uploads/default_card.jpg', 'uploads/default_slider.jpg', '10:00-10:30AM,11:00-11:30AM,11:00-12:00PM,12:00-12:30PM,1:30-2:00PM,3:30-4:00PM,12:00-1:00PM,3:00-4:00PM,4:00-4:30PM,5:00-5:30PM,6:30-7:00PM,7:30-8:00PM,4:00-5:00PM,9:00-9:30PM,10:00-10:30PM,8:00-9:00PM', '30min,30min,1hr,30min,30min,30min,1hr,1hr,30min,30min,30min,30min,1hr,30min,30min,1hr', 1);
+(8, 'volleyball', 500.00, 323.00, 'uploads/default_card.jpg', 'uploads/vollyball.jpeg', '10:00-10:30AM,11:00-11:30AM,11:00-12:00PM,12:00-12:30PM,1:30-2:00PM,3:30-4:00PM,12:00-1:00PM,3:00-4:00PM,4:00-4:30PM,5:00-5:30PM,6:30-7:00PM,7:30-8:00PM,4:00-5:00PM,9:00-9:30PM,10:00-10:30PM,8:00-9:00PM', '30min,30min,1hr,30min,30min,30min,1hr,1hr,30min,30min,30min,30min,1hr,30min,30min,1hr', 1),
+(9, 'joy', 40.00, 20.00, 'uploads/pool.jpeg', 'uploads/pool.jpeg', '10:00-11:00PM', '1hr', 0),
+(10, 'joy', 40.00, 20.00, 'uploads/default_card.jpg', 'uploads/default_slider.jpg', '10:00-10:30AM', '30min', 0);
 
 -- --------------------------------------------------------
 
@@ -179,7 +273,7 @@ CREATE TABLE `membership` (
 --
 
 INSERT INTO `membership` (`id`, `name`) VALUES
-(1, 'Normal'),
+(1, 'Basic'),
 (2, 'Silver'),
 (3, 'Gold');
 
@@ -232,9 +326,16 @@ INSERT INTO `register` (`id`, `full_name`, `email`, `phone_no`, `gender`, `usern
 (26, 'smit', 'smit26@gmail.com', '9056789012', 'Male', 'smit_123', '$2y$10$QpEtJGDeWg20zpGb44YccOdnZTUEnJJD01yg/uqfZAbn0HX4aEAG.', 2, 1),
 (28, 'abc', 'sohan.21beitg119@gmail.com', '1212121212', 'Male', 'abc_123', '$2y$10$QjdDFjkAWN3KxiHVpPYjQewMDVDcXlOI8tnyaPGRWB9IYXD3BWceG', 1, 1),
 (29, 'daDAdwd', 'dsds@gmail.com', '4356789043', 'Female', 'asd', 'asdasdasd', 1, 1),
-(35, 'sham', 'sohan@gmail.com', '1231231231', 'Male', 'sham123', '$2y$10$UuTY6BJ1H97hHOHFrvdfpuvzLX8PUbQJyXaU8ngqL7sAfv/1pg5DW', 2, 1),
+(35, 'sham', 'sohan@gmail.com', '1231231231', 'Male', 'sham123', '$2y$10$UuTY6BJ1H97hHOHFrvdfpuvzLX8PUbQJyXaU8ngqL7sAfv/1pg5DW', 3, 1),
 (39, 'getinplay', 'sohannn.21beitg119@gmail.com', '7990153071', 'Male', 'getinplay123', '$2y$10$PcPkWCQhOYyRvtMxMqtwgOZWal9m5y25IykBF.H925LpRANxeRn.u', 2, 1),
-(40, 'sohan', 'smitbarot20004@gmail.com', '9664691917', 'Male', 'sohan_1123', '$2y$10$fb1BQNDpoz9EMlCLbcy0jO1T1v5zUVXvCAy.4/lcXplM0eI7iyeb6', 1, 1);
+(40, 'sohan', 'smitbarot20004@gmail.com', '9664691917', 'Male', 'sohan_1123', '$2y$10$fb1BQNDpoz9EMlCLbcy0jO1T1v5zUVXvCAy.4/lcXplM0eI7iyeb6', 1, 1),
+(41, 'ddd', 'abc243@yopmail.com', '1234567890', 'Female', 'qqq', '$2y$10$3Dl5oE3rrCNmCziWlLE7quAAor5.ErrgirnS0ILKcahXTZf1XDndO', 1, 0),
+(42, 'Rudra Patel', 'superrudra1601@gmail.com', '7863039472', 'Male', 'rudrapatel1601', '$2y$10$RonA4LAkONpHoPHWkzEZ2.ivIa75PpPtXFMbzce6hefusQnRtzM0q', 3, 1),
+(43, 'ana', 'ana12@gmail.com', '8766788767', 'Female', 'ana123', '$2y$10$fNT4rmA8HtFc8UaVJI3lieEpvXxcMLcCoFs9QwXXJiA6SW04tfA8S', 1, 1),
+(44, 'roy', 'roy12@gmail.com', '2332322323', 'Male', 'roy123', '$2y$10$HxzPYwLdqtx1hFSRAJDlYOggAop5DfQq6qSSOjfyFklrZ4QPj.Bom', 1, 1),
+(45, 'roy', 'roy1234@gmail.com', '1223435456', 'Male', 'roy1234', '$2y$10$ZaBDIG3aWlIS6EWYeHbcQ.Dx/eBbhx4EqcWiDPFEu.CBy1N1ROTgy', 1, 1),
+(46, 'Swati', 'abc2431@yopmail.com', '9347595010', 'Female', 'swati12', '$2y$10$vsjAnIlG7eHCMm61WlBHNeSjnVlDCotwJIBQaE817jSSNMP1nZhNi', 1, 0),
+(47, 'test', 'testmail@gmail.com', '9123456780', 'Male', 'test1234', '$2y$10$oxSh/mGo1beAE3LZupbXZuqOsjIbivcFutNVNGOoZLawsRxmcd6zS', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -298,13 +399,13 @@ ALTER TABLE `terms`
 -- AUTO_INCREMENT for table `book_game`
 --
 ALTER TABLE `book_game`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=266;
 
 --
 -- AUTO_INCREMENT for table `games`
 --
 ALTER TABLE `games`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `membership`
@@ -316,7 +417,7 @@ ALTER TABLE `membership`
 -- AUTO_INCREMENT for table `register`
 --
 ALTER TABLE `register`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `terms`
