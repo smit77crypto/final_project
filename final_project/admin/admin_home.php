@@ -34,10 +34,10 @@ while ($row = mysqli_fetch_assoc($result1)) {
 }
 
 // Second Query: Get the count of bookings for each game where deleteval = 1
-$query2 = "SELECT game_name, COUNT(*) AS booking_count
+$query2 = "SELECT game_id, COUNT(*) AS booking_count
            FROM book_game
            WHERE deleted= 1
-           GROUP BY game_name";
+           GROUP BY game_id";
 
 $result2 = mysqli_query($conn, $query2);
 

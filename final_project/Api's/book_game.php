@@ -63,6 +63,7 @@ function sendEmail( $name, $email, $phone_no,$game_name, $slot, $date, $submissi
                     <li style="list-style: none; margin-bottom: 10px;"><b style="color: #2c3e50;">Game Name:</b> ' . htmlspecialchars($game_name) . '</li>
                     <li style="list-style: none; margin-bottom: 10px;"><b style="color: #2c3e50;">Time:</b> ' . htmlspecialchars($slot) . '</li>
                     <li style="list-style: none; margin-bottom: 10px;"><b style="color: #2c3e50;">Date:</b> ' . htmlspecialchars($date) . '</li>
+                    <li style="list-style: none; margin-bottom: 10px;"><b style="color: #2c3e50;">Price:</b> ₹'. htmlspecialchars($price) .'</li>
                 </ul>
             </div>
             <p>Thank you for booking with us. We look forward to seeing you!</p>
@@ -97,6 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $token = $data['token'];
     $date = $data['date']; 
     $slot = $data['slot'];
+    $price = $data['price'];
     $game_id = $data['game_id'];
     $secret_key = 'yo12ur'; 
 
@@ -126,9 +128,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         // Query to check if the slot already exists in the book_game table
-        $sql_check_slot = "SELECT id FROM book_game WHERE game_name = ? AND book_date = ? AND slot = ?";
+        $sql_check_slot = "SELECT id FROM book_game WHERE game_id = ? AND book_date = ? AND slot = ? AND deleted = 1";
         $stmt_check_slot = $conn->prepare($sql_check_slot);
-        $stmt_check_slot->bind_param("sss", $game_name, $date, $slot);
+        $stmt_check_slot->bind_param("iss", $game_id, $date, $slot);
         $stmt_check_slot->execute();
         $result_check_slot = $stmt_check_slot->get_result();
 
@@ -140,16 +142,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         
         // Prepare the SQL query for inserting booking data into the book_game table
-        $sql_insert = "INSERT INTO book_game (username, email, phone_no, game_name, slot, book_date) 
-                       VALUES (?, ?, ?, ?, ?, ?)";
+        $sql_insert = "INSERT INTO book_game (username, email, phone_no, game_id, slot,price, book_date) 
+                       VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         if ($stmt_insert = $conn->prepare($sql_insert)) {
             // Bind the parameters to the prepared statement
-            $stmt_insert->bind_param("ssssss", $username, $email, $phone_no, $game_name, $slot, $date);
+            $stmt_insert->bind_param("sssisds", $username, $email, $phone_no, $game_id, $slot, $price, $date);
 
             // Execute the query
             if ($stmt_insert->execute()) {
-                sendEmail($name, $email, $phone_no, $game_name, $slot, $date, $submission_time);
+                sendEmail($name, $email, $phone_no, $game_name, $slot, $date, $price , $submission_time);
                 echo json_encode(['success' => true, 'message' => 'Game booked successfully.']);
             } else {
                 echo json_encode(['success' => false, 'message' => 'Failed to book game: ' . $stmt_insert->error]);

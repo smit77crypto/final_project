@@ -193,6 +193,10 @@ button {
     margin-top: 20px;
     width: 70%;
 }
+.selected-slot i{
+  color: royalblue;
+  cursor: pointer;
+}
 span{
   color: red;
 }
@@ -204,7 +208,7 @@ span{
     justify-content: flex-start;
     gap: .5rem;
     /* width: 120%; */
-    background-color: #fff;
+    /* background-color: #fff; */
     padding: 10px;
     overflow-y: auto; /* Allows scrolling if content exceeds max height */
 }
@@ -222,7 +226,7 @@ span{
 
 /* Hover effect for selected slots */
 .selected-slot:hover {
-    background-color: #4A5BE6; /* Darker red when hovered */
+    background-color: #9ca4e5; /* Darker red when hovered */
 }
 
 /* Optional: Add a shadow effect to the selected slot */

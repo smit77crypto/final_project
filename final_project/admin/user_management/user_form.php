@@ -152,7 +152,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate password (required for new users)
     if (empty($user_password) && $userId == '') {
         $errors['password'] = 'Please Enter Password';
-    } elseif (strlen($user_password) < 8) {
+    } elseif (strlen($user_password) < 8 && $userId == '') {
         $errors['password'] = 'Password must be at least 8 characters long.';
     }
     // Validate membership selection
@@ -286,7 +286,7 @@ if ($userId) {
                 <div class="form-group">
                     <label>Membership</label>
                     <select name="membership_id" id="membership" required>
-                        <option value="1" <?php echo ($membership_id == '1') ? 'selected' : ''; ?>>Normal</option>
+                        <option value="1" <?php echo ($membership_id == '1') ? 'selected' : ''; ?>>Basic</option>
                         <option value="2" <?php echo ($membership_id == '2') ? 'selected' : ''; ?>>Silver</option>
                         <option value="3" <?php echo ($membership_id == '3') ? 'selected' : ''; ?>>Gold</option>
                     </select>

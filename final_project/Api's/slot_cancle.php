@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $phone_no = $data['phone_no'];
     $date = $data['date'];
     $slot = $data['slot'];
-    $game_id = $data['game_id'];
+    $book_id = $data['book_id'];
     include 'db_connect.php';
 
     if ($auth === 'user') {
@@ -38,21 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             exit;
         }
     }
-    $sql_game_name = "SELECT name FROM games WHERE id = ?";
-    $stmt_game_name = $conn->prepare($sql_game_name);
-    $stmt_game_name->bind_param("i", $game_id);
-    $stmt_game_name->execute();
-    $result_game_name = $stmt_game_name->get_result();
-
-    // Check if the game was found
-    if ($result_game_name->num_rows > 0) {
-        $game_row = $result_game_name->fetch_assoc();
-        $game_name = $game_row['name']; 
-    } else {
-        echo json_encode(['message' => 'Game not found.']);
-        http_response_code(404); // Not Found
-        exit();
-    }
+   
 
         $stmt = $conn->prepare("SELECT membership_id FROM register WHERE phone_no = ?");
         $stmt->bind_param('s', $phone_no);
@@ -84,8 +70,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 if ($hours_diff >= $allowed_hours) {
                     
                     // Proceed with cancellation
-                    $stmt = $conn->prepare("UPDATE book_game SET deleted = 0 WHERE phone_no = ? AND book_date = ? AND slot = ? AND game_name = ?");
-                    $stmt->bind_param('ssss', $phone_no, $date, $slot ,$game_name);
+                    $stmt = $conn->prepare("UPDATE book_game SET deleted = 0 WHERE id = ?");
+                    $stmt->bind_param('i', $book_id);
                     $stmt->execute();
 
                     echo json_encode(['success' => true, 'message' => 'Booking cancelled successfully.']);

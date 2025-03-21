@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get game_id and slot (date) from JSON data
     $game_id = $data['game_id'] ?? '';
     $date = $data['date'] ?? ''; // Renaming 'slot' to 'date' based on your request
-
+    
     // Check if necessary data is provided
     if (empty($game_id) || empty($date)) {
         echo json_encode(['message' => 'Fields (game_id and date) are required.']);
@@ -38,17 +38,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Check if the game was found
     if ($result_game_name->num_rows > 0) {
         $game_row = $result_game_name->fetch_assoc();
-        $game_name = $game_row['name']; // Game name fetched from the game table
+        $game_name = $game_row['name'];
+    
     } else {
         echo json_encode(['message' => 'Game not found.']);
-        http_response_code(404); // Not Found
+        http_response_code(404); 
         exit();
     }
 
     // Prepare a query to check if slots for the given game and date already exist in the 'book_game' table
-    $sql_check_slot = "SELECT username,phone_no,email,slot FROM book_game WHERE game_name = ? AND book_date = ? AND deleted=1";
+    $sql_check_slot = "SELECT username,phone_no,email,slot FROM book_game WHERE game_id = ? AND book_date = ? AND deleted=1";
     $stmt_check_slot = $conn->prepare($sql_check_slot);
-    $stmt_check_slot->bind_param("ss", $game_name, $date);
+    $stmt_check_slot->bind_param("is", $game_id, $date);
     $stmt_check_slot->execute();
     $result_check_slot = $stmt_check_slot->get_result();
 

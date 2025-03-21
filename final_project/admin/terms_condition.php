@@ -80,9 +80,9 @@ $conn->close();
             <textarea id="termsEditor" name="terms"><?php echo htmlspecialchars($terms); ?></textarea>
         </div>
         <div class="form-actions">
-            <button id="save" class="btn btn-save">save</i></button>
-            <button id="cancel" class="btn btn-cancel" onclick="window.location.href='admin_home.php'">
-                cancel</button>
+                <button type="submit" id="save" class="btn btn-add">Add</button>
+                <button type="button" class="btn btn-cancel"
+                    onclick="window.location.href='admin_home.php'">Cancel</button>
         </div>
         
     </div>

@@ -24,14 +24,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     $token = $data['token'];
+   
     $secret_key = 'yo12ur';
 
     try {
         $decode = JWT::decode($token, new Key($secret_key, 'HS256'));
+        
         $username = $decode->username;
-
-        // Fetch data from the book_game table where username matches and deleted = 1
-        $stmt = $conn->prepare("SELECT * FROM book_game WHERE username = ? AND DELETED = 1");
+        
+        // Modify the query to JOIN book_game with games table to get the game_name
+        $stmt = $conn->prepare("
+            SELECT bg.*, g.name 
+            FROM book_game bg
+            JOIN games g ON bg.game_id = g.id
+            WHERE bg.username = ? AND bg.DELETED = 1
+        ");
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -41,10 +48,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $upcoming = [];
         $past = [];
-
+       
         while ($row = $result->fetch_assoc()) {
             $bookingDate = $row['book_date'];
             $slot = $row['slot'];
+
+            // Add the game name to the response
+            $row['name'] = $row['name'];
 
             if ($bookingDate < $currentDate) {
                 $past[] = $row;
@@ -53,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             } else {
                 $startTime = explode('-', $slot)[0];
                 $amOrPm = strtoupper(substr($slot, -2));
-                $slotTime = $startTime . $amOrPm; 
+                $slotTime = $startTime . $amOrPm;
                 $slotTime24Hour = date('H:i', strtotime($slotTime));
                 if ($slotTime24Hour < $currentTime) {
                     $past[] = $row;
@@ -64,13 +74,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         // Fetch data from the book_game table where username matches and deleted = 0
-        $stmtDeleted = $conn->prepare("SELECT * FROM book_game WHERE username = ? AND DELETED = 0");
+        $stmtDeleted = $conn->prepare("
+            SELECT bg.*, g.name 
+            FROM book_game bg
+            JOIN games g ON bg.game_id = g.id
+            WHERE bg.username = ? AND bg.DELETED = 0
+        ");
         $stmtDeleted->bind_param("s", $username);
         $stmtDeleted->execute();
         $resultDeleted = $stmtDeleted->get_result();
 
         $deleted = [];
         while ($rowDeleted = $resultDeleted->fetch_assoc()) {
+            $rowDeleted['name'] = $rowDeleted['name']; // Include the game_name for deleted bookings
             $deleted[] = $rowDeleted;
         }
 

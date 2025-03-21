@@ -16,8 +16,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $currentDate = date('Y-m-d'); // Adjust format as needed
 
     // Prepare the SQL queries to select records with a past date
-    $query1 = "SELECT * FROM book_game WHERE book_date < ? AND DELETED=1 ORDER BY id DESC";
-    $query2 = "SELECT * FROM book_game WHERE book_date < ? AND DELETED=0 ORDER BY id DESC"; // Assuming you want to check non-deleted bookings here
+    $query1 = "SELECT bg.*, g.name AS game_name 
+               FROM book_game bg 
+               LEFT JOIN games g ON bg.game_id = g.id 
+               WHERE bg.book_date < ? AND bg.DELETED = 1 
+               ORDER BY bg.id DESC";
+               
+    $query2 = "SELECT bg.*, g.name AS game_name 
+               FROM book_game bg 
+               LEFT JOIN games g ON bg.game_id = g.id 
+               WHERE bg.book_date < ? AND bg.DELETED = 0 
+               ORDER BY bg.id DESC"; // Assuming you want to check non-deleted bookings here
 
     // Initialize arrays for past and canceled bookings
     $pastBookings = [];
@@ -36,6 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         
         // Fetch all rows as an associative array
         while ($row = $result1->fetch_assoc()) {
+            // Add the fetched data (including game_name) to the pastBookings array
             $pastBookings[] = $row;
         }
 
@@ -63,6 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         
         // Fetch all rows as an associative array
         while ($row = $result2->fetch_assoc()) {
+            // Add the fetched data (including game_name) to the cancleBookings array
             $cancleBookings[] = $row;
         }
 

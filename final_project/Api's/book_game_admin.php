@@ -91,15 +91,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
 
     // Get game_id, date, slot, and phone_no from JSON data
-    $game_id = $data['game_id'] ?? null;
-    $date = $data['date'] ?? null;
-    $slot = $data['slot'] ?? null;
-    $phone = $data['phone_no'] ?? null;
+    $game_id = $data['game_id'] ;
+    $date = $data['date'] ;
+    $slot = $data['slot'] ;
+    $price = $data['price'] ;
+    $phone = $data['phone_no'] ;
 
     
     // Validate required fields
-    if (empty($game_id) || empty($date) || empty($slot)) {
-        echo json_encode(['success' => false, 'message' => 'Fields (game_id, date, and slot) are required.']);
+    if (empty($game_id) || empty($date) || empty($slot) || empty($phone) || empty($price)) {
+        echo json_encode(['success' => false, 'message' => 'All Fields are required.']);
         exit(); // Exit early to prevent further processing
     }
 
@@ -190,9 +191,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Check if the slot is already booked for the given game and date
-    $sql_check_slot = "SELECT id FROM book_game WHERE game_name = ? AND book_date = ? AND slot = ?";
+    $sql_check_slot = "SELECT id FROM book_game WHERE game_id = ? AND book_date = ? AND slot = ? AND deleted = 1";
     $stmt_check_slot = $conn->prepare($sql_check_slot);
-    $stmt_check_slot->bind_param('sss', $game_name, $formattedDate, $slot);
+    $stmt_check_slot->bind_param('iss', $game_id, $formattedDate, $slot);
     $stmt_check_slot->execute();
     $result_check_slot = $stmt_check_slot->get_result();
 
@@ -202,12 +203,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Prepare the SQL query for inserting booking data into the book_game table
-    $sql_insert = "INSERT INTO book_game (username, email, phone_no, game_name, slot, book_date) 
-                   VALUES (?, ?, ?, ?, ?, ?)";
+    $sql_insert = "INSERT INTO book_game (username, email, phone_no, game_id, slot, price , book_date) 
+                   VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     if ($stmt_insert = $conn->prepare($sql_insert)) {
         // Bind the parameters to the prepared statement
-        $stmt_insert->bind_param("ssssss", $username, $email, $phone, $game_name, $slot, $formattedDate);
+        $stmt_insert->bind_param("sssisds", $username, $email, $phone, $game_id, $slot, $price ,$formattedDate);
 
         // Execute the query
         if ($stmt_insert->execute()) {

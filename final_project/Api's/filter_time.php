@@ -66,16 +66,23 @@ if (isset($data['id']) && isset($data['date'])) {
         // Check if the requested date is today
         if ($requested_date_str == $current_time->format('Y-m-d')) {
             foreach ($slots as $index => $slot) {
-                // Extract start and end times from the slot (e.g., "1:00PM-2:00PM")
+                // Extract start time from the slot (e.g., "1:00PM-2:00PM")
                 list($start_time_str, $end_time_str) = explode('-', $slot);
+                if ($end_time_str == "12:00PM") {
+                    $amOrPm = "AM"; // Skip this slot if start or end time is missing
+                }
+                else{
 
-                // Convert end time to 24-hour format using IST
-                $end_time_24hr = convertTo24HourFormat($end_time_str);
-
-                // Compare only the end time to the current time
-                if ($end_time_24hr) {
-                    // Only show slots where the current time is less than the end time
-                    if ($current_time_24hr < $end_time_24hr) {
+                    $amOrPm = strtoupper(substr($slot, -2)); 
+                }
+                // Convert start time to 24-hour format using IST
+                $start_time_24hr = convertTo24HourFormat($start_time_str . $amOrPm);
+                
+                
+                // Compare only the start time to the current time
+                if ($start_time_24hr) {
+                    // Only show slots where the current time is less than the start time
+                    if ($current_time_24hr < $start_time_24hr) {
                         $filtered_slots[] = $slot;
                         $filtered_filter_values[] = $filter_values[$index]; // Match filter value with the slot
                     }
@@ -95,7 +102,7 @@ if (isset($data['id']) && isset($data['date'])) {
         $response = [
             "id" => $row["id"],
             "name" => $row["name"],
-            "slots" => $filtered_slots, // Filtered slots
+            "slots" => $filtered_slots, // Filtered slots based on start time
             "filter" => $filtered_filter_values  // Filter values as is
         ];
     } else {
