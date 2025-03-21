@@ -13,7 +13,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 
-function sendEmail( $name, $email, $phone,$game_name, $slot, $date) {
+function sendEmail( $name, $email, $phone,$game_name, $slot, $date ,$price) {
     $smtp_pw = trim(file_get_contents('my.txt'));
 
     $mail = new PHPMailer(true);
@@ -61,6 +61,7 @@ function sendEmail( $name, $email, $phone,$game_name, $slot, $date) {
                     <li style="list-style: none; margin-bottom: 10px;"><b style="color: #2c3e50;">Game Name:</b> ' . htmlspecialchars($game_name) . '</li>
                     <li style="list-style: none; margin-bottom: 10px;"><b style="color: #2c3e50;">Time:</b> ' . htmlspecialchars($slot) . '</li>
                     <li style="list-style: none; margin-bottom: 10px;"><b style="color: #2c3e50;">Date:</b> ' . htmlspecialchars($date) . '</li>
+                    <li style="list-style: none; margin-bottom: 10px;"><b style="color: #2c3e50;">Price:</b> ₹' . htmlspecialchars($price) . '</li>
                 </ul>
             </div>
             <p>Thank you for booking with us. We look forward to seeing you!</p>

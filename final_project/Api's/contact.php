@@ -80,7 +80,7 @@ function sendEmail( $name,$email, $phone, $message) {
             margin-top: 20px;
             font-size: 14px;
             color: #777;
-            text-align: center;
+           
         }
         .footer a {
             color: #3498db;
@@ -101,17 +101,14 @@ function sendEmail( $name,$email, $phone, $message) {
                     <li><b>Name:</b> ' . htmlspecialchars($name) . '</li>
                     <li><b>Email:</b> ' . htmlspecialchars($email) . '</li>
                     <li><b>Phone No:</b> ' . htmlspecialchars($phone) . '</li>
-                  
+                    <li><b>Message:</b>' . htmlspecialchars($message) . '</li>
                 </ul>
             </div>
-            <p><b>Message:</b></p>
-            <div class="details">
-                <p>' . htmlspecialchars($message) . '</p>
-            </div>
+            
         </div>
         <div class="footer">
             <p>Best Regards,<br>' . htmlspecialchars($name) . '</p>
-            <p>If you have any questions, feel free to <a href="mailto:getinplay.contact@gmail.com">contact us</a>.</p>
+            <p style="text-align:center">If you have any questions, feel free to <a href="mailto:getinplay.contact@gmail.com">contact us</a>.</p>
         </div>
     </div>
 </body>
