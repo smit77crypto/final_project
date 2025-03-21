@@ -16,11 +16,10 @@ body {
     padding: 25px;
 }
 
-h2 {
+h1 {
     color: #4A5BE6;
     text-align: center;
     margin-bottom: 30px;
-    font-size: 28px;
 }
 
 .controls {
@@ -69,6 +68,10 @@ h2 {
     display: flex;
     gap: 10px;
     border-bottom: 2px solid #eee;
+}
+
+.records-per-page{
+    margin-top: 20px;
 }
 
 .tab {
@@ -199,4 +202,148 @@ h2 {
     color: #666;
     grid-column: 1 / -1;
     padding: 20px;
+}
+
+/* Tablet View (768px - 1024px) */
+@media (max-width: 1024px) {
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .search-input {
+        width: 100%;
+    }
+
+    .tabs {
+        flex-wrap: wrap;
+    }
+
+    .tab {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+
+    .cards-container {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 15px;
+    }
+
+    .card-body .row {
+        grid-template-columns: 1fr;
+        gap: 5px;
+    }
+
+    .card-body .label {
+        font-size: 12px;
+    }
+
+    .card-body .value {
+        font-size: 14px;
+    }
+
+    .records-per-page {
+        margin-top: 15px;
+    }
+
+    #pagination {
+        gap: 5px;
+    }
+
+    .page-item {
+        padding: 6px 10px;
+        font-size: 14px;
+    }
+}
+
+/* Mobile View (up to 767px) */
+@media (max-width: 767px) {
+    .container {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+
+    .search-container {
+        margin-bottom: 15px;
+    }
+
+    #search {
+        padding: 10px 35px 10px 15px;
+        font-size: 14px;
+    }
+
+    .clear-icon {
+        right: 15px;
+    }
+
+    .tabs {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .tab {
+        width: 100%;
+        text-align: center;
+        padding: 8px 10px;
+        font-size: 14px;
+    }
+
+    .cards-container {
+        grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+        gap: 10px;
+    }
+
+    .card {
+        padding: 10px;
+    }
+
+    .card-header {
+        padding: 10px;
+    }
+
+    .username {
+        font-size: 14px;
+    }
+
+    .status {
+        font-size: 10px;
+        padding: 3px 8px;
+    }
+
+    .card-body {
+        padding: 10px;
+    }
+
+    .card-body .row {
+        gap: 4px;
+    }
+
+    .card-body .label {
+        font-size: 12px;
+    }
+
+    .card-body .value {
+        font-size: 13px;
+    }
+
+    .records-per-page {
+        margin-top: 10px;
+    }
+
+    #pagination {
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+
+    .page-item {
+        padding: 5px 8px;
+        font-size: 12px;
+    }
 }

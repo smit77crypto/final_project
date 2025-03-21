@@ -14,7 +14,7 @@ session_start();
 </head>
 <body>
     <div class="container">
-        <h2>Booking History</h2>
+        <h1>Booking History</h1>
         
         <!-- Search and Tabs Container -->
         <div class="controls">
@@ -26,7 +26,7 @@ session_start();
             </div>
             <div class="tabs">
                 <div class="tab active" data-view="past">Past Bookings</div>
-                <div class="tab" data-view="canceled">Canceled Slots</div>
+                <div class="tab" data-view="canceled">Canceled Bookings</div>
             </div>
             <div class="records-per-page">
                 <label for="records">Records per page:</label>
