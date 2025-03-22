@@ -32,7 +32,7 @@ h1 {
 }
 
 .date-picker button {
-    width: 90px;
+    width: 60px;
     padding: 5px 5px; /* Reduced padding to make buttons smaller */
     border-radius: 15px;
     border: none;
@@ -61,7 +61,7 @@ h1 {
 }
 
 .date-large {
-    font-size: 1.9rem; /* Larger font size for the date */
+    font-size: 1.5rem; /* Larger font size for the date */
     font-weight: bold;
     display: block; /* Ensure it takes full width */
     margin: 5px 0; /* Equal margin for top and bottom */
@@ -79,7 +79,7 @@ h1 {
     display: flex;
     gap: 15px;
     margin-bottom: 20px;
-    justify-content: end;
+    justify-content: space-between;
 }
 .durationfltr{
     background-color: lightgray;

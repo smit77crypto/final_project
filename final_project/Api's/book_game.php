@@ -151,7 +151,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             // Execute the query
             if ($stmt_insert->execute()) {
-                sendEmail($name, $email, $phone_no, $game_name, $slot, $date, $price , $submission_time);
+                sendEmail($name, $email, $phone_no, $game_name, $slot, $date, $price);
                 echo json_encode(['success' => true, 'message' => 'Game booked successfully.']);
             } else {
                 echo json_encode(['success' => false, 'message' => 'Failed to book game: ' . $stmt_insert->error]);

@@ -61,11 +61,13 @@ body {
     cursor: pointer;
     padding: 0;
     margin-right: 10px;
+
 }
 
 .search-div button i {
     font-size: 1.2em;
     text-decoration: none;
+    
  
 }
 

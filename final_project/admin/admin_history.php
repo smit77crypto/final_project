@@ -60,7 +60,7 @@ session_start();
 
             function loadData() {
                 $.ajax({
-                    url: "http://192.168.0.130/final_project/final_project/Api's/admin_history.php",
+                    url: "http://localhost/final_project/final_project/Api's/admin_history.php",
                     method: 'GET',
                     success: function (response) {
                         if (response.status === 'success') {

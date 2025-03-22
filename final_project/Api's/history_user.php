@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $slot = $row['slot'];
 
             // Add the game name to the response
-            $row['name'] = $row['name'];
+            // $row['name'] = $row['name'];
 
             if ($bookingDate < $currentDate) {
                 $past[] = $row;
@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $deleted = [];
         while ($rowDeleted = $resultDeleted->fetch_assoc()) {
-            $rowDeleted['name'] = $rowDeleted['name']; // Include the game_name for deleted bookings
+            // $rowDeleted['name'] = $rowDeleted['name']; // Include the game_name for deleted bookings
             $deleted[] = $rowDeleted;
         }
 

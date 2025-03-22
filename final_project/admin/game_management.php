@@ -142,7 +142,7 @@ $showpagesec = $totalRecords > 0;
         </div>
         <div class="mobile-up-div">
             <div class="search-form">
-                <form method="GET" action="" onsubmit="return validateMobileSearch()">
+                <form method="GET" action="" oninput="return validateMobileSearch()">
                     <div class="search-div">
                         <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                         <input id="searchFieldMobile" type="text" name="search" placeholder="Search by name"
