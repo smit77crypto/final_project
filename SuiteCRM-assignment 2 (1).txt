@@ -1,0 +1,46 @@
+﻿SuiteCRM Final Assignment
+
+Time Duration: 4 Hrs.
+
+Assignment: Custom Module and Workflow
+
+1. Create a new custom module named "Projects."
+     - Add relevant fields to the Projects module, such as 
+          Project Name, 
+          Project Description,
+          Project Status 
+          Start Date, 
+          End Date, 
+          Assign to Contact
+     - Description is optional fields otherwise all fields are mandatory
+     - Not to allow past date in Start and End date
+     - Status will be Pending, Work In progress, Completed
+     - Establish a relationship between the Projects module and the 
+       Contacts module. Each project should be associated with a
+       client (Contact).
+     - Save data in database as per the requirement
+     - After save it will redirect to the listview page
+
+2. Edit project record
+     - Can update any fiels from the page
+     - Save updated data in database
+
+3. Create listview with below fields:
+       Project Name, 
+       Project Description,
+       Project Status 
+       Start Date, 
+       End Date, 
+       Contact name
+4. Requitement for listview: 
+     - Can filter with Project status,Project name,Start Date, End Date,
+       Contact name
+     - Can Oredering by Project Name and status
+     - Add edit link for each record and click on that edit page will open 
+       for that project record
+     - Add Hyperlink with Contact Name and click on that, Contact detail
+       page will open
+
+5. Mass Update from listview
+     - Can change project status using mass update
+
